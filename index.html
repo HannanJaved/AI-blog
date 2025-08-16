@@ -254,8 +254,9 @@
                                 <p>A "maximum margin" classifier that finds the hyperplane that best separates the classes by maximizing the distance to the nearest points of any class (the support vectors).</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>SVMs learn by solving a constrained optimization problem. The goal is to find the parameters (w, b) of the hyperplane that maximize the margin, subject to the constraint that all data points are correctly classified. This is a complex mathematical problem often solved using techniques like Quadratic Programming.</p>
-                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
-                                                                    </div>
+                                <div class="static-chart-container mt-4">
+                                    <canvas id="svmChart"></canvas>
+                                </div>
                             </div>
 
                             <div>
@@ -263,8 +264,25 @@
                                 <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>The tree is built using a process called **recursive partitioning**. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
-                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
-                                                                    </div>
+                                <div class="mt-4 p-4 border border-stone-200 rounded-lg tree-container">
+                                    <ul>
+                                        <li>
+                                            <div class="p-2 decision-node rounded-md inline-block">Credit Score > 650?</div>
+                                            <ul>
+                                                <li>
+                                                    <div class="p-2 decision-node rounded-md inline-block">Income > $50k?</div>
+                                                    <ul>
+                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Approve Loan</div></li>
+                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
                                 <p>A single decision tree can easily overfit the training data. **Random Forests** improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
                             </div>
@@ -289,8 +307,10 @@
                                 <div class="chart-container">
                                     <canvas id="kmeansChart"></canvas>
                                 </div>
-                                <div class="mt-4 text-center">
-                                    <button id="runKmeansBtn" class="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Run K-Means (k=3)</button>
+                                <div class="mt-4 flex items-center justify-center space-x-4">
+                                    <label for="kMeansSlider" class="font-medium text-stone-700">k = <span id="kMeansValue">3</span></label>
+                                    <input type="range" id="kMeansSlider" min="2" max="8" value="3" step="1" class="w-64">
+                                    <button id="runKmeansBtn" class="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Run K-Means</button>
                                 </div>
                             </div>
 
@@ -330,8 +350,9 @@
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.3. The Bias-Variance Tradeoff</h3>
                                 <p class="mb-4 text-stone-700">This is the central challenge in supervised learning. A simple model (low complexity) is **underfit** and has high bias (it's systematically wrong). A complex model (high complexity) is **overfit** and has high variance (it's too sensitive to the training data). The goal is to find the "sweet spot" of complexity that minimizes the total error.</p>
-                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
-                                                                   </div>
+                                <div class="static-chart-container">
+                                    <canvas id="biasVarianceChart"></canvas>
+                                </div>
                             </div>
                             
                             <div>
@@ -341,14 +362,16 @@
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L1 (Lasso)</h4>
                                         <p class="text-sm text-center text-stone-600">The diamond shape makes it likely the contours will touch at an axis, forcing a coefficient to zero.</p>
-                                        <div class="static-chart-container mt-2 flex items-center justify-center bg-stone-100 rounded text-stone-500">
-                                                                                    </div>
+                                        <div class="static-chart-container mt-2">
+                                            <canvas id="l1Chart"></canvas>
+                                        </div>
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L2 (Ridge)</h4>
                                         <p class="text-sm text-center text-stone-600">The circular shape makes it unlikely the contours will touch exactly at an axis, so coefficients get small but not zero.</p>
-                                        <div class="static-chart-container mt-2 flex items-center justify-center bg-stone-100 rounded text-stone-500">
-                                                                                    </div>
+                                        <div class="static-chart-container mt-2">
+                                            <canvas id="l2Chart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -646,24 +669,37 @@ document.addEventListener('DOMContentLoaded', () => {
     let kmeansChart;
     const kmeansCanvas = document.getElementById('kmeansChart');
     const runKmeansBtn = document.getElementById('runKmeansBtn');
+    const kMeansSlider = document.getElementById('kMeansSlider');
+    const kMeansValueSpan = document.getElementById('kMeansValue');
     let kmeansPoints = [];
     let centroids = [];
-    const K = 3;
 
-    function generateKmeansData() {
+    kMeansSlider.oninput = () => {
+        kMeansValueSpan.textContent = kMeansSlider.value;
+    };
+
+    function generateKmeansData(k) {
         kmeansPoints = [];
         for (let i = 0; i < 100; i++) {
             kmeansPoints.push({ x: Math.random() * 10, y: Math.random() * 10, cluster: -1 });
         }
         centroids = [];
-        for (let i = 0; i < K; i++) {
+        for (let i = 0; i < k; i++) {
             centroids.push({ x: Math.random() * 10, y: Math.random() * 10 });
         }
     }
 
     function drawKmeansChart(showCentroids = true) {
-        const colors = ['rgba(59, 130, 246, 0.5)', 'rgba(239, 68, 68, 0.5)', 'rgba(16, 185, 129, 0.5)'];
-        const borderColors = ['rgba(59, 130, 246, 1)', 'rgba(239, 68, 68, 1)', 'rgba(16, 185, 129, 1)'];
+        const baseColors = [
+            'rgba(59, 130, 246, 0.5)', 'rgba(239, 68, 68, 0.5)', 'rgba(16, 185, 129, 0.5)',
+            'rgba(245, 158, 11, 0.5)', 'rgba(139, 92, 246, 0.5)', 'rgba(236, 72, 153, 0.5)',
+            'rgba(52, 211, 153, 0.5)', 'rgba(99, 102, 241, 0.5)'
+        ];
+        const baseBorderColors = [
+            'rgba(59, 130, 246, 1)', 'rgba(239, 68, 68, 1)', 'rgba(16, 185, 129, 1)',
+            'rgba(245, 158, 11, 1)', 'rgba(139, 92, 246, 1)', 'rgba(236, 72, 153, 1)',
+            'rgba(52, 211, 153, 1)', 'rgba(99, 102, 241, 1)'
+        ];
         
         const datasets = kmeansPoints.reduce((acc, point) => {
             const clusterIndex = point.cluster < 0 ? 0 : point.cluster;
@@ -671,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  acc[clusterIndex] = {
                     label: `Cluster ${clusterIndex}`,
                     data: [],
-                    backgroundColor: point.cluster < 0 ? 'rgba(107, 114, 128, 0.5)' : colors[clusterIndex],
+                    backgroundColor: point.cluster < 0 ? 'rgba(107, 114, 128, 0.5)' : baseColors[clusterIndex],
                     pointRadius: 5
                 };
             }
@@ -684,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 datasets.push({
                     label: `Centroid ${i}`,
                     data: [c],
-                    backgroundColor: borderColors[i],
+                    backgroundColor: baseBorderColors[i],
                     pointRadius: 8,
                     pointStyle: 'rectRot',
                 });
@@ -713,7 +749,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function runKmeans() {
         runKmeansBtn.disabled = true;
-        generateKmeansData();
+        kMeansSlider.disabled = true;
+        const k = parseInt(kMeansSlider.value);
+        generateKmeansData(k);
         drawKmeansChart();
         await new Promise(r => setTimeout(r, 500));
 
@@ -735,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await new Promise(r => setTimeout(r, 800));
 
             // Update step
-            const newCentroids = Array(K).fill(0).map(() => ({ x: 0, y: 0, count: 0 }));
+            const newCentroids = Array(k).fill(0).map(() => ({ x: 0, y: 0, count: 0 }));
             kmeansPoints.forEach(p => {
                 newCentroids[p.cluster].x += p.x;
                 newCentroids[p.cluster].y += p.y;
@@ -758,13 +796,177 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!moved) break;
         }
         runKmeansBtn.disabled = false;
+        kMeansSlider.disabled = false;
     }
     runKmeansBtn.onclick = runKmeans;
+
+    // Bias-Variance Chart
+    const biasVarianceData = {
+        labels: ['Low', '', '', '', 'Medium', '', '', '', 'High'],
+        datasets: [
+            {
+                label: 'Bias',
+                data: [9, 8, 7, 5, 3, 2, 1.5, 1, 0.8],
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: false,
+            },
+            {
+                label: 'Variance',
+                data: [0.5, 1, 1.5, 2, 3, 4.5, 6, 8, 9.5],
+                borderColor: 'rgba(239, 68, 68, 1)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: false,
+            },
+            {
+                label: 'Total Error',
+                data: [9.5, 9, 8.5, 7, 6, 6.5, 7.5, 9, 10.3],
+                borderColor: 'rgba(16, 185, 129, 1)',
+                borderWidth: 3,
+                borderDash: [5, 5],
+                tension: 0.4,
+                fill: false,
+            }
+        ]
+    };
+
+    new Chart(document.getElementById('biasVarianceChart'), {
+        type: 'line',
+        data: biasVarianceData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { title: { display: true, text: 'Model Complexity' } },
+                y: { title: { display: true, text: 'Error' }, min: 0 }
+            },
+            plugins: { legend: { position: 'top' } }
+        }
+    });
+    
+    // SVM Chart
+    new Chart(document.getElementById('svmChart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Class 0',
+                    data: [{x: 2, y: 3}, {x: 3, y: 4}, {x: 1, y: 5}],
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    pointRadius: 6
+                },
+                {
+                    label: 'Class 1',
+                    data: [{x: 6, y: 5}, {x: 7, y: 7}, {x: 8, y: 6}],
+                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                    pointRadius: 6
+                },
+                {
+                    label: 'Hyperplane',
+                    data: [{x: 0, y: 1.5}, {x: 10, y: 9.5}],
+                    type: 'line',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Margin',
+                    data: [{x: 0, y: 3}, {x: 10, y: 11}],
+                    type: 'line',
+                    borderColor: 'rgba(167, 139, 250, 0.5)',
+                    borderDash: [5, 5],
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Margin',
+                    data: [{x: 1.5, y: 0}, {x: 8.5, y: 7}],
+                    type: 'line',
+                    borderColor: 'rgba(167, 139, 250, 0.5)',
+                    borderDash: [5, 5],
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                 {
+                    label: 'Support Vectors',
+                    data: [{x: 3, y: 4}, {x: 6, y: 5}],
+                    backgroundColor: 'rgba(255, 255, 255, 0)',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    pointRadius: 8,
+                    pointStyle: 'circle'
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
+    });
+
+    // L1 Chart
+    new Chart(document.getElementById('l1Chart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'L1 Constraint',
+                    data: [{x: 0, y: 1}, {x: 1, y: 0}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 0, y: 1}],
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Loss Contour',
+                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
+                    borderColor: 'rgba(59, 130, 246, 0.5)',
+                    borderWidth: 1,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
+    });
+
+    // L2 Chart
+    new Chart(document.getElementById('l2Chart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'L2 Constraint',
+                    data: Chart.helpers.generateMocks(0, 0, 1, 1, 100),
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Loss Contour',
+                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
+                    borderColor: 'rgba(59, 130, 246, 0.5)',
+                    borderWidth: 1,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
+    });
+
 
     // Initial draws
     generateKnnData();
     drawKnnChart();
-    generateKmeansData();
+    generateKmeansData(parseInt(kMeansSlider.value));
     drawKmeansChart(false);
 });
 </script>
