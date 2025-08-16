@@ -264,7 +264,7 @@
                                 <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>The tree is built using a process called recursive partitioning. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
-            
+                                
                                 <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
                                 <p>A single decision tree can easily overfit the training data. Random Forests improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
                             </div>
@@ -340,20 +340,17 @@
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.4. Regularization</h3>
                                 <p>Regularization is a set of techniques used to prevent overfitting and thus improve the generalization of a model. It works by adding a penalty term to the model's loss function, which discourages the model from learning overly complex patterns by keeping the parameter values small.</p>
-                                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                                <div class="grid md:grid-cols-2 gap-8 mt-4 items-center">
                                     <div>
-                                        <h4 class="font-semibold text-violet-600 text-center">L1 (Lasso)</h4>
-                                        <p class="text-sm text-center text-stone-600">The diamond shape makes it likely the contours will touch at an axis, forcing a coefficient to zero.</p>
-                                        <div class="static-chart-container mt-2">
-                                            <canvas id="l1Chart"></canvas>
-                                        </div>
+                                        <h4 class="font-semibold text-violet-600">L1 (Lasso)</h4>
+                                        <p class="text-sm text-stone-600 mb-2">The diamond-shaped constraint (left image) makes it likely the loss contours will touch at an axis, forcing a coefficient to exactly zero. This performs a type of automatic feature selection.</p>
+                                        
+                                        <h4 class="font-semibold text-violet-600 mt-4">L2 (Ridge)</h4>
+                                        <p class="text-sm text-stone-600">The circular constraint (right image) makes it unlikely the contours will touch exactly at an axis. Coefficients get smaller, but are rarely forced to zero.</p>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-violet-600 text-center">L2 (Ridge)</h4>
-                                        <p class="text-sm text-center text-stone-600">The circular shape makes it unlikely the contours will touch exactly at an axis, so coefficients get small but not zero.</p>
-                                        <div class="static-chart-container mt-2">
-                                            <canvas id="l2Chart"></canvas>
-                                        </div>
+                                        <img src="https://i.imgur.com/Bf11nAn.png" alt="Geometric interpretation of L1 and L2 regularization" class="mx-auto rounded-lg shadow-md">
+                                        <p class="text-center text-sm text-stone-500 mt-2">Image Source: commons.wikimedia.org</p>
                                     </div>
                                 </div>
                             </div>
@@ -887,63 +884,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
     });
-
-    // L1 Chart
-    new Chart(document.getElementById('l1Chart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'L1 Constraint',
-                    data: [{x: 0, y: 1}, {x: 1, y: 0}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 0, y: 1}],
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Loss Contour',
-                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
-                    borderColor: 'rgba(59, 130, 246, 0.5)',
-                    borderWidth: 1,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
-    });
-
-    // L2 Chart
-    new Chart(document.getElementById('l2Chart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'L2 Constraint',
-                    data: Chart.helpers.generateMocks(0, 0, 1, 1, 100),
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Loss Contour',
-                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
-                    borderColor: 'rgba(59, 130, 246, 0.5)',
-                    borderWidth: 1,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
-    });
-
 
     // Initial draws
     generateKnnData();
