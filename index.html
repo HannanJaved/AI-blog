@@ -1,3 +1,8 @@
+An updated version of the HTML file with the requested formatting adjustments and new diagrams is provided below.
+
+The section following "Gradient Descent" has been reformatted to match the style of Module 1, resolving the inconsistent bolding. Additionally, the previous JavaScript-rendered charts for SVM, Decision Trees, the Bias-Variance Tradeoff, and Regularization have been replaced with placeholders for new diagrams as requested.
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -179,18 +184,30 @@
                                 <p>There are two primary methods to find the optimal parameters (β) that minimize the MSE loss:</p>
                                 <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
                                     <li><strong>Closed-Form Solution (Normal Equation):</strong> This is a direct mathematical formula that calculates the optimal parameters in one step: `β = (XᵀX)⁻¹Xᵀy`. It's efficient for smaller datasets but can be computationally expensive for datasets with a very large number of features.</li>
-                                    <li><strong>Gradient Descent:** This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is **convex**, meaning it has only one global minimum. Therefore, gradient descent will **always converge to the same optimal solution**, regardless of the starting point.</li>
+                                    <li><strong>Gradient Descent:</strong> This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is **convex**, meaning it has only one global minimum. Therefore, gradient descent will **always converge to the same optimal solution**, regardless of the starting point.</li>
                                 </ol>
                                 <div class="static-chart-container mt-4">
                                     <canvas id="linearRegressionChart"></canvas>
                                 </div>
                                 <h4 class="font-semibold mt-4 text-stone-700">Key Assumptions:</h4>
-                                <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
-                                    <li><strong>Linearity:</strong> The relationship between inputs and the output is linear. If the true relationship is curved (e.g., house price doesn't increase linearly with size forever), the model will be inherently inaccurate.</li>
-                                    <li><strong>Independence:</strong> The errors (residuals) are independent. This means the error of one prediction is not influenced by the error of another. (Commonly violated in time-series data, where yesterday's stock price error affects today's).</li>
-                                    <li><strong>Homoscedasticity:</strong> The errors have constant variance across all levels of the input features. A violation (heteroscedasticity) might mean the model is very accurate for cheap houses but highly inaccurate for expensive ones.</li>
-                                    <li><strong>Normality of Errors:</strong> The errors are normally distributed. This is particularly important for statistical inference on the coefficients (e.g., determining if a feature is statistically significant).</li>
-                                </ol>
+                                <div class="space-y-4 mt-4 text-base">
+                                    <div>
+                                        <h5 class="font-semibold text-violet-600">Linearity</h5>
+                                        <p class="text-stone-600">The relationship between inputs and the output is linear. If the true relationship is curved (e.g., house price doesn't increase linearly with size forever), the model will be inherently inaccurate.</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-violet-600">Independence</h5>
+                                        <p class="text-stone-600">The errors (residuals) are independent. This means the error of one prediction is not influenced by the error of another. (Commonly violated in time-series data, where yesterday's stock price error affects today's).</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-violet-600">Homoscedasticity</h5>
+                                        <p class="text-stone-600">The errors have constant variance across all levels of the input features. A violation (heteroscedasticity) might mean the model is very accurate for cheap houses but highly inaccurate for expensive ones.</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-violet-600">Normality of Errors</h5>
+                                        <p class="text-stone-600">The errors are normally distributed. This is particularly important for statistical inference on the coefficients (e.g., determining if a feature is statistically significant).</p>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">2.2. Polynomial Regression</h3>
@@ -242,9 +259,8 @@
                                 <p>A "maximum margin" classifier that finds the hyperplane that best separates the classes by maximizing the distance to the nearest points of any class (the support vectors).</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>SVMs learn by solving a constrained optimization problem. The goal is to find the parameters (w, b) of the hyperplane that maximize the margin, subject to the constraint that all data points are correctly classified. This is a complex mathematical problem often solved using techniques like Quadratic Programming.</p>
-                                <div class="static-chart-container mt-4">
-                                    <canvas id="svmChart"></canvas>
-                                </div>
+                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
+                                                                    </div>
                             </div>
 
                             <div>
@@ -252,25 +268,8 @@
                                 <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>The tree is built using a process called **recursive partitioning**. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
-                                <div class="mt-4 p-4 border border-stone-200 rounded-lg tree-container">
-                                    <ul>
-                                        <li>
-                                            <div class="p-2 decision-node rounded-md inline-block">Credit Score > 650?</div>
-                                            <ul>
-                                                <li>
-                                                    <div class="p-2 decision-node rounded-md inline-block">Income > $50k?</div>
-                                                    <ul>
-                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Approve Loan</div></li>
-                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
+                                                                    </div>
                                 <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
                                 <p>A single decision tree can easily overfit the training data. **Random Forests** improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
                             </div>
@@ -336,9 +335,8 @@
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.3. The Bias-Variance Tradeoff</h3>
                                 <p class="mb-4 text-stone-700">This is the central challenge in supervised learning. A simple model (low complexity) is **underfit** and has high bias (it's systematically wrong). A complex model (high complexity) is **overfit** and has high variance (it's too sensitive to the training data). The goal is to find the "sweet spot" of complexity that minimizes the total error.</p>
-                                <div class="static-chart-container">
-                                    <canvas id="biasVarianceChart"></canvas>
-                                </div>
+                                <div class="static-chart-container mt-4 flex items-center justify-center bg-stone-100 rounded text-stone-500">
+                                                                   </div>
                             </div>
                             
                             <div>
@@ -348,16 +346,14 @@
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L1 (Lasso)</h4>
                                         <p class="text-sm text-center text-stone-600">The diamond shape makes it likely the contours will touch at an axis, forcing a coefficient to zero.</p>
-                                        <div class="static-chart-container mt-2">
-                                            <canvas id="l1Chart"></canvas>
-                                        </div>
+                                        <div class="static-chart-container mt-2 flex items-center justify-center bg-stone-100 rounded text-stone-500">
+                                                                                    </div>
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L2 (Ridge)</h4>
                                         <p class="text-sm text-center text-stone-600">The circular shape makes it unlikely the contours will touch exactly at an axis, so coefficients get small but not zero.</p>
-                                        <div class="static-chart-container mt-2">
-                                            <canvas id="l2Chart"></canvas>
-                                        </div>
+                                        <div class="static-chart-container mt-2 flex items-center justify-center bg-stone-100 rounded text-stone-500">
+                                                                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -770,183 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     runKmeansBtn.onclick = runKmeans;
 
-    // Bias-Variance Chart
-    const biasVarianceData = {
-        labels: ['Low', '', '', '', 'Medium', '', '', '', 'High'],
-        datasets: [
-            {
-                label: 'Bias',
-                data: [9, 8, 7, 5, 3, 2, 1.5, 1, 0.8],
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: false,
-            },
-            {
-                label: 'Variance',
-                data: [0.5, 1, 1.5, 2, 3, 4.5, 6, 8, 9.5],
-                borderColor: 'rgba(239, 68, 68, 1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: false,
-            },
-            {
-                label: 'Total Error',
-                data: [9.5, 9, 8.5, 7, 6, 6.5, 7.5, 9, 10.3],
-                borderColor: 'rgba(16, 185, 129, 1)',
-                borderWidth: 3,
-                borderDash: [5, 5],
-                tension: 0.4,
-                fill: false,
-            }
-        ]
-    };
-
-    new Chart(document.getElementById('biasVarianceChart'), {
-        type: 'line',
-        data: biasVarianceData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Model Complexity' } },
-                y: { title: { display: true, text: 'Error' }, min: 0 }
-            },
-            plugins: { legend: { position: 'top' } }
-        }
-    });
-
-    new Chart(document.getElementById('biasVarianceChartSmall'), {
-        type: 'line',
-        data: biasVarianceData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { display: false },
-                y: { display: false }
-            },
-            plugins: { legend: { display: false } }
-        }
-    });
-    
-    // SVM Chart
-    new Chart(document.getElementById('svmChart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'Class 0',
-                    data: [{x: 2, y: 3}, {x: 3, y: 4}, {x: 1, y: 5}],
-                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                    pointRadius: 6
-                },
-                {
-                    label: 'Class 1',
-                    data: [{x: 6, y: 5}, {x: 7, y: 7}, {x: 8, y: 6}],
-                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
-                    pointRadius: 6
-                },
-                {
-                    label: 'Hyperplane',
-                    data: [{x: 0, y: 1.5}, {x: 10, y: 9.5}],
-                    type: 'line',
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Margin',
-                    data: [{x: 0, y: 3}, {x: 10, y: 11}],
-                    type: 'line',
-                    borderColor: 'rgba(167, 139, 250, 0.5)',
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Margin',
-                    data: [{x: 1.5, y: 0}, {x: 8.5, y: 7}],
-                    type: 'line',
-                    borderColor: 'rgba(167, 139, 250, 0.5)',
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                 {
-                    label: 'Support Vectors',
-                    data: [{x: 3, y: 4}, {x: 6, y: 5}],
-                    backgroundColor: 'rgba(255, 255, 255, 0)',
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    pointRadius: 8,
-                    pointStyle: 'circle'
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
-    });
-
-    // L1 Chart
-    new Chart(document.getElementById('l1Chart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'L1 Constraint',
-                    data: [{x: 0, y: 1}, {x: 1, y: 0}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 0, y: 1}],
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Loss Contour',
-                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
-                    borderColor: 'rgba(59, 130, 246, 0.5)',
-                    borderWidth: 1,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
-    });
-
-    // L2 Chart
-    new Chart(document.getElementById('l2Chart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'L2 Constraint',
-                    data: Chart.helpers.generateMocks(0, 0, 1, 1, 100),
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Loss Contour',
-                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
-                    borderColor: 'rgba(59, 130, 246, 0.5)',
-                    borderWidth: 1,
-                    showLine: true,
-                    fill: false,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
-    });
-
-
     // Initial draws
     generateKnnData();
     drawKnnChart();
@@ -957,3 +776,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+```
