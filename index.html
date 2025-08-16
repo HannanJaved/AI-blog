@@ -264,7 +264,10 @@
                                 <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>The tree is built using a process called recursive partitioning. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
-                                
+                                <div class="my-6">
+                                    <img src="decision-tree-example-1024x709.webp" alt="Decision tree example" class="mx-auto rounded-lg shadow-md">
+                                    <p class="text-center text-sm text-stone-500 mt-2">Source: <a href="https://databasecamp.de/en/ml/decision-trees" class="text-violet-600 hover:underline">databasecamp.de</a></p>
+                                </div>
                                 <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
                                 <p>A single decision tree can easily overfit the training data. Random Forests improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
                             </div>
@@ -349,8 +352,8 @@
                                         <p class="text-sm text-stone-600">The circular constraint (right image) makes it unlikely the contours will touch exactly at an axis. Coefficients get smaller, but are rarely forced to zero.</p>
                                     </div>
                                     <div>
-                                        <img src="https://i.imgur.com/Bf11nAn.png" alt="Geometric interpretation of L1 and L2 regularization" class="mx-auto rounded-lg shadow-md">
-                                        <p class="text-center text-sm text-stone-500 mt-2">Image Source: commons.wikimedia.org</p>
+                                        <img src="l1-l2.webp" alt="Geometric interpretation of L1 and L2 regularization" class="mx-auto rounded-lg shadow-md">
+                                        <p class="text-center text-sm text-stone-500 mt-2">Source: <a href="https://commons.wikimedia.org/wiki/File:Regularization.jpg" class="text-violet-600 hover:underline">commons.wikimedia.org</a></p>
                                     </div>
                                 </div>
                             </div>
