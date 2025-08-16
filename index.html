@@ -323,8 +323,12 @@
                         <div class="space-y-8">
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.1. Evaluation Metrics </h3>
-                                <p>To evaluate a <strong>classification</strong>strong> model, we use a Confusion Matrix to see where the model made correct and incorrect predictions. From this, we derive several key metrics:</p>
+                                <p>To evaluate a <strong>classification</strong> model, we use a Confusion Matrix to see where the model made correct and incorrect predictions. From this, we derive several key metrics:</p>
                                 <ul class="list-disc list-inside mt-2 space-y-2">
+                                    <li><strong>True Positive (TP):</strong> The model correctly predicted the positive class.</li>
+                                    <li><strong>False Positive (FP):</strong> The model incorrectly predicted the positive class.</li>
+                                    <li> <strong>True Negative (TN):</strong> The model correctly predicted the negative class.</li>
+                                    <li> <strong>False Negative (FN):</strong> The model incorrectly predicted the negative class.</li>
                                     <li><strong>Precision:</strong> Answers the question: "Of all the times the model predicted positive, how often was it right?" It's important when the cost of a false positive is high (e.g., a spam filter incorrectly flagging an important email). <div class="formula text-base">TP / (TP + FP)</div></li>
                                     <li><strong>Recall:</strong> Answers the question: "Of all the actual positive cases, how many did the model correctly identify?" It's important when the cost of a false negative is high (e.g., a medical test failing to detect a disease). <div class="formula text-base">TP / (TP + FN)</div></li>
                                     <li><strong>F1-Score:</strong> The harmonic mean of Precision and Recall, providing a single score that balances both metrics. <div class="formula text-base">2 * (Precision * Recall) / (Precision + Recall)</div></li>
