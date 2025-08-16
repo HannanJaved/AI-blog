@@ -9,14 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Calm Lavender -->
-    <!-- Application Structure Plan: The application is now a blog-style website. A main content area displays articles, while a sidebar provides navigation via "Recent Posts" and highlights a "Featured Post." This structure is more engaging and familiar for readers, allowing them to focus on one topic at a time. Each module is a separate "article" div, and clicking a link in the sidebar smoothly scrolls to that article. This is more user-friendly for a content-heavy site than a single, long scrolling page. -->
-    <!-- Visualization & Content Choices: 
-        - All previous visualizations and interactive demos are retained but are now embedded within the blog post format.
-        - The goal is to present each module as a self-contained article that is easy to read and understand, with visuals supporting the text.
-        - The interactive elements for k-NN and K-Means are particularly effective in a blog format as they break up long sections of text and allow for hands-on learning.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -98,7 +90,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
     <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold text-violet-700">The ML Crash Course Blog</h1>
@@ -108,10 +99,8 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="lg:flex lg:space-x-8">
-            <!-- Main Content -->
             <main class="flex-1">
                 <div class="space-y-16">
-                    <!-- Article 1 -->
                     <article id="module1" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 1: Introduction to Machine Learning</h2>
                         <div class="space-y-8 text-lg text-stone-700">
@@ -169,7 +158,6 @@
                         </div>
                     </article>
 
-                    <!-- Article 2 -->
                     <article id="module2" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 2: Supervised Learning - Regression</h2>
                          <p class="text-lg text-stone-700 mb-6">Regression models are used when the goal is to predict a continuous numerical value. This module focuses on the foundational algorithms for this task.</p>
@@ -217,7 +205,6 @@
                         </div>
                     </article>
 
-                    <!-- Article 3 -->
                     <article id="module3" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 3: Supervised Learning - Classification</h2>
                          <p class="text-lg text-stone-700 mb-6">Classification models are used when the goal is to predict a discrete category or class label. This module covers the foundational algorithms for this task.</p>
@@ -290,7 +277,6 @@
                         </div>
                     </article>
 
-                    <!-- Article 4 -->
                     <article id="module4" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 4: Unsupervised Learning</h2>
                         <p class="text-lg text-stone-700 mb-6">Unsupervised learning deals with unlabeled data, seeking to find hidden patterns or intrinsic structures. This module explores the two primary tasks: clustering data into groups and reducing dimensionality to simplify data.</p>
@@ -328,7 +314,6 @@
                         </div>
                     </article>
 
-                    <!-- Article 5 -->
                     <article id="module5" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 5: Model Training & Evaluation</h2>
                         <p class="text-lg text-stone-700 mb-6">Building a model is only half the battle; we must also rigorously evaluate its performance and understand its limitations. This module covers the crucial concepts of model validation, key performance metrics, and the fundamental Bias-Variance Tradeoff.</p>
@@ -387,7 +372,6 @@
                         </div>
                     </article>
                     
-                    <!-- Article 6 -->
                     <article id="module6" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
                         <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Module 6: Advanced Topics & Deep Learning</h2>
                         <p class="text-lg text-stone-700 mb-6">This module introduces more advanced theoretical concepts and provides a glimpse into deep learning, the subfield of ML that powers many state-of-the-art applications.</p>
@@ -455,7 +439,6 @@
                 </div>
             </main>
 
-            <!-- Sidebar -->
             <aside class="w-80 hidden lg:block">
                 <div class="sticky top-8 space-y-8">
                     <div class="bg-white p-6 rounded-lg shadow-sm">
