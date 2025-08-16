@@ -118,7 +118,7 @@
                                     <li><strong>Experience (E):</strong> A massive dataset of emails, where each one has already been labeled by humans as spam or not spam.</li>
                                     <li><strong>Performance (P):</strong> The percentage of emails the program correctly classifies.</li>
                                 </ul>
-                                <p class="mt-2">The ultimate goal is **Generalization**: the ability of the model to perform accurately on new, unseen emails it has never encountered before, not just the ones it was trained on.</p>
+                                <p class="mt-2">The ultimate goal is generalization: the ability of the model to perform accurately on new, unseen emails it has never encountered before, not just the ones it was trained on.</p>
                             </div>
 
                             <div>
@@ -167,19 +167,19 @@
                                 <p>Fits a "line of best fit" to the data. It models a linear relationship between input features (X) and a continuous target variable (y). For example, predicting a house's price based on its square footage.</p>
                                 <div class="formula">ŷ = β₀ + β₁x₁ + ... + βₚxₚ</div>
                                  <h4 class="font-semibold mt-4 text-stone-700">The Loss Function:</h4>
-                                <p>The model learns by minimizing the **Mean Squared Error (MSE)**:</p>
+                                <p>The model learns by minimizing the Mean Squared Error (MSE):</p>
                                 <div class="formula">L(β) = (1/n) * Σ(yᵢ - ŷᵢ)²</div>
                                 <ul class="list-disc list-inside mt-2 text-base">
                                     <li><strong>yᵢ</strong> is the actual value for the i-th data point.</li>
                                     <li><strong>ŷᵢ</strong> is the model's predicted value.</li>
                                     <li><strong>n</strong> is the number of data points.</li>
-                                    <li><strong>β</strong> is the vector of model parameters (the coefficients). The dimension of β is **(p + 1) x 1**, where 'p' is the number of features.</li>
+                                    <li><strong>β</strong> is the vector of model parameters (the coefficients). The dimension of β is (p + 1) x 1, where 'p' is the number of features.</li>
                                 </ul>
                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns: Finding the Parameters</h4>
                                 <p>There are two primary methods to find the optimal parameters (β) that minimize the MSE loss:</p>
                                 <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
                                     <li><strong>Closed-Form Solution (Normal Equation):</strong> This is a direct mathematical formula that calculates the optimal parameters in one step: `β = (XᵀX)⁻¹Xᵀy`. It's efficient for smaller datasets but can be computationally expensive for datasets with a very large number of features.</li>
-                                    <li><strong>Gradient Descent:</strong> This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is **convex**, meaning it has only one global minimum. Therefore, gradient descent will **always converge to the same optimal solution**, regardless of the starting point.</li>
+                                    <li><strong>Gradient Descent:</strong> This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is convex, meaning it has only one global minimum. Therefore, gradient descent will always converge to the same optimal solution, regardless of the starting point.</li>
                                 </ol>
                                 <div class="static-chart-container mt-4">
                                     <canvas id="linearRegressionChart"></canvas>
@@ -227,7 +227,7 @@
                                 <p>A baseline for classification that predicts the probability an input belongs to a class by passing a linear equation through a Sigmoid function. Example: Predicting if a loan application will be approved (Yes/No) based on income and credit score.</p>
                                 <div class="formula">p̂ = 1 / (1 + e<sup>-(β₀ + β₁x₁ + ...)</sup>)</div>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>Unlike Linear Regression's MSE, Logistic Regression learns its coefficients by minimizing a different loss function called **Log Loss (or Binary Cross-Entropy)**. This function penalizes confident but incorrect predictions more heavily, making it suitable for probabilistic classification.</p>
+                                <p>Unlike Linear Regression's MSE, Logistic Regression learns its coefficients by minimizing a different loss function called Log Loss (or Binary Cross-Entropy). This function penalizes confident but incorrect predictions more heavily, making it suitable for probabilistic classification.</p>
                                  <div class="formula">L(β) = -(1/n) * Σ [yᵢ log(p̂ᵢ) + (1 - yᵢ) log(1 - p̂ᵢ)]</div>
                                  <div class="static-chart-container mt-4">
                                     <canvas id="logisticRegressionChart"></canvas>
@@ -263,10 +263,10 @@
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">3.4. Decision Trees & Random Forests</h3>
                                 <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>The tree is built using a process called **recursive partitioning**. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
+                                <p>The tree is built using a process called recursive partitioning. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
             
                                 <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
-                                <p>A single decision tree can easily overfit the training data. **Random Forests** improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
+                                <p>A single decision tree can easily overfit the training data. Random Forests improve upon this by using an ensemble method called **bagging**. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
                             </div>
                         </div>
                     </article>
@@ -280,7 +280,7 @@
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">4.1. K-Means Clustering Interactive Demo</h3>
                                 <p class="mb-4 text-stone-700">A centroid-based algorithm that partitions data into 'k' clusters. Example: A marketing team using K-Means to segment customers into distinct groups (e.g., "high-spending," "budget-conscious") for targeted campaigns.</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>K-Means uses an iterative algorithm called **Expectation-Maximization (E-M)**. It begins by randomly placing 'k' centroids on the data plot. Then it repeats two steps until the centroids stop moving: 1) **Assignment Step (E-step):** Each data point is assigned to its nearest centroid. 2) **Update Step (M-step):** The centroids are recalculated as the mean (center) of all points assigned to them. This interactive demo visualizes this exact process.</p>
+                                <p>K-Means uses an iterative algorithm called Expectation-Maximization (E-M). It begins by randomly placing 'k' centroids on the data plot. Then it repeats two steps until the centroids stop moving: 1) Assignment Step (E-step): Each data point is assigned to its nearest centroid. 2) Update Step (M-step):** The centroids are recalculated as the mean (center) of all points assigned to them. This interactive demo visualizes this exact process.</p>
                                 <h4 class="font-semibold mt-4 text-stone-700">Strengths & Weaknesses:</h4>
                                 <ul class="list-disc list-inside mt-2 text-base">
                                     <li><strong>Strengths:</strong> Simple to understand, fast, and efficient on large datasets.</li>
@@ -300,7 +300,7 @@
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">4.2. Principal Component Analysis (PCA)</h3>
                                 <p class="mb-4 text-stone-700">A dimensionality reduction technique that transforms a large set of variables into a smaller one that still contains most of the information in the large set. Example: A geneticist might use PCA to reduce thousands of gene expression measurements into two or three "principal components" to visualize the main patterns of genetic variation in a population.</p>
                                 <h4 class="font-semibold mt-4 text-stone-700">How it Works:</h4>
-                                <p>PCA is not an iterative learning algorithm but a mathematical transformation. It finds the directions of maximum variance in the data and projects the data onto a new, smaller-dimensional subspace. These new axes are the **principal components**.</p>
+                                <p>PCA is not an iterative learning algorithm but a mathematical transformation. It finds the directions of maximum variance in the data and projects the data onto a new, smaller-dimensional subspace. These new axes are the principal components.</p>
                                 <ul class="list-disc list-inside mt-2 text-base">
                                     <li><strong>Covariance Matrix (Σ):</strong> PCA starts by computing this matrix, which describes the variance of each feature and the covariance between pairs of features.</li>
                                     <li><strong>Eigenvectors & Eigenvalues:</strong> It then calculates the eigenvectors and eigenvalues of the covariance matrix. An eigenvector represents a direction (a principal component), and its corresponding eigenvalue indicates how much variance in the data lies along that direction.</li>
@@ -317,7 +317,7 @@
                         <div class="space-y-8">
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.1. Key Metrics for Classification</h3>
-                                <p>To evaluate a classification model, we use a **Confusion Matrix** to see where the model made correct and incorrect predictions. From this, we derive several key metrics:</p>
+                                <p>To evaluate a classification model, we use a Confusion Matrix to see where the model made correct and incorrect predictions. From this, we derive several key metrics:</p>
                                 <ul class="list-disc list-inside mt-2 space-y-2">
                                     <li><strong>Precision:</strong> Answers the question: "Of all the times the model predicted positive, how often was it right?" It's important when the cost of a false positive is high (e.g., a spam filter incorrectly flagging an important email). <div class="formula text-base">TP / (TP + FP)</div></li>
                                     <li><strong>Recall:</strong> Answers the question: "Of all the actual positive cases, how many did the model correctly identify?" It's important when the cost of a false negative is high (e.g., a medical test failing to detect a disease). <div class="formula text-base">TP / (TP + FN)</div></li>
@@ -327,11 +327,11 @@
                             </div>
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.2. Cross-Validation</h3>
-                                <p>A single train-test split can be misleading; the model's performance might be good or bad just by luck of the split. **Cross-Validation** provides a more robust estimate of performance. In **k-fold cross-validation**, the data is split into 'k' folds. The model is trained on k-1 folds and tested on the remaining fold. This process is repeated 'k' times, with each fold serving as the test set once. The performance scores are then averaged. This is crucial because it ensures the model's performance isn't a fluke, especially when data is limited.</p>
+                                <p>A single train-test split can be misleading; the model's performance might be good or bad just by luck of the split. Cross-Validation provides a more robust estimate of performance. In k-fold cross-validation, the data is split into 'k' folds. The model is trained on k-1 folds and tested on the remaining fold. This process is repeated 'k' times, with each fold serving as the test set once. The performance scores are then averaged. This is crucial because it ensures the model's performance isn't a fluke, especially when data is limited.</p>
                             </div>
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.3. The Bias-Variance Tradeoff</h3>
-                                <p class="mb-4 text-stone-700">This is the central challenge in supervised learning. A simple model (low complexity) is **underfit** and has high bias (it's systematically wrong). A complex model (high complexity) is **overfit** and has high variance (it's too sensitive to the training data). The goal is to find the "sweet spot" of complexity that minimizes the total error.</p>
+                                <p class="mb-4 text-stone-700">This is the central challenge in supervised learning. A simple model (low complexity) is underfit and has high bias (it's systematically wrong). A complex model (high complexity) is overfit and has high variance (it's too sensitive to the training data). The goal is to find the "sweet spot" of complexity that minimizes the total error.</p>
                                 <div class="static-chart-container">
                                     <canvas id="biasVarianceChart"></canvas>
                                 </div>
@@ -339,7 +339,7 @@
                             
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.4. Regularization</h3>
-                                <p>Regularization is a set of techniques used to **prevent overfitting** and thus improve the generalization of a model. It works by adding a penalty term to the model's loss function, which discourages the model from learning overly complex patterns by keeping the parameter values small.</p>
+                                <p>Regularization is a set of techniques used to prevent overfitting and thus improve the generalization of a model. It works by adding a penalty term to the model's loss function, which discourages the model from learning overly complex patterns by keeping the parameter values small.</p>
                                 <div class="grid md:grid-cols-2 gap-6 mt-4">
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L1 (Lasso)</h4>
@@ -387,7 +387,7 @@
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.2. How Neural Networks Learn</h3>
                                 <p>Networks learn by minimizing a loss function. This is achieved through an optimization process involving two key algorithms:</p>
                                 <ul class="list-disc list-inside mt-2 space-y-2">
-                                    <li><strong>Gradient Descent:</strong> An optimization algorithm that iteratively adjusts the model's parameters (weights and biases) to find the minimum of the loss function. The size of the adjustments is controlled by the **Learning Rate (α)**.</li>
+                                    <li><strong>Gradient Descent:</strong> An optimization algorithm that iteratively adjusts the model's parameters (weights and biases) to find the minimum of the loss function. The size of the adjustments is controlled by the Learning Rate (α).</li>
                                     <li><strong>Backpropagation:</strong> The algorithm used to efficiently calculate the gradient (the direction of steepest ascent) of the loss function with respect to every weight and bias in the network. It works by propagating the error backward from the output layer to the input layer.</li>
                                 </ul>
                                  <div class="mt-4 p-4 border border-stone-200 rounded-lg text-center">
@@ -406,7 +406,7 @@
                             </div>
                             <div>
                                 <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.3. Foundational Concepts - Bayes' Theorem</h3>
-                                <p class="mb-4">Bayes' Theorem is a mathematical way to update your beliefs based on new evidence. It starts with a **prior belief** (what you think is true initially) and combines it with the **likelihood** of seeing new evidence, resulting in an updated, more informed **posterior belief**. In simple terms: **Initial Belief + New Evidence = Updated Belief**.</p>
+                                <p class="mb-4">Bayes' Theorem is a mathematical way to update your beliefs based on new evidence. It starts with a prior belief (what you think is true initially) and combines it with the likelihood of seeing new evidence, resulting in an updated, more informed **posterior belief. In simple terms: Initial Belief + New Evidence = Updated Belief.</p>
                                 <div class="formula">P(A|B) = (P(B|A) * P(A)) / P(B)</div>
                                 <ul class="space-y-4 mt-4">
                                     <li><strong class="font-semibold text-violet-600">P(A|B) - Posterior:</strong> Your updated belief about hypothesis A after seeing evidence B.</li>
@@ -420,13 +420,13 @@
                                 <div class="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <h4 class="font-semibold text-violet-600">Discriminative Models</h4>
-                                        <p>Learn the **decision boundary** between classes. Their goal is to distinguish between categories. They essentially learn to answer the question: "Given this input, what is the probability of this label?"</p>
+                                        <p>Learn the decision boundary between classes. Their goal is to distinguish between categories. They essentially learn to answer the question: "Given this input, what is the probability of this label?"</p>
                                         <p class="text-sm text-stone-500">Examples: Logistic Regression, SVMs, standard Neural Networks.</p>
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-violet-600">Generative Models</h4>
-                                        <p>Learn the **underlying distribution** of the data for each class. They learn what the data for each category looks like. Because they understand how the data is generated, they can be used to create new, synthetic data points.</p>
-                                        <p class="text-sm text-stone-500">Examples: Naive Bayes, Gaussian Mixture Models (GMMs), Generative Adversarial Networks (GANs).</p>
+                                        <p>Learn the underlying distribution of the data for each class. They learn what the data for each category looks like. Because they understand how the data is generated, they can be used to create new, synthetic data points.</p>
+                                        <p class="text-sm text-stone-500">Examples: Generative Adversarial Networks (GANs), Variational Auto-Encoders (VAEs).</p>
                                     </div>
                                 </div>
                             </div>
