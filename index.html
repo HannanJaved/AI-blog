@@ -189,7 +189,7 @@
                                 </ul>
                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns: Finding the Parameters</h4>
                                 <p>There are two primary methods to find the optimal parameters (β) that minimize the MSE loss:</p>
-                                <ol class="list-decimal list-inside mt-2 space-y-2">
+                                <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
                                     <li><strong>Closed-Form Solution (Normal Equation):</strong> This is a direct mathematical formula that calculates the optimal parameters in one step: `β = (XᵀX)⁻¹Xᵀy`. It's efficient for smaller datasets but can be computationally expensive for datasets with a very large number of features.</li>
                                     <li><strong>Gradient Descent:** This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is **convex**, meaning it has only one global minimum. Therefore, gradient descent will **always converge to the same optimal solution**, regardless of the starting point.</li>
                                 </ol>
@@ -197,7 +197,7 @@
                                     <canvas id="linearRegressionChart"></canvas>
                                 </div>
                                 <h4 class="font-semibold mt-4 text-stone-700">Key Assumptions:</h4>
-                                <ol class="list-decimal list-inside mt-2 space-y-2">
+                                <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
                                     <li><strong>Linearity:</strong> The relationship between inputs and the output is linear. If the true relationship is curved (e.g., house price doesn't increase linearly with size forever), the model will be inherently inaccurate.</li>
                                     <li><strong>Independence:</strong> The errors (residuals) are independent. This means the error of one prediction is not influenced by the error of another. (Commonly violated in time-series data, where yesterday's stock price error affects today's).</li>
                                     <li><strong>Homoscedasticity:</strong> The errors have constant variance across all levels of the input features. A violation (heteroscedasticity) might mean the model is very accurate for cheap houses but highly inaccurate for expensive ones.</li>
@@ -845,6 +845,122 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             plugins: { legend: { display: false } }
         }
+    });
+    
+    // SVM Chart
+    new Chart(document.getElementById('svmChart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Class 0',
+                    data: [{x: 2, y: 3}, {x: 3, y: 4}, {x: 1, y: 5}],
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    pointRadius: 6
+                },
+                {
+                    label: 'Class 1',
+                    data: [{x: 6, y: 5}, {x: 7, y: 7}, {x: 8, y: 6}],
+                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                    pointRadius: 6
+                },
+                {
+                    label: 'Hyperplane',
+                    data: [{x: 0, y: 1.5}, {x: 10, y: 9.5}],
+                    type: 'line',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Margin',
+                    data: [{x: 0, y: 3}, {x: 10, y: 11}],
+                    type: 'line',
+                    borderColor: 'rgba(167, 139, 250, 0.5)',
+                    borderDash: [5, 5],
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Margin',
+                    data: [{x: 1.5, y: 0}, {x: 8.5, y: 7}],
+                    type: 'line',
+                    borderColor: 'rgba(167, 139, 250, 0.5)',
+                    borderDash: [5, 5],
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0,
+                },
+                 {
+                    label: 'Support Vectors',
+                    data: [{x: 3, y: 4}, {x: 6, y: 5}],
+                    backgroundColor: 'rgba(255, 255, 255, 0)',
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    pointRadius: 8,
+                    pointStyle: 'circle'
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
+    });
+
+    // L1 Chart
+    new Chart(document.getElementById('l1Chart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'L1 Constraint',
+                    data: [{x: 0, y: 1}, {x: 1, y: 0}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 0, y: 1}],
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Loss Contour',
+                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
+                    borderColor: 'rgba(59, 130, 246, 0.5)',
+                    borderWidth: 1,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
+    });
+
+    // L2 Chart
+    new Chart(document.getElementById('l2Chart'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'L2 Constraint',
+                    data: Chart.helpers.generateMocks(0, 0, 1, 1, 100),
+                    borderColor: 'rgba(124, 58, 237, 1)',
+                    borderWidth: 2,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Loss Contour',
+                    data: Chart.helpers.generateMocks(2, 2, 0.5, 0.5, 0.3, 0.3),
+                    borderColor: 'rgba(59, 130, 246, 0.5)',
+                    borderWidth: 1,
+                    showLine: true,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: -1.5, max: 1.5 }, y: { min: -1.5, max: 1.5 } }, plugins: { legend: { display: false } } }
     });
 
 
