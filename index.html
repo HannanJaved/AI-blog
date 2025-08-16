@@ -255,15 +255,8 @@
                                 <p>A "maximum margin" classifier that finds the hyperplane that best separates the classes by maximizing the distance to the nearest points of any class (the support vectors).</p>
                                  <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
                                 <p>SVMs learn by solving a constrained optimization problem. The goal is to find the parameters (w, b) of the hyperplane that maximize the margin, subject to the constraint that all data points are correctly classified. This is a complex mathematical problem often solved using techniques like Quadratic Programming.</p>
-                                <div class="mt-4 p-4 border border-stone-200 rounded-lg flex justify-center items-center">
-                                    <div class="w-2 h-48 bg-stone-300 relative">
-                                        <div class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-48 h-1 bg-violet-500"></div>
-                                        <div class="absolute top-8 left-12 w-4 h-4 bg-blue-500 rounded-full"></div>
-                                        <div class="absolute top-16 left-20 w-4 h-4 bg-blue-500 rounded-full border-2 border-violet-500"></div>
-                                        <div class="absolute bottom-8 right-12 w-4 h-4 bg-red-500 rounded-full"></div>
-                                        <div class="absolute bottom-16 right-20 w-4 h-4 bg-red-500 rounded-full border-2 border-violet-500"></div>
-                                        <p class="absolute -top-2 left-1/2 -translate-x-1/2 text-sm text-stone-600">Margin</p>
-                                    </div>
+                                <div class="static-chart-container mt-4">
+                                    <canvas id="svmChart"></canvas>
                                 </div>
                             </div>
 
@@ -275,17 +268,17 @@
                                 <div class="mt-4 p-4 border border-stone-200 rounded-lg tree-container">
                                     <ul>
                                         <li>
-                                            <div class="p-2 decision-node rounded-md inline-block">Outlook = Sunny?</div>
+                                            <div class="p-2 decision-node rounded-md inline-block">Credit Score > 650?</div>
                                             <ul>
                                                 <li>
-                                                    <div class="p-2 decision-node rounded-md inline-block">Humidity > 70?</div>
+                                                    <div class="p-2 decision-node rounded-md inline-block">Income > $50k?</div>
                                                     <ul>
-                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Don't Play</div></li>
-                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Play</div></li>
+                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Approve Loan</div></li>
+                                                        <li><div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div></li>
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <div class="p-2 leaf-node rounded-md inline-block">Play</div>
+                                                    <div class="p-2 leaf-node rounded-md inline-block">Deny Loan</div>
                                                 </li>
                                             </ul>
                                         </li>
@@ -370,17 +363,15 @@
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L1 (Lasso)</h4>
                                         <p class="text-sm text-center text-stone-600">The diamond shape makes it likely the contours will touch at an axis, forcing a coefficient to zero.</p>
-                                        <div class="mt-2 p-4 border border-stone-200 rounded-lg h-32 flex items-center justify-center">
-                                            <div class="w-24 h-24 border-2 border-dashed border-violet-400 transform rotate-45"></div>
-                                            <div class="absolute w-24 h-12 bg-blue-200 border border-blue-400 rounded-md"></div>
+                                        <div class="static-chart-container mt-2">
+                                            <canvas id="l1Chart"></canvas>
                                         </div>
                                     </div>
                                     <div>
                                         <h4 class="font-semibold text-violet-600 text-center">L2 (Ridge)</h4>
                                         <p class="text-sm text-center text-stone-600">The circular shape makes it unlikely the contours will touch exactly at an axis, so coefficients get small but not zero.</p>
-                                        <div class="mt-2 p-4 border border-stone-200 rounded-lg h-32 flex items-center justify-center">
-                                            <div class="w-24 h-24 border-2 border-dashed border-violet-400 rounded-full"></div>
-                                            <div class="absolute w-20 h-20 bg-blue-200 border border-blue-400 rounded-full"></div>
+                                        <div class="static-chart-container mt-2">
+                                            <canvas id="l2Chart"></canvas>
                                         </div>
                                     </div>
                                 </div>
