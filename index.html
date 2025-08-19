@@ -1,918 +1,172 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The ML Crash Course Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- KaTeX CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" crossorigin="anonymous">
-
-    <!-- KaTeX JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
-          crossorigin="anonymous"
-          onload="renderMathInElement(document.body);"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f5f5f4; /* stone-100 */
-            color: #292524; /* stone-800 */
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
-        }
-        .static-chart-container {
-             position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 350px;
-        }
-        .formula {
-            font-family: 'Times New Roman', serif;
-            background-color: #e7e5e4; /* stone-200 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            overflow-x: auto;
-            font-size: 1.1rem;
-            margin: 1rem 0;
-            color: #44403c; /* stone-700 */
-        }
-        .decision-node {
-            border: 2px solid #c4b5fd; /* violet-300 */
-            background-color: #f5f3ff; /* violet-50 */
-        }
-        .leaf-node {
-            border: 2px solid #a5b4fc; /* indigo-300 */
-            background-color: #eef2ff; /* indigo-50 */
-        }
-        .tree-container ul {
-            position: relative;
-            padding-left: 20px;
-            list-style: none;
-        }
-        .tree-container li {
-            position: relative;
-            padding-top: 10px;
-        }
-        .tree-container li::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 2px solid #9ca3af;
-            width: 20px;
-            height: 100%;
-        }
-        .tree-container li:last-child::before {
-            height: 28px;
-        }
-        .tree-container li > div::before {
-            content: '';
-            position: absolute;
-            top: 28px;
-            left: -20px;
-            border-top: 2px solid #9ca3af;
-            width: 20px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ML Crash Course Blog</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111725;
+      --text: #e7ecf3;
+      --muted: #aab3c2;
+      --accent: #5cc8ff;
+      --accent-2: #9b7bff;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --err: #f87171;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(11,15,20,.9), rgba(11,15,20,.6)); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 0 2px rgba(255,255,255,.06) inset; }
+    nav { display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav-link { color: var(--muted); padding: 8px 12px; border-radius: 10px; display: inline-block; }
+    .nav-link:hover { background: rgba(255,255,255,.06); color: var(--text); }
+    main { padding-top: 16px; }
+    section { margin: 40px 0; padding: 24px; background: var(--panel); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 26px; border-left: 4px solid var(--accent); padding-left: 10px; }
+    h3 { font-size: 20px; color: var(--accent); margin-top: 18px; }
+    p { margin: 10px 0; color: var(--text); }
+    .muted { color: var(--muted); }
+    .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.06); color: var(--muted); font-size: 12px; margin-right: 6px; }
+    .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: #0e1422; border: 1px solid rgba(255,255,255,.06); padding: 14px; border-radius: 12px; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace; background: #0a0f1a; border: 1px solid rgba(255,255,255,.06); padding: 12px; border-radius: 10px; overflow-x: auto; }
+    .note { border-left: 4px solid var(--accent-2); background: rgba(155,123,255,.08); padding: 10px 12px; border-radius: 8px; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .err { color: var(--err); }
+    footer { color: var(--muted); text-align: center; padding: 30px 0 60px; }
+    .toc { display:flex; gap:10px; flex-wrap:wrap; }
+    .toc a { background:#0e1422; border:1px solid rgba(255,255,255,.06); padding:6px 10px; border-radius:999px; }
+  </style>
 </head>
-<body class="antialiased">
-
-    <header class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold text-violet-700">ML Crash Course Blog</h1>
-            <p class="mt-1 text-stone-600">A short crash-course on the fundamentals of Machine Learning.</p>
-        </div>
-    </header>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="lg:flex lg:space-x-8">
-            <main class="flex-1">
-                <div class="space-y-16">
-                    <article id="module1" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Introduction to Machine Learning</h2>
-                        <div class="space-y-8 text-lg text-stone-700">
-                            <p>This section provides a high-level overview of machine learning, establishing the core goal of generalization and introducing the main paradigms of learning. It sets the stage for understanding not just what ML is, but why it's structured the way it is.</p>
-                            
-                            <div>
-                                <h3 class="text-2xl font-semibold mt-4 text-stone-800">1.1. What is Machine Learning?</h3>
-                                <p class="mt-2">At its core, Machine Learning is the science of getting computers to act without being explicitly programmed. Instead of writing a fixed set of rules, we provide algorithms with large amounts of data and let them learn the rules and patterns for themselves. The formal definition by Tom Mitchell provides a more structured view:</p>
-                                <blockquote class="mt-4 p-4 bg-stone-100 border-l-4 border-violet-500">
-                                    "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E."
-                                </blockquote>
-                                <p class="mt-4">Let's break this down with a real-world example: a spam filter.</p>
-                                <ul class="list-disc list-inside mt-2 space-y-1 text-base">
-                                    <li><strong>Task (T):</strong> To classify emails as either "spam" or "not spam".</li>
-                                    <li><strong>Experience (E):</strong> A massive dataset of emails, where each one has already been labeled by humans as spam or not spam.</li>
-                                    <li><strong>Performance (P):</strong> The percentage of emails the program correctly classifies.</li>
-                                </ul>
-                                <p class="mt-2">The ultimate goal is generalization: the ability of the model to perform accurately on new, unseen emails it has never encountered before, not just the ones it was trained on.</p>
-                            </div>
-
-                            <div>
-                                <h3 class="text-2xl font-semibold mt-4 text-stone-800">1.2. The Pillars of ML</h3>
-                                <div class="space-y-6 mt-4">
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">Supervised Learning</h4>
-                                        <p class="text-base text-stone-600 mb-2">Think of this as learning with a teacher or an answer key. The model is given a dataset where each data point is tagged with a correct label or output. The goal is to learn a mapping function that can predict the output for new, unseen data. It's like a student studying flashcards where one side is the question (input) and the other is the answer (label).</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">Unsupervised Learning</h4>
-                                        <p class="text-base text-stone-600 mb-2">This is learning without an answer key. The model is given data without explicit labels and must find structure or patterns on its own. A common task is clustering, or grouping similar data points together. Imagine being given a box of mixed Lego bricks and you sort them into piles based on their shape and color without any instructions.</p>
-                                    </div>
-                                     <div>
-                                        <h4 class="font-semibold text-violet-600">Self-Supervised Learning</h4>
-                                        <p class="text-base text-stone-600 mb-2">This is a clever type of supervised learning where the labels are generated from the input data itself. For example, you could take a sentence, remove a word, and then train a model to predict that missing word. The "label" is the word you removed, but you didn't need a human to create it. This allows models to learn from vast amounts of unlabeled text or image data.</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">Reinforcement Learning</h4>
-                                        <p class="text-base text-stone-600 mb-2">This is learning through trial and error, like training a pet. An "agent" (the model) learns to make decisions by performing actions in an "environment" to maximize a cumulative reward. It learns from the consequences of its actions, receiving positive rewards for good actions and penalties for bad ones.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-2xl font-semibold mt-8 text-stone-800">1.3. The ML Workflow</h3>
-                                <p class="mt-2">Nearly every machine learning project follows a standard, iterative lifecycle. Understanding these steps is crucial for building effective models.</p>
-                                <ol class="list-decimal list-inside mt-4 space-y-4 text-base">
-                                    <li><strong>Problem Framing:</strong> Define the objective. What question are you trying to answer? Is it a regression problem (predicting a number) or a classification problem (predicting a category)? What metric will define success?</li>
-                                    <li><strong>Data Collection & Preprocessing:</strong> Gather the necessary data. This is often the most time-consuming step, involving cleaning the data (handling missing values, outliers), feature engineering (creating new input signals), and scaling features to a common range.</li>
-                                    <li><strong>Model Selection & Training:</strong> Choose a suitable algorithm and feed it the prepared training data. The model learns the underlying patterns during this "training" phase.</li>
-                                    <li><strong>Evaluation:</strong> Assess the model's performance on a held-out test set—data it has never seen before. This gives an unbiased estimate of how it will perform in the real world.</li>
-                                    <li><strong>Hyperparameter Tuning:</strong> Adjust the model's settings (hyperparameters, like the 'k' in k-NN) to improve performance, often using a validation dataset to prevent overfitting to the test set.</li>
-                                    <li><strong>Deployment:</strong> Integrate the trained model into a production environment where it can make predictions on new, live data.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="module2" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Supervised Learning - Regression</h2>
-                         <p class="text-lg text-stone-700 mb-6">Regression models are used when the goal is to predict a continuous numerical value. This section focuses on the foundational algorithms for this task.</p>
-                        <div class="space-y-8">
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">2.1. Linear Regression</h3>
-                                <p>Fits a "line of best fit" to the data. It models a linear relationship between input features (X) and a continuous target variable (y). For example, predicting a house's price based on its square footage.</p>
-                                <div class="formula">ŷ = β₀ + β₁x₁ + ... + βₚxₚ</div>
-                                 <h4 class="font-semibold mt-4 text-stone-700">The Loss Function:</h4>
-                                <p>The model learns by minimizing the Mean Squared Error (MSE):</p>
-                                <div class="formula">L(β) = (1/n) * Σ(yᵢ - ŷᵢ)²</div>
-                                <ul class="list-disc list-inside mt-2 text-base">
-                                    <li><strong>yᵢ</strong> is the actual value for the i-th data point.</li>
-                                    <li><strong>ŷᵢ</strong> is the model's predicted value.</li>
-                                    <li><strong>n</strong> is the number of data points.</li>
-                                    <li><strong>β</strong> is the vector of model parameters (the coefficients). The dimension of β is (p + 1) x 1, where 'p' is the number of features.</li>
-                                </ul>
-                                <h4 class="font-semibold mt-4 text-stone-700">How it Learns: Finding the Parameters</h4>
-                                <p>There are two primary methods to find the optimal parameters (β) that minimize the MSE loss:</p>
-                                <ol class="list-decimal list-inside mt-2 space-y-2 text-base">
-                                    <li><strong>Closed-Form Solution (Normal Equation):</strong> This is a direct mathematical formula that calculates the optimal parameters in one step: `β = (XᵀX)⁻¹Xᵀy`. It's efficient for smaller datasets but can be computationally expensive for datasets with a very large number of features.</li>
-                                    <li><strong>Gradient Descent:</strong> This is an iterative optimization algorithm. It starts with random parameter values and repeatedly adjusts them in the direction that most reduces the loss function, like walking downhill to find the bottom of a valley. For Linear Regression, the MSE loss function is convex, meaning it has only one global minimum. Therefore, gradient descent will always converge to the same optimal solution, regardless of the starting point.</li>
-                                </ol>
-                                <div class="static-chart-container mt-4">
-                                    <canvas id="linearRegressionChart"></canvas>
-                                </div>
-                                <h4 class="font-semibold mt-4 text-stone-700">Key Assumptions:</h4>
-                                <div class="space-y-4 mt-4 text-base">
-                                    <div>
-                                        <h5 class="font-semibold text-violet-600">Linearity</h5>
-                                        <p class="text-stone-600">The relationship between inputs and the output is linear. If the true relationship is curved (e.g., house price doesn't increase linearly with size forever), the model will be inherently inaccurate.</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-violet-600">Independence</h5>
-                                        <p class="text-stone-600">The errors (residuals) are independent. This means the error of one prediction is not influenced by the error of another. (Commonly violated in time-series data, where yesterday's stock price error affects today's).</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-violet-600">Homoscedasticity</h5>
-                                        <p class="text-stone-600">The errors have constant variance across all levels of the input features. A violation (heteroscedasticity) might mean the model is very accurate for cheap houses but highly inaccurate for expensive ones.</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-violet-600">Normality of Errors</h5>
-                                        <p class="text-stone-600">The errors are normally distributed. This is particularly important for statistical inference on the coefficients (e.g., determining if a feature is statistically significant).</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">2.2. Polynomial Regression</h3>
-                                <p>An extension of linear regression that can model non-linear relationships. It does this by adding polynomial terms (like x², x³, etc.) of the features as new features to the model.</p>
-                                <div class="formula">ŷ = β₀ + β₁x₁ + β₂x₁² + ...</div>
-                                 <h4 class="font-semibold mt-4 text-stone-700">Why it's useful:</h4>
-                                <p>Many real-world relationships are not straight lines. For example, the relationship between a car's speed and its fuel efficiency is curved. Polynomial regression allows us to fit a more flexible, curved line to such data, leading to a more accurate model.</p>
-                                <div class="static-chart-container mt-4">
-                                    <canvas id="polynomialRegressionChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="module3" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Supervised Learning - Classification</h2>
-                         <p class="text-lg text-stone-700 mb-6">Classification models are used when the goal is to predict a discrete category or class label. This section covers the foundational algorithms for this task.</p>
-                        
-                        <div class="space-y-8">
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">3.1. Logistic Regression</h3>
-                                <p>A baseline for classification that predicts the probability an input belongs to a class by passing a linear equation through a Sigmoid function. Example: Predicting if a loan application will be approved (Yes/No) based on income and credit score.</p>
-                                <div class="formula">p̂ = 1 / (1 + e<sup>-(β₀ + β₁x₁ + ...)</sup>)</div>
-                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>Unlike Linear Regression's MSE, Logistic Regression learns its coefficients by minimizing a different loss function called Log Loss (or Binary Cross-Entropy). This function penalizes confident but incorrect predictions more heavily, making it suitable for probabilistic classification.</p>
-                                 <div class="formula">L(β) = -(1/n) * Σ [yᵢ log(p̂ᵢ) + (1 - yᵢ) log(1 - p̂ᵢ)]</div>
-                                 <div class="static-chart-container mt-4">
-                                    <canvas id="logisticRegressionChart"></canvas>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">3.2. k-Nearest Neighbors (k-NN) Interactive Demo</h3>
-                                <p class="mb-4 text-stone-700">A "lazy" algorithm that classifies a new point based on the majority vote of its 'k' closest neighbors. Example: Recommending a movie to a user based on the 'k' most similar users and what they liked.</p>
-                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>k-NN is a "lazy learner" because it doesn't have a distinct training phase. The "learning" consists of simply storing the entire training dataset in memory. All computation happens at prediction time, where it calculates the distance from a new point to every point in the training data to find its nearest neighbors.</p>
-                                <div class="chart-container">
-                                    <canvas id="knnChart"></canvas>
-                                </div>
-                                <div class="mt-4 flex items-center justify-center space-x-4">
-                                    <label for="kSlider" class="font-medium text-stone-700">k = <span id="kValue">3</span></label>
-                                    <input type="range" id="kSlider" min="1" max="15" value="3" step="2" class="w-64">
-                                     <button id="resetKnnBtn" class="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Reset</button>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">3.3. Support Vector Machines (SVMs)</h3>
-                                <p>A "maximum margin" classifier that finds the hyperplane that best separates the classes by maximizing the distance to the nearest points of any class (the support vectors).</p>
-                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>SVMs learn by solving a constrained optimization problem. The goal is to find the parameters (w, b) of the hyperplane that maximize the margin, subject to the constraint that all data points are correctly classified. This is a complex mathematical problem often solved using techniques like Quadratic Programming.</p>
-                                <div class="static-chart-container mt-4">
-                                    <canvas id="svmChart"></canvas>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">3.4. Decision Trees & Random Forests</h3>
-                                <p>A flowchart of "if-then-else" questions that splits the data into purer subgroups. Example: A bank using a decision tree to decide if a customer is eligible for a loan.</p>
-                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>The tree is built using a process called recursive partitioning. Starting with the entire dataset at the root node, the algorithm searches for the feature and threshold that create the "best" split—the one that results in the greatest reduction in impurity (e.g., using Gini Impurity or Information Gain). This process is repeated for each new node until a stopping criterion (like maximum depth) is met.</p>
-                                <div class="my-6">
-                                    <img src="decision-tree-example-1024x709.webp" alt="Decision tree example" class="mx-auto rounded-lg shadow-md">
-                                    <p class="text-center text-sm text-stone-500 mt-2">Source: <a href="https://databasecamp.de/en/ml/decision-trees" class="text-violet-600 hover:underline">databasecamp.de</a></p>
-                                </div>
-                                <h4 class="font-semibold mt-6 text-stone-700">How Random Forests Improve on Decision Trees:</h4>
-                                <p>A single decision tree can easily overfit the training data. Random Forests improve upon this by using an ensemble method called bagging. It builds an entire "forest" of different decision trees, each trained on a random subset of the data and a random subset of the features. To make a prediction, it takes a majority vote from all the individual trees. This process averages out the errors of individual trees and creates a more robust model that is less prone to overfitting.</p>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="module4" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Unsupervised Learning</h2>
-                        <p class="text-lg text-stone-700 mb-6">Unsupervised learning deals with unlabeled data, seeking to find hidden patterns or intrinsic structures. This section explores the two primary tasks: clustering data into groups and reducing dimensionality to simplify data.</p>
-                        
-                         <div class="space-y-8">
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">4.1. K-Means Clustering Interactive Demo</h3>
-                                <p class="mb-4 text-stone-700">A centroid-based algorithm that partitions data into 'k' clusters. Example: A marketing team using K-Means to segment customers into distinct groups (e.g., "high-spending," "budget-conscious") for targeted campaigns.</p>
-                                 <h4 class="font-semibold mt-4 text-stone-700">How it Learns:</h4>
-                                <p>K-Means uses an iterative algorithm called Expectation-Maximization (E-M). It begins by randomly placing 'k' centroids on the data plot. Then it repeats two steps until the centroids stop moving: 1) Assignment Step (E-step): Each data point is assigned to its nearest centroid. 2) Update Step (M-step): The centroids are recalculated as the mean (center) of all points assigned to them. This interactive demo visualizes this exact process.</p>
-                                <h4 class="font-semibold mt-4 text-stone-700">Strengths & Weaknesses:</h4>
-                                <ul class="list-disc list-inside mt-2 text-base">
-                                    <li><strong>Strengths:</strong> Simple to understand, fast, and efficient on large datasets.</li>
-                                    <li><strong>Weaknesses:</strong> The number of clusters 'k' must be specified beforehand, it's sensitive to the initial random placement of centroids, and it assumes clusters are spherical and evenly sized.</li>
-                                </ul>
-                                <div class="chart-container">
-                                    <canvas id="kmeansChart"></canvas>
-                                </div>
-                                <div class="mt-4 flex items-center justify-center space-x-4">
-                                    <label for="kMeansSlider" class="font-medium text-stone-700">k = <span id="kMeansValue">3</span></label>
-                                    <input type="range" id="kMeansSlider" min="2" max="8" value="3" step="1" class="w-64">
-                                    <button id="runKmeansBtn" class="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition">Run K-Means</button>
-                                </div>
-                            </div>
-
-                             <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">4.2. Principal Component Analysis (PCA)</h3>
-                                <p class="mb-4 text-stone-700">A dimensionality reduction technique that transforms a large set of variables into a smaller one that still contains most of the information in the large set. Example: A geneticist might use PCA to reduce thousands of gene expression measurements into two or three "principal components" to visualize the main patterns of genetic variation in a population.</p>
-                                <h4 class="font-semibold mt-4 text-stone-700">How it Works:</h4>
-                                <p>PCA is not an iterative learning algorithm but a mathematical transformation. It finds the directions of maximum variance in the data and projects the data onto a new, smaller-dimensional subspace. These new axes are the principal components.</p>
-                                <ul class="list-disc list-inside mt-2 text-base">
-                                    <li><strong>Covariance Matrix (Σ):</strong> PCA starts by computing this matrix, which describes the variance of each feature and the covariance between pairs of features.</li>
-                                    <li><strong>Eigenvectors & Eigenvalues:</strong> It then calculates the eigenvectors and eigenvalues of the covariance matrix. An eigenvector represents a direction (a principal component), and its corresponding eigenvalue indicates how much variance in the data lies along that direction.</li>
-                                    <li>By ranking the eigenvectors by their eigenvalues, PCA identifies the directions that capture the most information.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article id="module5" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Model Training & Evaluation</h2>
-                        <p class="text-lg text-stone-700 mb-6">Building a model is only half the battle; we must also rigorously evaluate its performance and understand its limitations. This section covers the crucial concepts of model validation, key performance metrics, and the fundamental Bias-Variance Tradeoff.</p>
-
-                        <div class="space-y-8">
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.1. Evaluation Metrics </h3>
-                                <p>To evaluate a <strong>classification</strong> model, we use a Confusion Matrix to see where the model made correct and incorrect predictions. From this, we derive several key metrics:</p>
-                                <ul class="list-disc list-inside mt-2 space-y-2">
-                                    <li><strong>True Positive (TP):</strong> The model correctly predicted the positive class.</li>
-                                    <li><strong>False Positive (FP):</strong> The model incorrectly predicted the positive class.</li>
-                                    <li> <strong>True Negative (TN):</strong> The model correctly predicted the negative class.</li>
-                                    <li> <strong>False Negative (FN):</strong> The model incorrectly predicted the negative class.</li>
-                                    <li><strong>Precision:</strong> Answers the question: "Of all the times the model predicted positive, how often was it right?" It's important when the cost of a false positive is high (e.g., a spam filter incorrectly flagging an important email). <div class="formula text-base">TP / (TP + FP)</div></li>
-                                    <li><strong>Recall:</strong> Answers the question: "Of all the actual positive cases, how many did the model correctly identify?" It's important when the cost of a false negative is high (e.g., a medical test failing to detect a disease). <div class="formula text-base">TP / (TP + FN)</div></li>
-                                    <li><strong>F1-Score:</strong> The harmonic mean of Precision and Recall, providing a single score that balances both metrics. <div class="formula text-base">2 * (Precision * Recall) / (Precision + Recall)</div></li>
-                                    <li><strong>ROC/AUC:</strong> The ROC curve plots True Positive Rate vs. False Positive Rate. The AUC (Area Under the Curve) measures the entire area underneath the ROC curve. An AUC of 1.0 is a perfect classifier, while 0.5 is no better than random guessing.</li>
-                                </ul>
-                                <ul class="list-disc list-inside mt-2 space-y-2"></ul>
-
-                                <p class="mt-6">To evaluate a <strong>regression</strong> model:</p>
-                                <ul class="list-disc list-inside mt-2 space-y-2">
-                                    <li><strong>Mean Absolute Error (MAE):</strong> The average of the absolute differences between the predicted and actual values.<div class="formula text-base">$$\frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|$$ </div></li>
-                                    <li><strong>Mean Squared Error (MSE):</strong>  The average of the squared differences between the predicted and actual values. <div class="formula text-base">$$\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$ </div></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.2. Cross-Validation</h3>
-                                <p>A single train-test split can be misleading; the model's performance might be good or bad just by luck of the split. Cross-Validation provides a more robust estimate of performance. In k-fold cross-validation, the data is split into 'k' folds. The model is trained on k-1 folds and tested on the remaining fold. This process is repeated 'k' times, with each fold serving as the test set once. The performance scores are then averaged. This is crucial because it ensures the model's performance isn't a fluke, especially when data is limited.</p>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.3. The Bias-Variance Tradeoff</h3>
-                                <p class="mb-4 text-stone-700">This is the central challenge in supervised learning. A simple model (low complexity) is underfit and has high bias (it's systematically wrong). A complex model (high complexity) is overfit and has high variance (it's too sensitive to the training data). The goal is to find the "sweet spot" of complexity that minimizes the total error.</p>
-                                <div class="static-chart-container">
-                                    <canvas id="biasVarianceChart"></canvas>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.4. Regularization</h3>
-                                <p>Regularization is a set of techniques used to prevent overfitting and thus improve the generalization of a model. It works by adding a penalty term to the model's loss function, which discourages the model from learning overly complex patterns by keeping the parameter values small.</p>
-                                <div class="grid md:grid-cols-2 gap-8 mt-4 items-center">
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">L1 (Lasso)</h4>
-                                        <p class="text-sm text-stone-600 mb-2">The diamond-shaped constraint (left image) makes it likely the loss contours will touch at an axis, forcing a coefficient to exactly zero. This performs a type of automatic feature selection.</p>
-                                        
-                                        <h4 class="font-semibold text-violet-600 mt-4">L2 (Ridge)</h4>
-                                        <p class="text-sm text-stone-600">The circular constraint (right image) makes it unlikely the contours will touch exactly at an axis. Coefficients get smaller, but are rarely forced to zero.</p>
-                                    </div>
-                                    <div>
-                                        <img src="l1-l2.webp" alt="Geometric interpretation of L1 and L2 regularization" class="mx-auto rounded-lg shadow-md">
-                                        <p class="text-center text-sm text-stone-500 mt-2">Source: <a href="https://commons.wikimedia.org/wiki/File:Regularization.jpg" class="text-violet-600 hover:underline">commons.wikimedia.org</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                             <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">5.5. Hyperparameter Tuning for Slow Models</h3>
-                                <p>When training time is very long, exhaustive methods like Grid Search are impractical. Better approaches include:</p>
-                                <ul class="list-disc list-inside mt-2 space-y-2">
-                                    <li><strong>Random Search:</strong> Instead of trying every possible combination, Random Search samples a fixed number of random combinations from the hyperparameter space. It's often more efficient and can find very good parameters faster.</li>
-                                    <li><strong>Bayesian Optimization:</strong> This is a more intelligent approach where the results from previous trials are used to inform which set of hyperparameters to try next. It builds a probabilistic model of the loss function and uses it to select the most promising parameters to evaluate, making it highly efficient for expensive models.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article id="module6" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
-                        <h2 class="text-3xl font-bold text-violet-700 border-b-2 border-violet-200 pb-2 mb-6">Advanced Topics & Deep Learning</h2>
-                        <p class="text-lg text-stone-700 mb-6">This section introduces more advanced theoretical concepts and provides a glimpse into deep learning, the subfield of ML that powers many state-of-the-art applications.</p>
-                        <div class="space-y-8">
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.1. Feed-Forward Neural Network</h3>
-                                <p>A model inspired by the brain, composed of interconnected "neurons" organized in layers. Each neuron takes in weighted inputs, applies an activation function, and passes its output to neurons in the next layer. By stacking these layers, the network can learn highly complex, non-linear patterns from the data, far beyond what simpler models can achieve.</p>
-                                <div class="flex justify-center items-center space-x-8 p-4 mt-4 border-t border-stone-200">
-                                    <div class="flex flex-col items-center space-y-4"><p class="font-semibold">Input</p><div class="w-8 h-8 bg-blue-300 rounded-full"></div><div class="w-8 h-8 bg-blue-300 rounded-full"></div></div>
-                                    <p class="text-4xl font-thin">→</p>
-                                    <div class="flex flex-col items-center space-y-4"><p class="font-semibold">Hidden Layer</p><div class="w-8 h-8 bg-violet-300 rounded-full"></div><div class="w-8 h-8 bg-violet-300 rounded-full"></div><div class="w-8 h-8 bg-violet-300 rounded-full"></div></div>
-                                    <p class="text-4xl font-thin">→</p>
-                                    <div class="flex flex-col items-center space-y-4"><p class="font-semibold">Output</p><div class="w-8 h-8 bg-red-300 rounded-full"></div></div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.2. How Neural Networks Learn</h3>
-                                <p>Networks learn by minimizing a loss function. This is achieved through an optimization process involving two key algorithms:</p>
-                                <ul class="list-disc list-inside mt-2 space-y-2">
-                                    <li><strong>Gradient Descent:</strong> An optimization algorithm that iteratively adjusts the model's parameters (weights and biases) to find the minimum of the loss function. The size of the adjustments is controlled by the Learning Rate (α).</li>
-                                    <li><strong>Backpropagation:</strong> The algorithm used to efficiently calculate the gradient (the direction of steepest ascent) of the loss function with respect to every weight and bias in the network. It works by propagating the error backward from the output layer to the input layer.</li>
-                                </ul>
-                                 <div class="mt-4 p-4 border border-stone-200 rounded-lg text-center">
-                                    <p class="font-semibold">1. Forward Pass →</p>
-                                    <p class="text-sm text-stone-600">Input data flows through the network to produce an output (prediction).</p>
-                                    <p class="text-2xl my-2">↓</p>
-                                    <p class="font-semibold">2. Compute Loss</p>
-                                    <p class="text-sm text-stone-600">Compare the prediction to the true label to calculate the error.</p>
-                                    <p class="text-2xl my-2">↓</p>
-                                    <p class="font-semibold">3. Backward Pass (Backpropagation) ←</p>
-                                    <p class="text-sm text-stone-600">Calculate the gradient of the loss with respect to each parameter.</p>
-                                    <p class="text-2xl my-2">↓</p>
-                                    <p class="font-semibold">4. Update Parameters</p>
-                                    <p class="text-sm text-stone-600">Adjust weights and biases using Gradient Descent to reduce the loss.</p>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.3. Foundational Concepts - Bayes' Theorem</h3>
-                                <p class="mb-4">Bayes' Theorem is a mathematical way to update your beliefs based on new evidence. It starts with a prior belief (what you think is true initially) and combines it with the likelihood of seeing new evidence, resulting in an updated, more informed posterior belief. In simple terms: Initial Belief + New Evidence = Updated Belief.</p>
-                                <ul class="space-y-4 mt-4">
-                                    <li><strong class="font-semibold text-violet-600">P(A) - Prior:</strong> Your initial belief about the hypothesis A before seeing any evidence. It's the "base rate." Example: The general probability that any given email is spam. If 20% of all emails are spam, then the prior:  <div class="formula">$$P(A = \text{Spam}) = 0.2$$</div> </li>
-                                    <li><strong class="font-semibold text-violet-600">P(B) - Evidence or Marginal Likelihood:</strong> The total probability of observing the evidence B under all possible hypotheses. It acts as a normalization constant. Example: The overall probability that any email contains the word "lottery". This is the sum of the probability it appears in spam and the probability it appears in non-spam: <div class="formula">$$P(\text{"lottery"} \mid \text{Spam}) \, P(\text{Spam}) + P(\text{"lottery"} \mid \text{Not Spam}) \, P(\text{Not Spam})$$</div></li>
-                                    <li><strong class="font-semibold text-violet-600">P(B|A) - Likelihood:</strong> The probability of observing evidence B if hypothesis A is true. Example: The probability that an email contains the word "lottery" given that it is spam. Since spammers use this word often, the likelihood might be high, say 0.7: <div class="formula">$$P(B = \text{"lottery"} \mid A = \text{Spam}) = 0.7$$</div></li>
-                                    <li><strong class="font-semibold text-violet-600">P(A|B) - Posterior:</strong> Your updated belief about the hypothesis A after considering the evidence B. This is the result you want to calculate. Example: The probability that an email is spam given that it contains the word "lottery". Bayes' theorem lets you calculate this updated, more informed probability. <div class="formula">$$P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)}$$</div> </li>
-                                </ul>
-                            </div>
-                             <div>
-                                <h3 class="text-2xl font-semibold mb-2 text-stone-800">6.4. Generative vs. Discriminative Models</h3>
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">Discriminative Models</h4>
-                                        <p>Learn the decision boundary between classes. They model the conditional probability P(Y∣X). They directly learn to distinguish between classes Their goal is to distinguish between categories. They essentially learn to answer the question: "Given this input, what is the probability of this label?"</p>
-                                        <p class="text-sm text-stone-500">Examples: Logistic Regression, SVMs, standard Neural Networks.</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-violet-600">Generative Models</h4>
-                                        <p>Learn the underlying distribution of the data for each class. They model the joint probability P(X,Y). Because they learn how the data is generated, they can be used to create new, synthetic data points. They learn what the data for each category looks like. Because they understand how the data is generated, they can be used to create new, synthetic data points.</p>
-                                        <p class="text-sm text-stone-500">Examples: Generative Adversarial Networks (GANs), Variational Auto-Encoders (VAEs).</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </main>
-
-            <aside class="w-80 hidden lg:block">
-                <div class="sticky top-8 space-y-8">
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-semibold text-stone-800 mb-4">Index</h3>
-                        <nav id="sidebar-nav" class="space-y-3">
-                            <a href="#module1" class="block font-medium text-stone-700 hover:text-violet-600">1. Introduction to ML</a>
-                            <a href="#module2" class="block font-medium text-stone-700 hover:text-violet-600">2. Supervised: Regression</a>
-                            <a href="#module3" class="block font-medium text-stone-700 hover:text-violet-600">3. Supervised: Classification</a>
-                            <a href="#module4" class="block font-medium text-stone-700 hover:text-violet-600">4. Unsupervised Learning</a>
-                            <a href="#module5" class="block font-medium text-stone-700 hover:text-violet-600">5. Training & Evaluation</a>
-                            <a href="#module6" class="block font-medium text-stone-700 hover:text-violet-600">6. Advanced Topics & DL</a>
-                        </nav>
-                    </div>
-                </div>
-            </aside>
-        </div>
+<body>
+  <header>
+    <div class="container" style="display:flex; align-items:center; gap:20px; justify-content:space-between;">
+      <div class="brand"><div class="logo" aria-hidden="true"></div><div>
+        <div style="font-weight:700;">ML Crash Course Blog</div>
+        <div class="muted" style="font-size:12px;">A short crash-course on the fundamentals of Machine Learning</div>
+      </div></div>
+      <nav>
+        <a class="nav-link" href="#module1">Intro</a>
+        <a class="nav-link" href="#module2">Regression</a>
+        <a class="nav-link" href="#module3">Classification</a>
+        <a class="nav-link" href="#module4">Unsupervised</a>
+        <a class="nav-link" href="#module5">Training & Eval</a>
+        <a class="nav-link" href="#module6">Advanced & DL</a>
+      </nav>
     </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    // Navigation scroll highlighting
-    const sections = document.querySelectorAll('article');
-    const navLinks = document.querySelectorAll('#desktop-nav a, #sidebar-nav a');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                navLinks.forEach(link => {
-                    link.classList.toggle('text-violet-600', link.getAttribute('href') === `#${id}`);
-                });
-            }
-        });
-    }, { rootMargin: '-40% 0px -60% 0px', threshold: 0 });
-
-    sections.forEach(section => observer.observe(section));
-
-    // Static Linear Regression Chart
-    new Chart(document.getElementById('linearRegressionChart'), {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Data Points',
-                data: [{x:1, y:2}, {x:2, y:2.5}, {x:3, y:4}, {x:4, y:4.5}, {x:5, y:6}, {x:6, y:5.5}],
-                backgroundColor: 'rgba(59, 130, 246, 0.5)',
-            }, {
-                label: 'Line of Best Fit',
-                data: [{x:0, y:1}, {x:7, y:7}],
-                type: 'line',
-                borderColor: 'rgba(239, 68, 68, 1)',
-                borderWidth: 2,
-                fill: false,
-                pointRadius: 0,
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 7 }, y: { min: 0, max: 8 } }, plugins: { legend: { display: false } } }
-    });
-
-    // Static Polynomial Regression Chart
-    new Chart(document.getElementById('polynomialRegressionChart'), {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Data Points',
-                data: [{x:0, y:1}, {x:1, y:2.5}, {x:2, y:3}, {x:3, y:2.5}, {x:4, y:3.5}, {x:5, y:6}, {x:6, y:8}],
-                backgroundColor: 'rgba(59, 130, 246, 0.5)',
-            }, {
-                label: 'Polynomial Fit',
-                data: Array.from({length: 61}, (_, i) => {
-                    const x = i * 0.1;
-                    const y = 0.1 * (x**2) + 0.5 * x + 1.5;
-                    return {x, y};
-                }),
-                type: 'line',
-                borderColor: 'rgba(16, 185, 129, 1)',
-                borderWidth: 2,
-                fill: false,
-                pointRadius: 0,
-                tension: 0.1
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 7 }, y: { min: 0, max: 9 } }, plugins: { legend: { display: false } } }
-    });
-
-    // Static Logistic Regression Chart
-    new Chart(document.getElementById('logisticRegressionChart'), {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Class 0',
-                data: [{x:1, y:0}, {x:2, y:0}, {x:3, y:0}, {x:4, y:0}],
-                backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                pointRadius: 6
-            }, {
-                label: 'Class 1',
-                data: [{x:6, y:1}, {x:7, y:1}, {x:8, y:1}, {x:9, y:1}],
-                backgroundColor: 'rgba(239, 68, 68, 0.5)',
-                pointRadius: 6
-            }, {
-                label: 'Sigmoid Function',
-                data: Array.from({length: 100}, (_, i) => {
-                    const x = i * 0.1;
-                    const y = 1 / (1 + Math.exp(-(x - 5)));
-                    return {x, y};
-                }),
-                type: 'line',
-                borderColor: 'rgba(16, 185, 129, 1)',
-                borderWidth: 2,
-                fill: false,
-                pointRadius: 0,
-                tension: 0.1
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: -0.1, max: 1.1 } }, plugins: { legend: { display: false } } }
-    });
-
-
-    // k-NN Chart
-    let knnChart;
-    const knnCanvas = document.getElementById('knnChart');
-    const kSlider = document.getElementById('kSlider');
-    const kValueSpan = document.getElementById('kValue');
-    const resetKnnBtn = document.getElementById('resetKnnBtn');
-    let knnPoints = [];
-    let newPoint = null;
-
-    function generateKnnData() {
-        knnPoints = [];
-        for (let i = 0; i < 20; i++) {
-            knnPoints.push({ x: Math.random() * 5, y: Math.random() * 5, label: 0 });
-            knnPoints.push({ x: Math.random() * 5 + 5, y: Math.random() * 5 + 5, label: 1 });
-        }
-        newPoint = null;
-    }
-
-    function drawKnnChart() {
-        const k = parseInt(kSlider.value);
-        kValueSpan.textContent = k;
-
-        const datasets = [{
-            label: 'Class 0',
-            data: knnPoints.filter(p => p.label === 0),
-            backgroundColor: 'rgba(59, 130, 246, 0.5)',
-            borderColor: 'rgba(59, 130, 246, 1)',
-            pointRadius: 6,
-        }, {
-            label: 'Class 1',
-            data: knnPoints.filter(p => p.label === 1),
-            backgroundColor: 'rgba(239, 68, 68, 0.5)',
-            borderColor: 'rgba(239, 68, 68, 1)',
-            pointRadius: 6,
-        }];
-
-        if (newPoint) {
-            const distances = knnPoints.map(p => ({
-                dist: Math.sqrt((p.x - newPoint.x) ** 2 + (p.y - newPoint.y) ** 2),
-                label: p.label
-            }));
-            distances.sort((a, b) => a.dist - b.dist);
-            const neighbors = distances.slice(0, k);
-            const class0Count = neighbors.filter(n => n.label === 0).length;
-            const class1Count = neighbors.filter(n => n.label === 1).length;
-            newPoint.label = class0Count > class1Count ? 0 : 1;
-
-            datasets.push({
-                label: 'New Point',
-                data: [newPoint],
-                backgroundColor: newPoint.label === 0 ? 'rgba(59, 130, 246, 1)' : 'rgba(239, 68, 68, 1)',
-                borderColor: 'rgba(16, 185, 129, 1)',
-                pointRadius: 8,
-                borderWidth: 3,
-            });
-        }
-
-        if (knnChart) {
-            knnChart.data.datasets = datasets;
-            knnChart.update();
-        } else {
-            knnChart = new Chart(knnCanvas, {
-                type: 'scatter',
-                data: { datasets },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { min: 0, max: 10 },
-                        y: { min: 0, max: 10 }
-                    },
-                    plugins: {
-                        legend: { position: 'top' },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
-        }
-    }
-
-    knnCanvas.onclick = (evt) => {
-        const rect = knnCanvas.getBoundingClientRect();
-        const x = (evt.clientX - rect.left) / rect.width * 10;
-        const y = 10 - ((evt.clientY - rect.top) / rect.height * 10);
-        newPoint = { x, y };
-        drawKnnChart();
-    };
-
-    kSlider.oninput = drawKnnChart;
-    resetKnnBtn.onclick = () => {
-        generateKnnData();
-        drawKnnChart();
-    };
-
-    // K-Means Chart
-    let kmeansChart;
-    const kmeansCanvas = document.getElementById('kmeansChart');
-    const runKmeansBtn = document.getElementById('runKmeansBtn');
-    const kMeansSlider = document.getElementById('kMeansSlider');
-    const kMeansValueSpan = document.getElementById('kMeansValue');
-    let kmeansPoints = [];
-    let centroids = [];
-
-    kMeansSlider.oninput = () => {
-        kMeansValueSpan.textContent = kMeansSlider.value;
-    };
-
-    function generateKmeansData(k) {
-        kmeansPoints = [];
-        for (let i = 0; i < 100; i++) {
-            kmeansPoints.push({ x: Math.random() * 10, y: Math.random() * 10, cluster: -1 });
-        }
-        centroids = [];
-        for (let i = 0; i < k; i++) {
-            centroids.push({ x: Math.random() * 10, y: Math.random() * 10 });
-        }
-    }
-
-    function drawKmeansChart(showCentroids = true) {
-        const baseColors = [
-            'rgba(59, 130, 246, 0.5)', 'rgba(239, 68, 68, 0.5)', 'rgba(16, 185, 129, 0.5)',
-            'rgba(245, 158, 11, 0.5)', 'rgba(139, 92, 246, 0.5)', 'rgba(236, 72, 153, 0.5)',
-            'rgba(52, 211, 153, 0.5)', 'rgba(99, 102, 241, 0.5)'
-        ];
-        const baseBorderColors = [
-            'rgba(59, 130, 246, 1)', 'rgba(239, 68, 68, 1)', 'rgba(16, 185, 129, 1)',
-            'rgba(245, 158, 11, 1)', 'rgba(139, 92, 246, 1)', 'rgba(236, 72, 153, 1)',
-            'rgba(52, 211, 153, 1)', 'rgba(99, 102, 241, 1)'
-        ];
-        
-        const datasets = kmeansPoints.reduce((acc, point) => {
-            const clusterIndex = point.cluster < 0 ? 0 : point.cluster;
-            if (!acc[clusterIndex]) {
-                 acc[clusterIndex] = {
-                    label: `Cluster ${clusterIndex}`,
-                    data: [],
-                    backgroundColor: point.cluster < 0 ? 'rgba(107, 114, 128, 0.5)' : baseColors[clusterIndex],
-                    pointRadius: 5
-                };
-            }
-            acc[clusterIndex].data.push(point);
-            return acc;
-        }, []);
-
-        if (showCentroids) {
-            centroids.forEach((c, i) => {
-                datasets.push({
-                    label: `Centroid ${i}`,
-                    data: [c],
-                    backgroundColor: baseBorderColors[i],
-                    pointRadius: 8,
-                    pointStyle: 'rectRot',
-                });
-            });
-        }
-
-        if (kmeansChart) {
-            kmeansChart.data.datasets = datasets.filter(d => d);
-            kmeansChart.update('none');
-        } else {
-            kmeansChart = new Chart(kmeansCanvas, {
-                type: 'scatter',
-                data: { datasets: datasets.filter(d => d) },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { min: 0, max: 10 },
-                        y: { min: 0, max: 10 }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-    }
-
-    async function runKmeans() {
-        runKmeansBtn.disabled = true;
-        kMeansSlider.disabled = true;
-        const k = parseInt(kMeansSlider.value);
-        generateKmeansData(k);
-        drawKmeansChart();
-        await new Promise(r => setTimeout(r, 500));
-
-        for (let iter = 0; iter < 10; iter++) {
-            // Assignment step
-            kmeansPoints.forEach(p => {
-                let minDist = Infinity;
-                let bestCluster = -1;
-                centroids.forEach((c, i) => {
-                    const dist = (p.x - c.x) ** 2 + (p.y - c.y) ** 2;
-                    if (dist < minDist) {
-                        minDist = dist;
-                        bestCluster = i;
-                    }
-                });
-                p.cluster = bestCluster;
-            });
-            drawKmeansChart();
-            await new Promise(r => setTimeout(r, 800));
-
-            // Update step
-            const newCentroids = Array(k).fill(0).map(() => ({ x: 0, y: 0, count: 0 }));
-            kmeansPoints.forEach(p => {
-                newCentroids[p.cluster].x += p.x;
-                newCentroids[p.cluster].y += p.y;
-                newCentroids[p.cluster].count++;
-            });
-            
-            let moved = false;
-            newCentroids.forEach((c, i) => {
-                if (c.count > 0) {
-                    const newX = c.x / c.count;
-                    const newY = c.y / c.count;
-                    if(Math.abs(newX - centroids[i].x) > 0.01 || Math.abs(newY - centroids[i].y) > 0.01) {
-                        moved = true;
-                    }
-                    centroids[i] = { x: newX, y: newY };
-                }
-            });
-            drawKmeansChart();
-            await new Promise(r => setTimeout(r, 800));
-            if (!moved) break;
-        }
-        runKmeansBtn.disabled = false;
-        kMeansSlider.disabled = false;
-    }
-    runKmeansBtn.onclick = runKmeans;
-
-    // Bias-Variance Chart
-    const biasVarianceData = {
-        labels: ['Low', '', '', '', 'Medium', '', '', '', 'High'],
-        datasets: [
-            {
-                label: 'Bias',
-                data: [9, 8, 7, 5, 3, 2, 1.5, 1, 0.8],
-                borderColor: 'rgba(59, 130, 246, 1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: false,
-            },
-            {
-                label: 'Variance',
-                data: [0.5, 1, 1.5, 2, 3, 4.5, 6, 8, 9.5],
-                borderColor: 'rgba(239, 68, 68, 1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: false,
-            },
-            {
-                label: 'Total Error',
-                data: [9.5, 9, 8.5, 7, 6, 6.5, 7.5, 9, 10.3],
-                borderColor: 'rgba(16, 185, 129, 1)',
-                borderWidth: 3,
-                borderDash: [5, 5],
-                tension: 0.4,
-                fill: false,
-            }
-        ]
-    };
-
-    new Chart(document.getElementById('biasVarianceChart'), {
-        type: 'line',
-        data: biasVarianceData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { title: { display: true, text: 'Model Complexity' } },
-                y: { title: { display: true, text: 'Error' }, min: 0 }
-            },
-            plugins: { legend: { position: 'top' } }
-        }
-    });
-    
-    // SVM Chart
-    new Chart(document.getElementById('svmChart'), {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'Class 0',
-                    data: [{x: 2, y: 3}, {x: 3, y: 4}, {x: 1, y: 5}],
-                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                    pointRadius: 6
-                },
-                {
-                    label: 'Class 1',
-                    data: [{x: 6, y: 5}, {x: 7, y: 7}, {x: 8, y: 6}],
-                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
-                    pointRadius: 6
-                },
-                {
-                    label: 'Hyperplane',
-                    data: [{x: 0, y: 1.5}, {x: 10, y: 9.5}],
-                    type: 'line',
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Margin',
-                    data: [{x: 0, y: 3}, {x: 10, y: 11}],
-                    type: 'line',
-                    borderColor: 'rgba(167, 139, 250, 0.5)',
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                {
-                    label: 'Margin',
-                    data: [{x: 1.5, y: 0}, {x: 8.5, y: 7}],
-                    type: 'line',
-                    borderColor: 'rgba(167, 139, 250, 0.5)',
-                    borderDash: [5, 5],
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0,
-                },
-                 {
-                    label: 'Support Vectors',
-                    data: [{x: 3, y: 4}, {x: 6, y: 5}],
-                    backgroundColor: 'rgba(255, 255, 255, 0)',
-                    borderColor: 'rgba(124, 58, 237, 1)',
-                    borderWidth: 2,
-                    pointRadius: 8,
-                    pointStyle: 'circle'
-                }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { min: 0, max: 10 }, y: { min: 0, max: 10 } }, plugins: { legend: { display: false } } }
-    });
-
-    // Initial draws
-    generateKnnData();
-    drawKnnChart();
-    generateKmeansData(parseInt(kMeansSlider.value));
-    drawKmeansChart(false);
-});
-</script>
-
+  </header>
+  <main class="container">
+    <section id="module1">
+      <h1>Introduction to Machine Learning</h1>
+      <p class="muted">High-level overview: generalization, learning paradigms (supervised, unsupervised, self-supervised, reinforcement), and the ML workflow.</p>
+      <div class="toc">
+        <a href="#module2">Regression</a>
+        <a href="#module3">Classification</a>
+        <a href="#module4">Unsupervised</a>
+        <a href="#module5">Training & Eval</a>
+        <a href="#module6">Advanced & DL</a>
+      </div>
+    </section>
+    <section id="module2">
+      <h2>Supervised Learning – Regression</h2>
+      <p>Regression models predict continuous values. Examples include linear regression (line of best fit, minimize MSE), polynomial regression for non-linear curves.</p>
+      <div class="card">
+        <h3>Linear Regression</h3>
+        <p>Equation: ŷ = β₀ + β₁x₁ + … + βₚxₚ. Loss function: Mean Squared Error (MSE). Parameters learned by normal equation or gradient descent.</p>
+      </div>
+      <div class="card">
+        <h3>Polynomial Regression</h3>
+        <p>Adds polynomial terms (x², x³…) to capture non-linear relationships.</p>
+      </div>
+    </section>
+    <section id="module3">
+      <h2>Supervised Learning – Classification</h2>
+      <div class="card">
+        <h3>Logistic Regression</h3>
+        <p>Predicts probability via sigmoid. Loss: Binary cross-entropy. Equation: p̂ = 1 / (1+e^{-(β₀+β₁x₁+…)})</p>
+      </div>
+      <div class="card">
+        <h3>k-Nearest Neighbors</h3>
+        <p>Classifies by majority vote of k closest neighbors. “Lazy learner” – no training, just distance computations at prediction.</p>
+      </div>
+      <div class="card">
+        <h3>Support Vector Machines</h3>
+        <p>Finds maximum-margin hyperplane separating classes. Support vectors define the margin.</p>
+      </div>
+      <div class="card">
+        <h3>Decision Trees & Random Forests</h3>
+        <p>Trees split recursively based on impurity measures. Random Forest = ensemble of trees with bagging and feature subsampling, reducing overfitting.</p>
+      </div>
+    </section>
+    <section id="module4">
+      <h2>Unsupervised Learning</h2>
+      <div class="card">
+        <h3>K-Means Clustering</h3>
+        <p>Iteratively assigns points to k centroids and updates means. Strengths: simple, fast. Weaknesses: must choose k, sensitive to initialization.</p>
+      </div>
+      <div class="card">
+        <h3>Principal Component Analysis (PCA)</h3>
+        <p>Dimensionality reduction: computes covariance matrix, finds eigenvectors/eigenvalues, projects data onto top components.</p>
+      </div>
+    </section>
+    <section id="module5">
+      <h2>Model Training & Evaluation</h2>
+      <div class="card">
+        <h3>Evaluation Metrics</h3>
+        <ul>
+          <li>Classification: Precision, Recall, F1, ROC/AUC</li>
+          <li>Regression: MAE, MSE</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Cross-Validation</h3>
+        <p>k-fold CV provides robust performance estimates and avoids lucky/unlucky splits.</p>
+      </div>
+      <div class="card">
+        <h3>Bias–Variance Tradeoff</h3>
+        <p>Simple models underfit (high bias), complex models overfit (high variance). Goal: minimize total error.</p>
+      </div>
+      <div class="card">
+        <h3>Regularization</h3>
+        <p>L1 (Lasso) drives coefficients to zero (feature selection). L2 (Ridge) shrinks coefficients but rarely zero.</p>
+      </div>
+      <div class="card">
+        <h3>Hyperparameter Tuning</h3>
+        <p>Grid search (expensive), Random search (faster), Bayesian optimization (efficient for costly models).</p>
+      </div>
+    </section>
+    <section id="module6">
+      <h2>Advanced Topics & Deep Learning</h2>
+      <div class="card">
+        <h3>Feed-Forward Neural Network</h3>
+        <p>Layers of neurons (input → hidden → output) with non-linear activations allow learning of complex functions.</p>
+      </div>
+      <div class="card">
+        <h3>How Neural Networks Learn</h3>
+        <p>Forward pass, compute loss, backpropagate gradients, update weights with gradient descent.</p>
+      </div>
+      <div class="card">
+        <h3>Bayes’ Theorem</h3>
+        <p>P(A|B) = (P(B|A)P(A)) / P(B). Updates prior beliefs with new evidence to get posterior probabilities.</p>
+      </div>
+      <div class="card">
+        <h3>Generative vs. Discriminative</h3>
+        <p>Discriminative models: learn P(Y|X). Generative models: learn joint P(X,Y) and can generate new samples.</p>
+      </div>
+    </section>
+    <footer>
+      <p>Built for quick study and onboarding. Keep iterating.</p>
+    </footer>
+  </main>
 </body>
 </html>
