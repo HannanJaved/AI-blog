@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Vectors to Tensors: A Mathematical Foundation for ML & AI</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for better readability */
+        h2 {
+            border-bottom: 2px solid #e5e7eb; /* gray-200 */
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        h4 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        blockquote {
+            border-left: 4px solid #d1d5db; /* gray-300 */
+            padding-left: 1rem;
+            margin-left: 0;
+            font-style: italic;
+            color: #4b5563; /* gray-600 */
+        }
+        code {
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            color: #be123c; /* rose-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+
+    <!-- Header and Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-gray-700">ML Math Foundations</div>
+            <ul class="flex space-x-4 md:space-x-6">
+                <li><a href="#linear-algebra" class="text-gray-600 hover:text-blue-600 transition duration-300">Linear Algebra</a></li>
+                <li><a href="#probability" class="text-gray-600 hover:text-blue-600 transition duration-300">Probability</a></li>
+                <li><a href="#calculus" class="text-gray-600 hover:text-blue-600 transition duration-300">Calculus</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 max-w-4xl">
+        
+        <!-- Introduction -->
+        <section id="intro" class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">From Vectors to Tensors</h1>
+            <p class="text-xl text-gray-600 mb-6">Building Your Mathematical Foundation for ML and AI</p>
+            <p class="mb-4">Welcome to the cornerstone of modern artificial intelligence. Before you can build sophisticated neural networks or deploy powerful predictive models, you must first grasp the language they are written in: the language of mathematics. While the fields of Machine Learning (ML) and Deep Learning (DL) may seem complex, their core operations are built upon a set of elegant and understandable mathematical principles.</p>
+            <p>This guide is designed for a quick refresher of mathematical concepts for university students. We will demystify the essential concepts you'll encounter time and again, from the fundamental building blocks of vectors and tensors to the probabilistic reasoning and linear transformations that power today's most advanced algorithms. Our goal is to provide a clear, intuitive, and academically grounded starting point for your journey into the quantitative heart of AI.</p>
+        </section>
+
+        <!-- Topic 1: Linear Algebra -->
+        <section id="linear-algebra">
+            <h2 class="text-3xl font-bold text-gray-800">Topic 1: Linear Algebra - The Language of Data</h2>
+            <p class="mb-6">Linear algebra is arguably the most important mathematical discipline for ML and DL. It provides a powerful framework for handling and manipulating data, from a single data point to an entire dataset of images. Think of it as the grammar and vocabulary needed to express complex data operations concisely.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">The Core Components: From Scalars to Tensors</h3>
+            <p>At the heart of linear algebra are the objects we use to represent data. These objects scale in dimensionality, starting from a single number and building up to complex multi-dimensional structures.</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">1. Scalars</h4>
+            <p>A <strong>scalar</strong> is simply a single number. It's the most basic data structure we can have.</p>
+            <blockquote><strong>Analogy:</strong> Think of the temperature reading for a single moment in time (e.g., 21°C) or the price of one item.</blockquote>
+            <p><strong>Notation:</strong> Scalars are written as lowercase, italicized variables, like $s$. We can state that a scalar is a real number as $s \in \mathbb{R}$.</p>
+            <p><strong>Why it matters in ML:</strong> Scalars are used everywhere. Common examples include the <em>learning rate</em> in model training, <em>regularization parameters</em> that prevent overfitting, or a single feature in your dataset like 'age'.</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">2. Vectors</h4>
+            <p>A <strong>vector</strong> is an ordered list of numbers. You can think of it as a single row or column from a spreadsheet. Each number in the vector represents a dimension.</p>
+            <blockquote><strong>Analogy:</strong> A vector is like a set of GPS coordinates (x,y) that defines a specific location relative to an origin. It has both magnitude (the distance from the origin) and direction.</blockquote>
+            <p><strong>Notation:</strong> Vectors are typically represented by lowercase, bolded variables, such as $\mathbf{v}$. A vector with $n$ elements, where each element is a real number, is denoted as $\mathbf{v} \in \mathbb{R}^n$. For example, a 3-dimensional vector can be written as:</p>
+            $$ \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} $$
+            <p><strong>Why it matters in ML:</strong> Vectors are fundamental. A single data point (like a user's profile with age, height, and income) is often represented as a <em>feature vector</em>. The weights in a linear regression model are also stored in a vector.</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">3. Matrices</h4>
+            <p>A <strong>matrix</strong> is a two-dimensional (2D) grid or array of numbers arranged in rows and columns.</p>
+            <blockquote><strong>Analogy:</strong> A grayscale image is a perfect analogy for a matrix, where each element corresponds to the intensity of a single pixel. A spreadsheet is also a matrix.</blockquote>
+            <p><strong>Notation:</strong> Matrices are denoted by uppercase, bolded variables, like $\mathbf{A}$. A matrix with $m$ rows and $n$ columns containing real numbers is expressed as $\mathbf{A} \in \mathbb{R}^{m \times n}$.</p>
+            $$ \mathbf{A} = \begin{bmatrix} A_{1,1} & A_{1,2} \\ A_{2,1} & A_{2,2} \end{bmatrix} $$
+            <p><strong>Why it matters in ML:</strong> Datasets are often represented as matrices, where rows are individual data points (samples) and columns are different features. The <em>weight matrix</em> in a neural network layer is a core component that the network "learns".</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">4. Tensors</h4>
+            <p>A <strong>tensor</strong> is a generalization of the previous concepts to an arbitrary number of dimensions. A scalar is a 0D tensor, a vector is a 1D tensor, and a matrix is a 2D tensor.</p>
+            <blockquote><strong>Analogy:</strong> If a grayscale image is a 2D matrix (height x width), then a color image is a 3D tensor (height x width x color channels), and a video clip is a 4D tensor (frames x height x width x color channels).</blockquote>
+            <p><strong>Notation:</strong> Tensors are written as uppercase, bolded variables, like $\mathbf{T}$. A tensor with $n$ dimensions is written as $\mathbf{T} \in \mathbb{R}^{d_1 \times d_2 \times \dots \times d_n}$.</p>
+            <p><strong>Why it matters in ML:</strong> Tensors are the primary data structure used in deep learning frameworks like TensorFlow and PyTorch. They are perfect for storing the complex, multi-dimensional data found in images, videos, and natural language processing tasks.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">Essential Operations and Properties</h3>
+            <p>These operations are the verbs of linear algebra, allowing us to manipulate and transform data in meaningful ways.</p>
+            
+            <h4 class="text-xl font-semibold text-gray-700">1. Transpose</h4>
+            <p>The <strong>transpose</strong> of a matrix flips it over its main diagonal. The rows become columns and the columns become rows. The transpose of a matrix $\mathbf{A}$ is denoted as $\mathbf{A}^\top$. If $\mathbf{A}$ is an $m \times n$ matrix, then $\mathbf{A}^\top$ is an $n \times m$ matrix where $(\mathbf{A}^\top)_{i,j} = \mathbf{A}_{j,i}$.</p>
+            
+            <h4 class="text-xl font-semibold text-gray-700">2. Dot Product</h4>
+            <p>The <strong>dot product</strong> of two vectors of the same length results in a single scalar. It's the sum of the products of their corresponding elements. The notation is $\mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} v_i w_i$. It can also be written as $\mathbf{v}^\top \mathbf{w}$.</p>
+            
+            <h4 class="text-xl font-semibold text-gray-700">3. Matrix Multiplication</h4>
+            <p>The standard <strong>matrix product</strong> of two matrices $\mathbf{A}$ and $\mathbf{B}$ is only defined if the number of columns in $\mathbf{A}$ equals the number of rows in $\mathbf{B}$. If $\mathbf{A}$ is $m \times n$ and $\mathbf{B}$ is $n \times p$, their product $\mathbf{C} = \mathbf{AB}$ will be an $m \times p$ matrix.</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">4. Norms</h4>
+            <p>A <strong>norm</strong> is a function that assigns a strictly positive length or size to a vector. The two most common are:</p>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+                <li><strong>L2 Norm (Euclidean Norm):</strong> This corresponds to the intuitive length of a vector from the origin. $||\mathbf{v}||_2 = \sqrt{\sum_{i=1}^{n} v_i^2}$</li>
+                <li><strong>L1 Norm (Manhattan Norm):</strong> This is the sum of the absolute values of the vector's components. $||\mathbf{v}||_1 = \sum_{i=1}^{n} |v_i|$</li>
+            </ul>
+            <p class="mt-2"><strong>Why it matters in ML:</strong> Norms are used in regularization techniques (L1 and L2 regularization) to prevent model overfitting by penalizing large weight values.</p>
+
+            <h4 class="text-xl font-semibold text-gray-700">5. Eigendecomposition</h4>
+            <p><strong>Eigendecomposition</strong> is the process of breaking down a matrix into its constituent parts: its <strong>eigenvectors</strong> and <strong>eigenvalues</strong>. An eigenvector of a matrix is a special non-zero vector that, when multiplied by the matrix, results in a new vector that is simply a scaled version of the original. The eigenvalue is the scalar factor by which the eigenvector is scaled. The core relationship is $\mathbf{A}\mathbf{v} = \lambda\mathbf{v}$, where $\mathbf{v}$ is an eigenvector and $\lambda$ is its corresponding scalar eigenvalue.</p>
+            <p><strong>Why it matters in ML:</strong> Eigendecomposition is the mathematical engine behind Principal Component Analysis (PCA), a widely used dimensionality reduction technique.</p>
+        </section>
+
+        <!-- Topic 2: Probability -->
+        <section id="probability">
+            <h2 class="text-3xl font-bold text-gray-800">Topic 2: Probability & Statistics - Quantifying Uncertainty</h2>
+            <p class="mb-6">Machine learning models rarely operate with absolute certainty. Instead, they work with likelihoods and probabilities to make predictions. Probability theory provides the mathematical framework for quantifying this uncertainty, while statistics gives us the tools to analyze and draw inferences from data.</p>
+            
+            <h3 class="text-2xl font-semibold text-gray-700">1. Conditional Probability and Bayes' Theorem</h3>
+            <p><strong>Conditional Probability</strong> is the probability of an event occurring, <em>given that</em> another event has already occurred. The probability of event A given event B is written as $P(A|B)$ and calculated as:</p>
+            $$ P(A|B) = \frac{P(A \cap B)}{P(B)} $$
+            <p class="mt-4"><strong>Bayes' Theorem</strong> is a powerful theorem that describes the probability of an event based on prior knowledge of conditions that might be related to it. It allows us to "update" our beliefs in light of new evidence.</p>
+            $$ P(A|B) = \frac{P(B|A)P(A)}{P(B)} $$
+            <p><strong>Why it matters in ML:</strong> Bayes' Theorem is the cornerstone of <em>Bayesian inference</em>, a field of machine learning where model parameters are updated as more data becomes available.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">2. Expected Value and Variance</h3>
+            <p>The <strong>Expected Value</strong> (or mean) is the long-run average value of a random variable. For a discrete random variable $X$, the expected value is denoted as $E[X] = \sum_{x} x P(x)$.</p>
+            <p><strong>Variance</strong> measures how spread out the values of a random variable are from its mean. The <strong>standard deviation</strong> is the square root of the variance. $$ \text{Var}(X) = E[(X - E[X])^2] $$</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">3. Likelihood vs. Probability</h3>
+            <p>While they often use the same formulas, the terms 'likelihood' and 'probability' describe two different perspectives on a model and data.</p>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+                <li><strong>Probability:</strong> Asks about the chance of future outcomes, given a fixed model. The data is the variable, the parameters are fixed.</li>
+                <li><strong>Likelihood:</strong> Asks how plausible a particular model is, given observed data. The parameters are the variable, the data is fixed.</li>
+            </ul>
+             <p class="mt-2"><strong>Why it matters in ML:</strong> Model training is often framed as a <em>Maximum Likelihood Estimation (MLE)</em> problem. The goal is to find the model parameters that maximize the likelihood function, making our observed training data most probable.</p>
+        </section>
+
+        <!-- Topic 3: Calculus -->
+        <section id="calculus">
+            <h2 class="text-3xl font-bold text-gray-800">Topic 3: Calculus - The Engine of Optimization</h2>
+            <p class="mb-6">If linear algebra provides the structure for data and probability theory helps us manage uncertainty, then calculus provides the tools for <strong>optimization</strong>. At its core, training a machine learning model is about finding the set of parameters that minimizes a <strong>loss function</strong>.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">1. Derivatives and the Gradient</h3>
+            <p>A <strong>derivative</strong> of a function gives us its slope, or rate of change. For functions with many variables, we use <strong>partial derivatives</strong>. The <strong>gradient</strong> is a vector that contains all the partial derivatives of a function. The crucial property of the gradient is that it <em>always points in the direction of the steepest ascent</em>. The gradient of a function $f$ is denoted by $\nabla f$.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">2. The Chain Rule and Backpropagation</h3>
+            <p>The <strong>chain rule</strong> is a formula to compute the derivative of a composite function. Neural networks are essentially giant, deeply nested composite functions. The chain rule is the fundamental mechanism that enables <strong>backpropagation</strong>, the algorithm used to efficiently calculate the gradient of the loss function with respect to every single weight in the network.</p>
+
+            <h3 class="text-2xl font-semibold text-gray-700">3. Gradient Descent</h3>
+            <p><strong>Gradient Descent</strong> is an iterative optimization algorithm that uses the gradient to find the local minimum of a function. This is how models "learn". The process involves taking small steps in the direction of the <em>negative gradient</em> (downhill). The size of this step is controlled by the <strong>learning rate</strong> ($\eta$).</p>
+            <p>The core update rule for a parameter $\theta$ is:</p>
+            $$ \theta_{\text{new}} = \theta_{\text{old}} - \eta \nabla J(\theta) $$
+            <p>Here, $J(\theta)$ is the loss function we are trying to minimize.</p>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion" class="mt-12 border-t pt-8">
+            <h2 class="text-3xl font-bold text-gray-800">Your Mathematical Launchpad</h2>
+            <p class="mb-4">You've now taken a tour of the three fundamental pillars of mathematics that power modern machine learning and deep learning. Let's briefly recap the role each one plays:</p>
+            <ul class="list-decimal list-inside ml-4 space-y-2 mb-6">
+                <li><strong>Linear Algebra</strong> provides the <strong>structure</strong>. It's the language we use to represent data and the rules for manipulating it efficiently.</li>
+                <li><strong>Probability Theory</strong> provides the framework for <strong>uncertainty</strong>. It allows us to build models that can reason about likelihoods and make predictions from noisy, real-world data.</li>
+                <li><strong>Calculus</strong> provides the engine for <strong>optimization</strong>. Through derivatives and gradient descent, it gives us a systematic way to minimize error and, ultimately, to learn.</li>
+            </ul>
+            <p>Understanding these core concepts gives you a solid foundation. You are now equipped not just to use machine learning libraries, but to understand what's happening beneath the surface. This intuition is the key to moving from a user to a creator—someone who can diagnose problems, design better models, and truly innovate.</p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12 border-t">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-500">
+            <p>&copy; 2024 ML Math Foundations. A summary based on your document.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
