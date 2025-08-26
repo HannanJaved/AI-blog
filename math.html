@@ -288,7 +288,31 @@
     </ul></p>
     <p><strong>Why it matters in ML:</strong> The chain rule is the foundation of sophisticated probabilistic models like <strong>Bayesian Networks</strong> and <strong>Hidden Markov Models</strong>. In Natural Language Processing (NLP), language models use it to calculate the probability of a sentence by calculating the probability of each word given the words that came before it.</p>
 
-    <h3>5. Likelihood vs. Probability and a Common Notation</h3>
+    <h3>5. Information Theory: Measuring Uncertainty and Difference</h3>
+    <p>Information theory gives us a precise mathematical language to talk about the amount of uncertainty or "surprise" in a probability distribution. These concepts are the backbone of many loss functions used in generative modeling.</p>
+    <h4>Entropy:</h4>
+    <p>In the context of a probability distribution, entropy is the average level of "information" or "surprise" inherent in a random variable's possible outcomes. A distribution with high entropy is very uncertain (like a fair coin flip), while a distribution with low entropy is very predictable (like a biased coin that almost always lands on heads).</p>
+    <blockquote><strong>Analogy:</strong> Imagine you are predicting the weather. A weather forecast for a place with very stable weather (low entropy) is less surprising than one for a place with highly unpredictable weather (high entropy).</blockquote>
+    <p><strong>Notation:</strong> 
+        <ul>
+            <li>If $X$ is a discrete random variable with probability mass function $p(x)$, its entropy is $\[H(X) = - \sum_{x \in \mathcal{X}} p(x) \log p(x) \]$</li>
+            <li>If $X$ is a continuous random variable with probability density function $f(x)$, its differential entropy is $\[h(X) = - \int_{-\infty}^{\infty} f(x) \log f(x) \, dx.\]$</li>
+        </ul>
+    <p><strong>Why it matters in ML:</strong> Entropy is a key component of the cross-entropy loss function, which is used ubiquitously in classification tasks. Minimizing cross-entropy is equivalent to minimizing the "surprise" of the model when it sees the true data.</p>
+    
+    
+    <h4>KL Divergence (Kullback-Leibler Divergence):</h4>
+    <p>KL Divergence, also known as relative entropy, is a measure of how one probability distribution, $P$, diverges from a second, expected probability distribution, $Q$. It quantifies the "information lost" when using an approximation ($Q$) to model the reality ($P$).</p>
+    <blockquote><strong>Analogy:</strong> Imagine you have a map of a city ($Q$) that is slightly outdated. KL Divergence would measure how much extra, surprising travel time you'd experience on average by using your outdated map instead of a perfectly accurate one ($P$).</blockquote>
+    <p><strong>Notation:</strong>
+         <ul>
+            <li>Discrete Case: For two probability mass functions $P(x)$ and $Q(x)$ defined over the same support $\mathcal{X}$, $\[D_{\mathrm{KL}}(P \,\|\, Q) = \sum_{x \in \mathcal{X}} P(x) \, \log \frac{P(x)}{Q(x)}$</li>
+            <li>Continuous CaseL For two probability density functions $p(x)$ and $q(x)$, $\[D_{\mathrm{KL}}(p \,\|\, q) = \int_{-\infty}^{\infty} p(x) \, \log \frac{p(x)}{q(x)} \, dx.\]$</li>
+        </ul>
+    <p><strong>Why it matters in ML:</strong> This is one of the most important concepts for Generative Modelling. Variational Autoencoders (VAEs) use KL divergence in their loss function as a regularization term. It forces the model's learned latent space (a compressed representation of the data) to follow a simple, predictable distribution (like a standard normal distribution). This regularized structure is what allows you to sample from the latent space to generate new, coherent data.</p>
+    
+    
+    <h3>6. Likelihood vs. Probability and a Common Notation</h3>
     <p>While they often use the same formulas, the terms 'likelihood' and 'probability' describe two different perspectives on a model and data.</p>
     <ul>
         <li><strong>Probability:</strong> This asks about the chance of future outcomes, given a fixed model or set of parameters. The data is the variable, and the parameters are fixed.
