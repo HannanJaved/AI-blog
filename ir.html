@@ -227,7 +227,9 @@
     </ul>
     <p><strong>Putting It Together:</strong> The final TF-IDF weight for a term in a document is the product of these two scores: $ \text{TF-IDF} = \text{TF} \times \text{IDF} $. This score is highest for terms that are frequent in a document but rare in the overall collection, making it an excellent measure of a term's importance to a specific document.</p>
     <p><strong>Measuring Similarity:</strong> Once documents are represented as TF-IDF vectors, we can measure their similarity using <strong>cosine similarity</strong>. This metric calculates the cosine of the angle between two vectors. A smaller angle implies higher similarity. A key advantage of cosine similarity is that it's immune to document length—a short article and a long book on the same topic can still have a high similarity score.</p>
-
+    <p>Given two document vectors $\mathbf{d}_1$ and $\mathbf{d}_2$, the cosine similarity is defined as \[\text{CosSim}(\mathbf{d}_1, \mathbf{d}_2) = \frac{\mathbf{d}_1 \cdot \mathbf{d}_2}{\|\mathbf{d}_1\| \, \|\mathbf{d}_2\|}.\]</p>
+    <p>Expanded form:  If $\mathbf{d}_1 = (d_{11}, d_{12}, \dots, d_{1n})$ and $\mathbf{d}_2 = (d_{21}, d_{22}, \dots, d_{2n})$, then \[\text{CosSim}(\mathbf{d}_1, \mathbf{d}_2) = \frac{\sum_{i=1}^{n} d_{1i} \, d_{2i}}{\sqrt{\sum_{i=1}^{n} d_{1i}^2} \, \sqrt{\sum_{i=1}^{n} d_{2i}^2}}.\]</p>
+    
     <h3>Word Embeddings & Word2Vec: The Modern Semantic Approach</h3>
     <p>While powerful, VSM has limitations. Its vectors are <strong>high-dimensional</strong> (one dimension for every word) and <strong>sparse</strong> (mostly filled with zeros). Crucially, it treats every word as independent, failing to recognize that words like "car" and "automobile" are semantically similar.</p>
     <p><strong>Word embeddings</strong> are the modern solution to this problem. They are:</p>
