@@ -282,6 +282,14 @@
     </ul>
     <p>Modern search engines often use a combination of these and many other machine-learned models, creating a hybrid system that leverages the strengths of each approach to produce the most relevant results.</p>
 
+    <h3>5. Okapi BM25 Model</h3>
+    <p>While the classic probabilistic models provide a strong theoretical foundation, the Okapi BM25 is a ranking function that has proven to be incredibly effective in practice. It's a "bag-of-words" retrieval function that ranks documents based on the query terms appearing in each document, but with a few very clever enhancements over standard TF-IDF. It's the default ranking algorithm in many modern search systems, including Elasticsearch and Lucene. It improves upon TF-IDF in two ways: </p>
+    <ul>
+        <li><strong>1. Term Frequency Saturation:</strong> Traditional TF-IDF assumes that the more times a term appears, the more relevant the document is, and this relationship grows linearly. BM25 operates on a more realistic assumption: the utility of a term's frequency is not infinite. The first time a query term appears is highly significant, the second and third times are still useful, but the tenth appearance is not much more useful than the ninth. The relevance score saturates. </li>
+        <li><strong>2. Sophisticated Document Length Normalization:</strong> BM25 also has a smarter way of handling document length. Instead of just normalizing by the document's vector length (like in VSM), it normalizes based on the ratio of the document's length to the average document length across the entire collection. This means it penalizes a document for being long relative to the average document, which is a more nuanced approach. It prevents very long documents (which have a higher chance of containing query terms by chance) from gaining an unfair advantage.</li>
+    </ul>
+    <blockquote><strong>Analogy:</strong> When you're thirsty, the first glass of water is vital. The second is good. The tenth glass of water doesn't make you ten times less thirsty. Its benefit has plateaued. BM25 models this same effect for term frequency </blockquote>
+    
     <hr>
 
     <h2>Web Search & Link Analysis: Trusting the Global Brain</h2>
