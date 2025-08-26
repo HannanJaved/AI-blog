@@ -120,33 +120,43 @@
 
     <h4>1. Basic Manipulations</h4>
     <p>These are the most fundamental operations for reshaping and scaling data.</p>
-    <h5>Transpose:</h5>
-    <p><strong>Transpose:</strong> The <strong>transpose</strong> of a matrix flips it over its main diagonal. The rows become columns and the columns become rows.
+    <h4>Transpose:</h4>
+    <p>The <strong>transpose</strong> of a matrix flips it over its main diagonal. The rows become columns and the columns become rows.
     <br><strong>Notation:</strong> The transpose of a matrix $\mathbf{A}$ is denoted as $\mathbf{A}^\top$. If $\mathbf{A}$ is an $m \times n$ matrix, then $\mathbf{A}^\top$ is an $n \times m$ matrix where $(\mathbf{A}^\top)_{i,j} = \mathbf{A}_{j,i}$.
     <br><strong>Why it matters in ML:</strong> Transposition is a common operation for aligning the dimensions of vectors and matrices to perform other operations, like the dot product or matrix multiplication.</p>
-    <p><strong>Addition and Scalar Multiplication:</strong> Matrices and vectors can be added to each other if they have the same dimensions. We can also multiply any scalar, vector, or matrix by a scalar, which scales each element individually.
+    
+    <h4>Matrix Addition and Scalar Arithmetic</h4>
+    <p>Matrices and vectors can be added to each other if they have the same dimensions. We can also multiply any scalar, vector, or matrix by a scalar, which scales each element individually.
     <br><strong>Notation:</strong>
     <ul>
         <li>Matrix Addition: $\mathbf{C} = \mathbf{A} + \mathbf{B}$, where $C_{i,j} = A_{i,j} + B_{i,j}$.</li>
+        <li>Scalar Addition: $(A + \alpha)_{ij} = a_{ij} + \alpha$
         <li>Scalar Multiplication: $\mathbf{B} = s\mathbf{A}$, where $B_{i,j} = sA_{i,j}$.</li>
     </ul>
     <strong>Why it matters in ML:</strong> These operations are at the heart of how neural networks learn. For example, a model's weights are updated by adding a scaled version of the gradient matrix during backpropagation.</p>
 
     <h4>2. The Products: Different Ways to Multiply</h4>
     <p>Multiplication in linear algebra is more complex than scalar multiplication and comes in several forms.</p>
-    <p><strong>Dot Product:</strong> The <strong>dot product</strong> of two vectors of the same length results in a single scalar. It's the sum of the products of their corresponding elements.
+    <h4>Dot Product:</h4>
+    <p>The <strong>dot product</strong> of two vectors of the same length results in a single scalar. It's the sum of the products of their corresponding elements.
     <br><strong>Notation:</strong> $\mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} v_i w_i$. It can also be written as $\mathbf{v}^\top\mathbf{w}$.
     <br><strong>Why it matters in ML:</strong> The dot product is used to calculate the weighted sum of inputs in a neuron, which is a fundamental step in both linear regression and neural networks. It's also used to measure the similarity between two vectors.</p>
-    <p><strong>Hadamard Product (Element-wise Product):</strong> This is the element-wise multiplication of two matrices with the same dimensions, resulting in a new matrix of the same size.
+    
+    <h4>Hadamard (element-wise) Product:</h4>
+    <p>This is the element-wise multiplication of two matrices with the same dimensions, resulting in a new matrix of the same size.
     <br><strong>Notation:</strong> $\mathbf{C} = \mathbf{A} \odot \mathbf{B}$, where $C_{i,j} = A_{i,j} \times B_{i,j}$.
     <br><strong>Why it matters in ML:</strong> This operation appears in various algorithms, including activating certain neurons in specific layers of a neural network.</p>
-    <p><strong>Matrix Multiplication:</strong> The standard <strong>matrix product</strong> of two matrices $\mathbf{A}$ and $\mathbf{B}$ is only defined if the number of columns in $\mathbf{A}$ equals the number of rows in $\mathbf{B}$.
+    
+    <h4>Matrix Multiplication:</h4>
+    <p>The standard <strong>matrix product</strong> of two matrices $\mathbf{A}$ and $\mathbf{B}$ is only defined if the number of columns in $\mathbf{A}$ equals the number of rows in $\mathbf{B}$.
     <br><strong>Notation:</strong> If $\mathbf{A}$ is $m \times n$ and $\mathbf{B}$ is $n \times p$, their product $\mathbf{C} = \mathbf{AB}$ will be an $m \times p$ matrix. The element $C_{i,j}$ is the dot product of the $i$-th row of $\mathbf{A}$ and the $j$-th column of $\mathbf{B}$.
     <br><strong>Why it matters in ML:</strong> This is the most important operation in deep learning. It's how data is propagated through the layers of a neural network. A layer's output is calculated by multiplying its input vector by the layer's weight matrix.</p>
 
     <h4>3. Measuring Vector Size and Matrix Characteristics</h4>
     <p>These concepts help us understand the properties of vectors and matrices themselves.</p>
-    <p><strong>Norms:</strong> A <strong>norm</strong> is a function that assigns a strictly positive length or size to a vector. The two most common are:
+
+    <h4>Norms:</h4>
+    <p>A <strong>norm</strong> is a function that assigns a strictly positive length or size to a vector. The two most common are:
     <ul>
         <li><strong>L2 Norm (Euclidean Norm):</strong> This corresponds to the intuitive length of a vector from the origin.
         <br><strong>Notation:</strong> $\|\mathbf{v}\|_2 = \sqrt{\sum_{i=1}^{n} v_i^2}$</li>
@@ -154,19 +164,27 @@
         <br><strong>Notation:</strong> $\|\mathbf{v}\|_1 = \sum_{i=1}^{n} |v_i|$</li>
     </ul>
     <strong>Why it matters in ML:</strong> Norms are used in regularization techniques (L1 and L2 regularization) to prevent model overfitting by penalizing large weight values. They are also used as loss functions.</p>
-    <p><strong>Diagonal Matrix:</strong> A <strong>diagonal matrix</strong> is a matrix where all off-diagonal elements are zero.
+    
+    <h4>Diagonal Matrix:</h4>
+    <p>A <strong>diagonal matrix</strong> is a matrix where all off-diagonal elements are zero.
     <br><strong>Notation:</strong> $D_{i,j} = 0$ for all $i \neq j$.
     <br><strong>Why it matters in ML:</strong> Computations involving diagonal matrices are very efficient, and they appear in certain optimization algorithms and statistical methods like Principal Component Analysis (PCA).</p>
-    <p><strong>Symmetric Matrix:</strong> A <strong>symmetric matrix</strong> is a square matrix that is equal to its own transpose.
+    
+    <h4>Symmetric Matrix:</h4>
+    <p>A <strong>symmetric matrix</strong> is a square matrix that is equal to its own transpose.
     <br><strong>Notation:</strong> $\mathbf{A} = \mathbf{A}^\top$.
     <br><strong>Why it matters in ML:</strong> Symmetric matrices arise naturally in various calculations, such as covariance matrices, which describe the relationships between different features in a dataset.</p>
 
     <h4>4. Special Types of Vectors</h4>
     <p>These vector properties are crucial for understanding geometric relationships and creating convenient coordinate systems.</p>
-    <p><strong>Unit Vector:</strong> A <strong>unit vector</strong> is a vector with a length (or L2 norm) of exactly 1.
+    
+    <h4>Unit Vector:</h4>
+    <p>A <strong>unit vector</strong> is a vector with a length (or L2 norm) of exactly 1.
     <br><strong>Notation:</strong> To create a unit vector $\hat{\mathbf{v}}$ from a vector $\mathbf{v}$, you divide it by its norm: $\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|_2}$.
     <br><strong>Why it matters in ML:</strong> Unit vectors are used to represent direction without magnitude, which is important in many algorithms, including calculating cosine similarity.</p>
-    <p><strong>Orthogonal and Orthonormal Vectors:</strong>
+    
+    <h4>Orthogonal and Orthonormal Vectors:</h4>
+    <p>
     <ul>
         <li>Two vectors are <strong>orthogonal</strong> if they are at a 90-degree angle to each other. Their dot product is zero.
         <br><strong>Notation:</strong> $\mathbf{v} \cdot \mathbf{w} = 0$.</li>
@@ -181,15 +199,19 @@
     
     <hr>
     
-    <h2>Topic 2: Probability Theory & Statistics - Quantifying Uncertainty 🧐</h2>
+    <h2>Topic 2: Probability Theory & Statistics - Quantifying Uncertainty</h2>
     <p>Machine learning models rarely operate with absolute certainty. Instead, they work with likelihoods and probabilities to make predictions. Probability theory provides the mathematical framework for quantifying this uncertainty, while statistics gives us the tools to analyze and draw inferences from data. This allows us to build models that can handle noisy, real-world information and express the confidence in their own conclusions.</p>
 
     <h3>1. The Language of Chance</h3>
     <p>First, let's define the core concepts used to describe random phenomena.</p>
-    <p><strong>Random Variables:</strong> A <strong>random variable</strong> is a variable whose value is a numerical outcome of a random phenomenon. We typically denote them with an uppercase letter like $X$.</p>
+    
+    <h4>Random Variables:</h4>
+    <p>A <strong>random variable</strong> is a variable whose value is a numerical outcome of a random phenomenon. We typically denote them with an uppercase letter like $X$.</p>
     <blockquote><strong>Analogy:</strong> If you roll a standard six-sided die, the random variable $X$ can represent the outcome, taking on a value from the set $\{1,2,3,4,5,6\}$.</blockquote>
     <p><strong>Why it matters in ML:</strong> Features in a dataset can be treated as random variables. For instance, the 'age' of a randomly selected customer is a random variable.</p>
-    <p><strong>Probability Distributions:</strong> A <strong>probability distribution</strong> is a function that describes the likelihood of all possible outcomes for a random variable. There are two main types:
+    
+    <h4>Probability Distributions:</h4>
+    <p>A <strong>probability distribution</strong> is a function that describes the likelihood of all possible outcomes for a random variable. There are two main types:
     <ul>
         <li><strong>Probability Mass Function (PMF):</strong> Used for <strong>discrete</strong> random variables (those that can only take on a finite number of distinct values). It gives the probability that the variable is exactly equal to some value.
         <br><strong>Notation:</strong> $P(X = x)$. The sum of probabilities for all possible outcomes must equal 1.</li>
@@ -199,26 +221,36 @@
 
     <h3>2. Conditional Probability and Core Theorems</h3>
     <p>These concepts allow us to understand the relationships between different events.</p>
-    <p><strong>Conditional Probability:</strong> This is the probability of an event occurring, <strong>given that</strong> another event has already occurred.</p>
+    
+    <h4>Conditional Probability:</h4>    
+    <p>This is the probability of an event occurring, <strong>given that</strong> another event has already occurred.</p>
     <blockquote><strong>Analogy:</strong> What is the probability that it will rain today, <strong>given</strong> that the sky is cloudy? This is different from the overall probability of rain on any given day.</blockquote>
     <p><strong>Notation:</strong> The probability of event A given event B is written as $P(A|B)$ and calculated as:</p>
     \[P(A|B) = \frac{P(A \cap B)}{P(B)}\]
     <p><strong>Why it matters in ML:</strong> This is the foundation for many predictive models that calculate the likelihood of an outcome (e.g., a customer churning) based on known features (e.g., their recent activity).</p>
-    <p><strong>Independence:</strong> Two events are <strong>independent</strong> if the occurrence of one does not affect the probability of the other.</p>
+    
+    <h4>Independence of Events</h4>
+    <p>Two events are <strong>independent</strong> if the occurrence of one does not affect the probability of the other.</p>
     <blockquote><strong>Analogy:</strong> The outcome of flipping a coin once has no impact on the outcome of a second flip.</blockquote>
     <p><strong>Notation:</strong> If A and B are independent, then their joint probability is the product of their individual probabilities: $P(A \cap B) = P(A)P(B)$.</p>
     <p><strong>Why it matters in ML:</strong> The <strong>Naive Bayes</strong> algorithm makes a "naive" assumption that all features are independent, which simplifies calculations enormously while still being effective for tasks like text classification.</p>
-    <p><strong>Bayes' Theorem:</strong> This is a famous and powerful theorem that describes the probability of an event based on prior knowledge of conditions that might be related to it. It allows us to "update" our beliefs in light of new evidence.</p>
+
+    <h4>Bayes' Theorem</h4>
+    <p>This is a famous and powerful theorem that describes the probability of an event based on prior knowledge of conditions that might be related to it. It allows us to "update" our beliefs in light of new evidence.</p>
     <p><strong>Notation:</strong> The formula elegantly connects conditional probabilities:</p>
     \[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]
     <p><strong>Why it matters in ML:</strong> Bayes' Theorem is the cornerstone of <strong>Bayesian inference</strong>, a field of machine learning where model parameters are updated as more data becomes available. It's the engine behind the Naive Bayes classifier and is used in advanced models to quantify uncertainty.</p>
 
     <h3>3. Describing Distributions</h3>
     <p>We often need to summarize the key characteristics of a probability distribution with a few numbers.</p>
-    <p><strong>Expected Value (Mean):</strong> The <strong>expected value</strong>, or mean, is the long-run average value of a random variable. It's the "center of mass" of the distribution.</p>
+    
+    <h4>Expected Value (Mean) or Expectation</h4>
+    <p>The <strong>expected value</strong>, or mean, is the long-run average value of a random variable. It's the "center of mass" of the distribution.</p>
     <p><strong>Notation:</strong> For a discrete random variable $X$, the expected value is denoted as $E[X]$. $E[X] = \sum_{x} xP(x)$.</p>
     <p><strong>Why it matters in ML:</strong> The mean is a fundamental way to describe a feature's central tendency.</p>
-    <p><strong>Variance and Standard Deviation:</strong> <strong>Variance</strong> measures how spread out the values of a random variable are from its mean. A low variance means the values are clustered tightly around the mean, while a high variance indicates they are spread far apart. The <strong>standard deviation</strong> is simply the square root of the variance, which brings the measure back to the original units.</p>
+    
+    <h4>Variance and Standard Deviation</h4>
+    <p><strong>Variance</strong> measures how spread out the values of a random variable are from its mean. A low variance means the values are clustered tightly around the mean, while a high variance indicates they are spread far apart. The <strong>standard deviation</strong> is simply the square root of the variance, which brings the measure back to the original units.</p>
     <p><strong>Notation:</strong>
     <ul>
         <li>Variance: $\text{Var}(X) = E[(X - E[X])^2]$</li>
@@ -228,7 +260,9 @@
 
     <h3>4. Relationships Between Probabilities</h3>
     <p>Understanding how different probabilities relate to one another is key. Joint, marginal, and conditional probabilities are three perspectives on the same events, linked together by fundamental rules.</p>
-    <p><strong>Joint Probability vs. Conditional Probability:</strong> It's crucial not to confuse these two.
+    
+    <h4>Joint Probability vs. Conditional Probability:</h4>
+    <p>
     <ul>
         <li><strong>Joint Probability</strong> is the probability of two or more events happening <strong>simultaneously</strong>. Think of it as "the probability of A <strong>and</strong> B".
         <br><strong>Notation:</strong> $P(A \cap B)$ or, more commonly in ML, $P(A,B)$.
@@ -237,12 +271,16 @@
         <br><strong>Notation:</strong> $P(A|B)$.
         <br><strong>Analogy:</strong> The conditional probability of drawing a King <strong>given</strong> you've already drawn a Heart. This probability is higher than the simple probability of drawing a King.</li>
     </ul></p>
-    <p><strong>Marginal Probability:</strong> This is the probability of a single event occurring, irrespective of the outcomes of other variables. It's called "marginal" because in a probability table, you can find it by summing the probabilities across a row or column and writing it in the margin.</p>
+    
+    <h4>Marginal Probability:</h4>
+    <p>This is the probability of a single event occurring, irrespective of the outcomes of other variables. It's called "marginal" because in a probability table, you can find it by summing the probabilities across a row or column and writing it in the margin.</p>
     <blockquote><strong>Analogy:</strong> Imagine a table showing the joint probabilities of hair and eye color. The marginal probability of having brown hair is the sum of all joint probabilities where hair color is brown (brown hair/blue eyes + brown hair/green eyes, etc.).</blockquote>
     <p><strong>Notation:</strong> You can calculate the marginal probability of A by summing over all possible outcomes of B. This is known as the <strong>sum rule</strong>.</p>
     \[P(A) = \sum_{b} P(A, B=b)\]
     <p><strong>Why it matters in ML:</strong> We often have a complex model with many variables (a joint distribution) but are only interested in making a prediction about one of them (the marginal distribution).</p>
-    <p><strong>The Chain Rule of Probabilities:</strong> The chain rule is a powerful tool that lets us calculate the joint probability of a sequence of events by stringing together their conditional probabilities. For two variables, it's a direct rearrangement of the conditional probability formula.</p>
+    
+    <h4>The Chain Rule of Probabilities:</h4>
+    <p>The chain rule is a powerful tool that lets us calculate the joint probability of a sequence of events by stringing together their conditional probabilities. For two variables, it's a direct rearrangement of the conditional probability formula.</p>
     <p><strong>Notation:</strong>
     <ul>
         <li>For two variables: $P(A,B) = P(A|B)P(B)$.</li>
@@ -273,13 +311,19 @@
 
     <h3>1. Derivatives, Partial Derivatives, and the Gradient</h3>
     <p>To find the minimum point of a function, we first need to understand its slope, or rate of change.</p>
-    <p><strong>Derivatives:</strong> For a function with a single variable, the <strong>derivative</strong> at a point gives us the slope of the tangent line at that point. It tells us how the function's output changes as we make an infinitesimally small change to its input.</p>
+    
+    <h4>Derivatives:</h4>
+    <p>For a function with a single variable, the <strong>derivative</strong> at a point gives us the slope of the tangent line at that point. It tells us how the function's output changes as we make an infinitesimally small change to its input.</p>
     <blockquote><strong>Analogy:</strong> Imagine you are on a hilly landscape. The derivative at your current position tells you the steepness of the ground right under your feet in a particular direction.</blockquote>
     <p><strong>Notation:</strong> The derivative of a function $f(x)$ with respect to $x$ is denoted as $f'(x)$ or $\frac{df}{dx}$.</p>
-    <p><strong>Partial Derivatives:</strong> Most loss functions in ML depend on many variables (the model's parameters). A <strong>partial derivative</strong> is the derivative of a multi-variable function with respect to just one of those variables, while holding all other variables constant.</p>
+    
+    <h4>Partial Derivatives:</h4>
+    <p>Most loss functions in ML depend on many variables (the model's parameters). A <strong>partial derivative</strong> is the derivative of a multi-variable function with respect to just one of those variables, while holding all other variables constant.</p>
     <blockquote><strong>Analogy:</strong> On the same hilly landscape, the partial derivative would be the steepness you'd feel if you only moved in the pure north-south direction, ignoring any east-west slope.</blockquote>
     <p><strong>Notation:</strong> The partial derivative of a function $f(x,y)$ with respect to $x$ is denoted as $\frac{\partial f}{\partial x}$.</p>
-    <p><strong>The Gradient:</strong> The <strong>gradient</strong> is the master key to optimization. It is a vector that contains all the partial derivatives of a function. The crucial property of the gradient is that it <strong>always points in the direction of the steepest ascent</strong> of the function from the current point. Consequently, the <strong>negative gradient</strong> points directly downhill.</p>
+    
+    <h4>Gradients:</h4>
+    <p>The <strong>gradient</strong> is the master key to optimization. It is a vector that contains all the partial derivatives of a function. The crucial property of the gradient is that it <strong>always points in the direction of the steepest ascent</strong> of the function from the current point. Consequently, the <strong>negative gradient</strong> points directly downhill.</p>
     <blockquote><strong>Analogy:</strong> Standing on the hill, the gradient is a vector (an arrow) pointing directly uphill in the steepest possible direction.</blockquote>
     <p><strong>Notation:</strong> The gradient of a function $f$ is denoted by $\nabla f$.</p>
 
