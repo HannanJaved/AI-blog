@@ -312,7 +312,7 @@
     <p><strong>Why it matters in ML:</strong> This is one of the most important concepts for Generative Modelling. Variational Autoencoders (VAEs) use KL divergence in their loss function as a regularization term. It forces the model's learned latent space (a compressed representation of the data) to follow a simple, predictable distribution (like a standard normal distribution). This regularized structure is what allows you to sample from the latent space to generate new, coherent data.</p>
     
     
-    <h3>6. Likelihood vs. Probability and a Common Notation</h3>
+    <h3>6. Likelihood vs. Probability</h3>
     <p>While they often use the same formulas, the terms 'likelihood' and 'probability' describe two different perspectives on a model and data.</p>
     <ul>
         <li><strong>Probability:</strong> This asks about the chance of future outcomes, given a fixed model or set of parameters. The data is the variable, and the parameters are fixed.
@@ -324,7 +324,8 @@
     </ul>
     <p><strong>Why it matters in ML:</strong> Model training is often framed as a <strong>Maximum Likelihood Estimation (MLE)</strong> problem. The goal is to find the model parameters (e.g., the weights of a neural network) that <strong>maximize the likelihood function</strong>. In simple terms, we are searching for the parameter values that make our observed training data most probable.</p>
 
-    <h4>Important Notation: $x \sim P(x)$</h4>
+    <h3>Other Important Information</h3>
+    <h4>Notation: $x \sim P(x)$</h4>
     <p>You will frequently encounter this notation in machine learning papers and textbooks. The tilde symbol, $\sim$, means <strong>"is drawn from"</strong> or <strong>"follows the distribution"</strong>. The expression $x \sim P(x)$ is a shorthand way of saying that the random variable $x$ is a sample randomly drawn from a probability distribution $P(x)$.
     <br><strong>Example:</strong> If you see $h \sim \mathcal{N}(\mu, \sigma^2)$, it means the variable $h$ (perhaps representing human heights) is sampled from a Normal (Gaussian) distribution $\mathcal{N}$ with a specific mean $\mu$ and variance $\sigma^2$.</p>
 
