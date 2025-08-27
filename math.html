@@ -151,7 +151,7 @@
     <p>The standard <strong>matrix product</strong> of two matrices $\mathbf{A}$ and $\mathbf{B}$ is only defined if the number of columns in $\mathbf{A}$ equals the number of rows in $\mathbf{B}$.
     <br><strong>Notation:</strong> If $\mathbf{A}$ is $m \times n$ and $\mathbf{B}$ is $n \times p$, their product $\mathbf{C} = \mathbf{AB}$ will be an $m \times p$ matrix. The element $C_{i,j}$ is the dot product of the $i$-th row of $\mathbf{A}$ and the $j$-th column of $\mathbf{B}$.
     <br><strong>Why it matters in ML:</strong> This is the most important operation in deep learning. It's how data is propagated through the layers of a neural network. A layer's output is calculated by multiplying its input vector by the layer's weight matrix.</p>
-
+    
     <h4>3. Measuring Vector Size and Matrix Characteristics</h4>
     <p>These concepts help us understand the properties of vectors and matrices themselves.</p>
 
@@ -327,6 +327,62 @@
     <h4>Important Notation: $x \sim P(x)$</h4>
     <p>You will frequently encounter this notation in machine learning papers and textbooks. The tilde symbol, $\sim$, means <strong>"is drawn from"</strong> or <strong>"follows the distribution"</strong>. The expression $x \sim P(x)$ is a shorthand way of saying that the random variable $x$ is a sample randomly drawn from a probability distribution $P(x)$.
     <br><strong>Example:</strong> If you see $h \sim \mathcal{N}(\mu, \sigma^2)$, it means the variable $h$ (perhaps representing human heights) is sampled from a Normal (Gaussian) distribution $\mathcal{N}$ with a specific mean $\mu$ and variance $\sigma^2$.</p>
+
+    <h4>Einsum operator:</h4>
+    <p>The <code>einsum</code> operator (Einstein summation convention) is a concise and powerful way to express a wide variety of tensor operations, including matrix multiplication, dot products, transposing, and batch operations. It works by using a string of letters to define which dimensions of the input tensors are used and how they should be combined to produce the output.</p>
+    <p>The core idea behind einsum is simple: repeated dimension labels between inputs are multiplied and summed over, while the remaining unrepeated labels form the output.</p>
+    <p>This is expressed with a string format: <code>input_dimensions -> output_dimensions</code></p>
+    <p>The Rules of einsum</p>
+    <ul>
+        <li>Lowercase letters represent tensor dimensions.
+        <li>Input tensors are specified by their dimension labels.
+        <li>Output tensor dimensions are specified by their labels.
+        <li>A dimension label that appears in multiple input tensors indicates a product along that dimension.
+        <li>A dimension label that appears in the output but not in the inputs indicates a contraction.
+        <li>A dimension label that appears in multiple inputs but not in the output is summed over (contracted).
+    </ul>
+    
+    <h4>Matrix Transpose using Einsum:</h4>
+    <pre><code>
+        A = np.array([[1, 2], [3, 4]])
+        # The dimensions are (i, j)
+        # The output should be (j, i)
+        # The einsum string is 'ij->ji'
+        B = np.einsum('ij->ji', A)
+        
+        # B will be:
+        # [[1, 3],
+        #  [2, 4]]
+        # This is equivalent to B = A.T
+    </code></pre>
+
+    <h4>Dot Product using Einsum:</h4>
+    <pre><code>
+        A = np.array([1, 2, 3])
+        B = np.array([4, 5, 6])
+        # The dimensions are (i,) and (i,)
+        # The output is a scalar (no indices)
+        # The einsum string is 'i,i'
+        C = np.einsum('i,i', A, B)
+        
+        # C will be:
+        # 32 (1*4 + 2*5 + 3*6)
+        # This is equivalent to C = np.dot(A, B)
+    </code></pre>
+
+    <h4>Matrix Multiplication using Einsum:</h4>
+    <pre><code>
+        A = np.array([[1, 2], [3, 4]]) # (i, j)
+        B = np.array([[5, 6], [7, 8]]) # (j, k)
+        # The common index 'j' is summed over.
+        # The unrepeated indices 'i' and 'k' form the output.
+        C = np.einsum('ij,jk->ik', A, B)
+        
+        # C will be:
+        # [[19, 22],
+        #  [43, 50]]
+        # This is equivalent to C = A @ B
+    </code></pre>
     
     <hr>
 
