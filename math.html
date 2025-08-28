@@ -277,6 +277,10 @@
     <h4>Unit Vector:</h4>
     <p>A <strong>unit vector</strong> is a vector with a length (or L2 norm) of exactly 1.
     <br><strong>Notation:</strong> To create a unit vector $\hat{\mathbf{v}}$ from a vector $\mathbf{v}$, you divide it by its norm: $\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|_2}$.
+    \[
+        \mathbf{u} = \begin{bmatrix} \tfrac{1}{\sqrt{3}} \\ \tfrac{1}{\sqrt{3}} \\ \tfrac{1}{\sqrt{3}} \end{bmatrix}, 
+        \quad \|\mathbf{u}\|_2 = \sqrt{\left(\tfrac{1}{\sqrt{3}}\right)^2 + \left(\tfrac{1}{\sqrt{3}}\right)^2 + \left(\tfrac{1}{\sqrt{3}}\right)^2} = 1
+    \]
     <br><strong>Why it matters in ML:</strong> Unit vectors are used to represent direction without magnitude, which is important in many algorithms, including calculating cosine similarity.</p>
     
     <h4>Orthogonal and Orthonormal Vectors:</h4>
@@ -284,7 +288,22 @@
     <ul>
         <li>Two vectors are <strong>orthogonal</strong> if they are at a 90-degree angle to each other. Their dot product is zero.
         <br><strong>Notation:</strong> $\mathbf{v} \cdot \mathbf{w} = 0$.</li>
+        \[
+            \mathbf{a} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad
+            \mathbf{b} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad
+            \mathbf{a} \cdot \mathbf{b} = 0
+        \]
         <li>A set of vectors is <strong>orthonormal</strong> if they are all orthogonal to each other and are all unit vectors.</li>
+        \[
+            \mathbf{a} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad
+            \mathbf{b} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad
+            \mathbf{c} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+        \]
+
+        \[
+            \|\mathbf{a}\|_2 = \|\mathbf{b}\|_2 = \|\mathbf{c}\|_2 = 1, 
+            \quad \mathbf{a}\cdot\mathbf{b} = \mathbf{a}\cdot\mathbf{c} = \mathbf{b}\cdot\mathbf{c} = 0
+        \]
     </ul>
     <strong>Why it matters in ML:</strong> Orthonormal matrices (matrices whose columns are orthonormal vectors) are computationally efficient and stable. They are used in dimensionality reduction techniques like PCA to create new feature axes that are uncorrelated.</p>
 
