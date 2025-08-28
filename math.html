@@ -120,9 +120,19 @@
 
     <h4>1. Basic Manipulations</h4>
     <p>These are the most fundamental operations for reshaping and scaling data.</p>
-    <h4>Transpose:</h4>
+    <h4>Matrix Transpose:</h4>
     <p>The <strong>transpose</strong> of a matrix flips it over its main diagonal. The rows become columns and the columns become rows.
     <br><strong>Notation:</strong> The transpose of a matrix $\mathbf{A}$ is denoted as $\mathbf{A}^\top$. If $\mathbf{A}$ is an $m \times n$ matrix, then $\mathbf{A}^\top$ is an $n \times m$ matrix where $(\mathbf{A}^\top)_{i,j} = \mathbf{A}_{j,i}$.
+    \[A = \begin{bmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6
+        \end{bmatrix}
+        \quad \Longrightarrow \quad
+        A^T = \begin{bmatrix}
+        1 & 4 \\
+        2 & 5 \\
+        3 & 6
+    \end{bmatrix}\]
     <br><strong>Why it matters in ML:</strong> Transposition is a common operation for aligning the dimensions of vectors and matrices to perform other operations, like the dot product or matrix multiplication.</p>
     
     <h4>Matrix Addition and Scalar Arithmetic</h4>
@@ -130,8 +140,47 @@
     <br><strong>Notation:</strong>
     <ul>
         <li>Matrix Addition: $\mathbf{C} = \mathbf{A} + \mathbf{B}$, where $C_{i,j} = A_{i,j} + B_{i,j}$.</li>
+        \[
+            A = \begin{bmatrix}
+            1 & 2 \\
+            3 & 4
+            \end{bmatrix}, \quad
+            B = \begin{bmatrix}
+            5 & 6 \\
+            7 & 8
+            \end{bmatrix}
+            \quad \Longrightarrow \quad
+            A + B = \begin{bmatrix}
+            6 & 8 \\
+            10 & 12
+            \end{bmatrix}
+        \]
         <li>Scalar Addition: $(A + \alpha)_{ij} = a_{ij} + \alpha$
+        \[
+            A = \begin{bmatrix}
+            1 & 2 \\
+            3 & 4
+            \end{bmatrix}, \quad
+            \alpha = 5
+            \quad \Longrightarrow \quad
+            A + \alpha = \begin{bmatrix}
+            6 & 7 \\
+            8 & 9
+            \end{bmatrix}
+        \]
         <li>Scalar Multiplication: $\mathbf{B} = s\mathbf{A}$, where $B_{i,j} = sA_{i,j}$.</li>
+        \[
+            A = \begin{bmatrix}
+            1 & 2 \\
+            3 & 4
+            \end{bmatrix}, \quad
+            \alpha = 3
+            \quad \Longrightarrow \quad
+            \alpha A = \begin{bmatrix}
+            3 & 6 \\
+            9 & 12
+            \end{bmatrix}
+        \]
     </ul>
     <strong>Why it matters in ML:</strong> These operations are at the heart of how neural networks learn. For example, a model's weights are updated by adding a scaled version of the gradient matrix during backpropagation.</p>
 
@@ -140,16 +189,39 @@
     <h4>Dot Product:</h4>
     <p>The <strong>dot product</strong> of two vectors of the same length results in a single scalar. It's the sum of the products of their corresponding elements.
     <br><strong>Notation:</strong> $\mathbf{v} \cdot \mathbf{w} = \sum_{i=1}^{n} v_i w_i$. It can also be written as $\mathbf{v}^\top\mathbf{w}$.
+    \[
+        \mathbf{a} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}, \quad
+        \mathbf{b} = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}
+        \quad \Longrightarrow \quad
+        \mathbf{a} \cdot \mathbf{b} = 1\cdot 4 + 2\cdot 5 + 3\cdot 6 = 32
+    \]
     <br><strong>Why it matters in ML:</strong> The dot product is used to calculate the weighted sum of inputs in a neuron, which is a fundamental step in both linear regression and neural networks. It's also used to measure the similarity between two vectors.</p>
     
     <h4>Hadamard (element-wise) Product:</h4>
     <p>This is the element-wise multiplication of two matrices with the same dimensions, resulting in a new matrix of the same size.
     <br><strong>Notation:</strong> $\mathbf{C} = \mathbf{A} \odot \mathbf{B}$, where $C_{i,j} = A_{i,j} \times B_{i,j}$.
+    \[
+        A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad
+        B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+        \quad \Longrightarrow \quad
+        A \circ B = \begin{bmatrix} 1\cdot 5 & 2\cdot 6 \\ 3\cdot 7 & 4\cdot 8 \end{bmatrix}
+        = \begin{bmatrix} 5 & 12 \\ 21 & 32 \end{bmatrix}
+    \]
     <br><strong>Why it matters in ML:</strong> This operation appears in various algorithms, including activating certain neurons in specific layers of a neural network.</p>
     
     <h4>Matrix Multiplication:</h4>
     <p>The standard <strong>matrix product</strong> of two matrices $\mathbf{A}$ and $\mathbf{B}$ is only defined if the number of columns in $\mathbf{A}$ equals the number of rows in $\mathbf{B}$.
     <br><strong>Notation:</strong> If $\mathbf{A}$ is $m \times n$ and $\mathbf{B}$ is $n \times p$, their product $\mathbf{C} = \mathbf{AB}$ will be an $m \times p$ matrix. The element $C_{i,j}$ is the dot product of the $i$-th row of $\mathbf{A}$ and the $j$-th column of $\mathbf{B}$.
+    \[
+        A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad
+        B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+        \quad \Longrightarrow \quad
+        AB = \begin{bmatrix}
+        1\cdot 5 + 2\cdot 7 & 1\cdot 6 + 2\cdot 8 \\
+        3\cdot 5 + 4\cdot 7 & 3\cdot 6 + 4\cdot 8
+        \end{bmatrix}
+        = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+    \]
     <br><strong>Why it matters in ML:</strong> This is the most important operation in deep learning. It's how data is propagated through the layers of a neural network. A layer's output is calculated by multiplying its input vector by the layer's weight matrix.</p>
     
     <h4>3. Measuring Vector Size and Matrix Characteristics</h4>
@@ -160,19 +232,43 @@
     <ul>
         <li><strong>L2 Norm (Euclidean Norm):</strong> This corresponds to the intuitive length of a vector from the origin.
         <br><strong>Notation:</strong> $\|\mathbf{v}\|_2 = \sqrt{\sum_{i=1}^{n} v_i^2}$</li>
+        \[
+            \mathbf{x} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}
+            \quad \Longrightarrow \quad
+            \|\mathbf{x}\|_2 = \sqrt{3^2 + 4^2} = 5
+        \]
         <li><strong>L1 Norm (Manhattan Norm):</strong> This is the sum of the absolute values of the vector's components.
         <br><strong>Notation:</strong> $\|\mathbf{v}\|_1 = \sum_{i=1}^{n} |v_i|$</li>
+        \[
+            \mathbf{x} = \begin{bmatrix} -3 \\ 4 \end{bmatrix}
+            \quad \Longrightarrow \quad
+            \|\mathbf{x}\|_1 = |{-3}| + |4| = 7
+        \]
     </ul>
     <strong>Why it matters in ML:</strong> Norms are used in regularization techniques (L1 and L2 regularization) to prevent model overfitting by penalizing large weight values. They are also used as loss functions.</p>
     
     <h4>Diagonal Matrix:</h4>
     <p>A <strong>diagonal matrix</strong> is a matrix where all off-diagonal elements are zero.
     <br><strong>Notation:</strong> $D_{i,j} = 0$ for all $i \neq j$.
+    \[
+        D = \begin{bmatrix}
+        2 & 0 & 0 \\
+        0 & 5 & 0 \\
+        0 & 0 & 7
+        \end{bmatrix}
+    \]
     <br><strong>Why it matters in ML:</strong> Computations involving diagonal matrices are very efficient, and they appear in certain optimization algorithms and statistical methods like Principal Component Analysis (PCA).</p>
     
     <h4>Symmetric Matrix:</h4>
     <p>A <strong>symmetric matrix</strong> is a square matrix that is equal to its own transpose.
     <br><strong>Notation:</strong> $\mathbf{A} = \mathbf{A}^\top$.
+    \[
+        S = \begin{bmatrix}
+        1 & 2 & 3 \\
+        2 & 4 & 5 \\
+        3 & 5 & 6
+        \end{bmatrix}, \quad S = S^T
+    \]
     <br><strong>Why it matters in ML:</strong> Symmetric matrices arise naturally in various calculations, such as covariance matrices, which describe the relationships between different features in a dataset.</p>
 
     <h4>4. Special Types of Vectors</h4>
