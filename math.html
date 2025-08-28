@@ -353,7 +353,29 @@
     <h4>Bayes' Theorem</h4>
     <p>This is a famous and powerful theorem that describes the probability of an event based on prior knowledge of conditions that might be related to it. It allows us to "update" our beliefs in light of new evidence.</p>
     <p><strong>Notation:</strong> The formula elegantly connects conditional probabilities:</p>
-    \[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]
+    <p>
+        \[
+            \underbrace{P(A|B)}_{\text{Posterior: Updated belief about A}} 
+            = 
+            \frac{
+              \underbrace{P(B|A)}_{\text{Likelihood: Probability of evidence given A}} 
+              \;\;\;\cdot\;\;\;
+              \underbrace{P(A)}_{\text{Prior: Initial belief about A}}
+            }{
+              \underbrace{P(B)}_{\text{Evidence: Total probability of observing B}}
+            }
+        \]
+    </p>
+        
+    <p>
+    Where:
+    <ul>
+      <li><strong>Prior (P(A)):</strong> Your initial belief about the event A before seeing the new data.</li>
+      <li><strong>Likelihood (P(B|A)):</strong> How probable the observed evidence B is, assuming A is true.</li>
+      <li><strong>Evidence (P(B)):</strong> The overall probability of observing B under all possible scenarios.</li>
+      <li><strong>Posterior (P(A|B)):</strong> Your updated belief about A after seeing evidence B.</li>
+    </ul>
+    </p>
     <p><strong>Why it matters in ML:</strong> Bayes' Theorem is the cornerstone of <strong>Bayesian inference</strong>, a field of machine learning where model parameters are updated as more data becomes available. It's the engine behind the Naive Bayes classifier and is used in advanced models to quantify uncertainty.</p>
 
     <h3>3. Describing Distributions</h3>
@@ -361,7 +383,7 @@
     
     <h4>Expected Value (Mean) or Expectation</h4>
     <p>The <strong>expected value</strong>, or mean, is the long-run average value of a random variable. It's the "center of mass" of the distribution.</p>
-    <p><strong>Notation:</strong> For a discrete random variable $X$, the expected value is denoted as $E[X]$. $E[X] = \sum_{x} xP(x)$.</p>
+    <p><strong>Notation:</strong> For a discrete random variable $X$, the expected value is denoted as $E[X] = \sum_{x} xP(x)$.</p>
     <p><strong>Why it matters in ML:</strong> The mean is a fundamental way to describe a feature's central tendency.</p>
     
     <h4>Variance and Standard Deviation</h4>
