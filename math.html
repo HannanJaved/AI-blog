@@ -564,6 +564,20 @@
     <p><strong>Notation:</strong> The core update rule for a parameter $\theta$ is:</p>
     \[\theta_{\text{new}} = \theta_{\text{old}} - \eta \nabla J(\theta)\]
     <p>Here, $J(\theta)$ is the loss function we are trying to minimize.</p>
+
+    <h3>The Jacobian Matrix: Generalizing the Gradient</h3>
+    <p>The <strong>Jacobian matrix</strong> is the generalization of the gradient for functions that take multiple inputs and produce multiple outputs (vector-valued functions). It's a matrix containing all the first-order partial derivatives of the function.</p>
+    <p>If the gradient of a single-output function tells you the direction of steepest ascent, the Jacobian matrix represents the best <strong>linear approximation</strong> of a multi-output function at a specific point. It describes how all the outputs are changing relative to changes in all the inputs.</p>
+    <p>For a function with <code>m</code> outputs and <code>n</code> inputs, the Jacobian is an <code>m x n</code> matrix. Each row corresponds to the gradient of one of the output functions.</p>
+    <blockquote><strong>Analogy:</strong> Imagine you're controlling a complex robot arm with several joysticks (inputs). The arm's final position, orientation, and gripper status are the outputs. The Jacobian matrix at any moment would tell you how moving each individual joystick affects every single one of the outputs simultaneously</blockquote>
+    <p><strong>Why it matters in AI:</strong> The Jacobian is fundamental to the backpropagation algorithm in more complex neural network architectures. It's used to calculate the gradients of the loss function with respect to the weights in a layer, especially in networks with multiple outputs.</p>
+
+    <h3>The Hessian Matrix: Generalizing the Second Derivative</h3>
+    <p>Just as the Jacobian generalizes the first derivative (the gradient), the <strong>Hessian matrix</strong> generalizes the second derivative. It's a square matrix of all the second-order partial derivatives of a single-output function</p>
+    <p>The second derivative of a function tells you about its <strong>curvature</strong>. The Hessian matrix does the same for functions with multiple inputs. It describes the local curvature of the loss surface.</p>
+    <p>For a function with <code>n</code> inputs, the Hessian is an <code>n x n</code> matrix.</p>
+    <blockquote><strong>Analogy:</strong> If the gradient tells you which way is downhill, the Hessian tells you whether you're in a steep, narrow valley (high curvature) or a wide, flat plain (low curvature).</blockquote>
+    <p><strong>Why it matters in AI:</strong> The Hessian is the foundation of more advanced, second-order optimization algorithms. While vanilla gradient descent only uses the slope (first derivative) to take a step, second-order methods use the curvature (Hessian) to take a much more informed step toward the minimum. These methods can converge much faster but are computationally very expensive because calculating the Hessian is a complex operation.</p>
     
     <hr>
 
