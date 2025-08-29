@@ -311,6 +311,17 @@
     <p>This is one of the most important concepts in linear algebra for understanding matrix transformations. <strong>Eigendecomposition</strong> is the process of breaking down a matrix into its constituent parts: its <strong>eigenvectors</strong> and <strong>eigenvalues</strong>. An <strong>eigenvector</strong> of a matrix is a special non-zero vector that, when multiplied by the matrix, results in a new vector that is simply a scaled version of the original. The direction doesn't change. The <strong>eigenvalue</strong> is the scalar factor by which the eigenvector is scaled.</p>
     <p><strong>Notation:</strong> The core relationship is $\mathbf{A}\mathbf{v} = \lambda\mathbf{v}$, where $\mathbf{v}$ is an eigenvector and $\lambda$ (lambda) is its corresponding scalar eigenvalue.</p>
     <p><strong>Why it matters in ML:</strong> Eigendecomposition is the mathematical engine behind Principal Component Analysis (PCA), a widely used dimensionality reduction technique. It helps identify the principal components (the most important directions) in a dataset by finding the eigenvectors of the covariance matrix. The eigenvalues indicate the importance of each component.</p>
+
+    <h3>6. Principal Component Analysis (PCA)</h3>
+    <p>PCA is a dimensionality reduction technique used to transform a high-dimensional dataset into a lower-dimensional one while preserving as much of the original dataset's variance as possible.</p>
+    <blockquote><strong>Analogy:</strong> Imagine you have a 3D model of a car (basically a toy model). To create a 2D picture of it, you need to find the most informative angle to photograph it from. An angle that shows the car's length and height (its "principal components") would be much more useful than a picture taken head-on, which would lose the information about the car's length. PCA is the mathematical process for finding these most informative "angles" or viewpoints in your data. </blockquote>
+    <p><strong>Why it matters in ML:</strong> High-dimensional data can be difficult to work with and can lead to overfitting. PCA helps by:
+        <ul>
+            <li>Reducing dimensionality: This makes training models faster and can improve performance.</li> 
+            <li>Visualizing data: It allows you to plot complex, high-dimensional data in 2D or 3D to identify patterns or clusters.</li>
+            <li>Noise reduction: By focusing on the components with the most variance, PCA can filter out noise in the data. </li>
+        </ul>
+    </p>
     
     <hr>
     
@@ -521,6 +532,8 @@
         #  [43, 50]]
         # This is equivalent to C = A @ B
     </code></pre>
+
+    
     
     <hr>
 
@@ -565,14 +578,14 @@
     \[\theta_{\text{new}} = \theta_{\text{old}} - \eta \nabla J(\theta)\]
     <p>Here, $J(\theta)$ is the loss function we are trying to minimize.</p>
 
-    <h3>The Jacobian Matrix: Generalizing the Gradient</h3>
+    <h3>4. The Jacobian Matrix: Generalizing the Gradient</h3>
     <p>The <strong>Jacobian matrix</strong> is the generalization of the gradient for functions that take multiple inputs and produce multiple outputs (vector-valued functions). It's a matrix containing all the first-order partial derivatives of the function.</p>
     <p>If the gradient of a single-output function tells you the direction of steepest ascent, the Jacobian matrix represents the best <strong>linear approximation</strong> of a multi-output function at a specific point. It describes how all the outputs are changing relative to changes in all the inputs.</p>
     <p>For a function with <code>m</code> outputs and <code>n</code> inputs, the Jacobian is an <code>m x n</code> matrix. Each row corresponds to the gradient of one of the output functions.</p>
     <blockquote><strong>Analogy:</strong> Imagine you're controlling a complex robot arm with several joysticks (inputs). The arm's final position, orientation, and gripper status are the outputs. The Jacobian matrix at any moment would tell you how moving each individual joystick affects every single one of the outputs simultaneously</blockquote>
     <p><strong>Why it matters in AI:</strong> The Jacobian is fundamental to the backpropagation algorithm in more complex neural network architectures. It's used to calculate the gradients of the loss function with respect to the weights in a layer, especially in networks with multiple outputs.</p>
 
-    <h3>The Hessian Matrix: Generalizing the Second Derivative</h3>
+    <h3>5. The Hessian Matrix: Generalizing the Second Derivative</h3>
     <p>Just as the Jacobian generalizes the first derivative (the gradient), the <strong>Hessian matrix</strong> generalizes the second derivative. It's a square matrix of all the second-order partial derivatives of a single-output function</p>
     <p>The second derivative of a function tells you about its <strong>curvature</strong>. The Hessian matrix does the same for functions with multiple inputs. It describes the local curvature of the loss surface.</p>
     <p>For a function with <code>n</code> inputs, the Hessian is an <code>n x n</code> matrix.</p>
