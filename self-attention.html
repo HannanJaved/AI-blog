@@ -71,12 +71,20 @@
     <h1>Decoding Self-Attention</h1>
     <p class="intro-text">From ChatGPT to advanced protein folding, modern AI has been revolutionized by a single, powerful concept: <strong>Self-Attention</strong> - Introduced in the landmark 2017 paper "Attention Is All You Need," this mechanism is the core component of the <strong>Transformer architecture</strong> and the engine behind today's Large Language Models (LLMs).</p>
     <p class="subtitle">This post is a summary of the excellent paper by Damien Benveniste - “All You Need To Know About The Self-Attention Layer”</p>
-    
-    <p>But what is it? In simple terms, self-attention is a mechanism that allows a model to weigh the importance of different words in a sentence when processing it. It helps the model build a richer, more context-aware understanding of language.</p>
-    
     <hr>
+        
+    <h2>The Problem with Sequential Models</h2>
+    <p> For many years, the go-to architectures for natural language processing (NLP) tasks were sequential models, most notably Recurrent Neural Networks (RNNs) and their more sophisticated variant, Long Short-Term Memory (LSTM) networks. Their design seemed intuitive: they process text one word at a time, from left to right, maintaining a hidden state that acts as a form of memory. This approach mirrors how a human might read a sentence.</p>
+    <p>However, this sequential nature introduced two fundamental problems that held back progress:</p>
+    <ul>
+        <li><strong>The Long-Range Dependency Problem</strong>: While LSTMs were designed to mitigate the vanishing gradient problem of simple RNNs, they still struggled to maintain context over very long sequences. Information from the beginning of a long paragraph or document could become "diluted" or lost by the time the model reached the end. It's like reading a dense, 500-page novel; by the last chapter, you might struggle to recall a specific, crucial detail about a character introduced in the first chapter.</li>
+        <li><strong>The Sequential Computation Bottleneck</strong>: The core design of an RNN is inherently sequential: the calculation for timestep t cannot begin until the calculation for timestep t-1 is complete. This makes it impossible to fully leverage the massive parallel processing power of modern hardware like GPUs and TPUs. As datasets grew into the terabytes, this bottleneck made training larger and deeper models prohibitively slow.</li>
+    </ul>
+    <p>To truly advance, the field needed a new approach—one that could grasp the relationships between any two words in a text, regardless of their distance, and one that could be massively parallelized. This need set the stage for the invention of the self-attention mechanism, the foundational component of the Transformer architecture.</p>
+   
+    <h2>The Core Idea: Queries, Keys, and Values</h2> 
+    <p>In simple terms, self-attention is a mechanism that allows a model to weigh the importance of different words in a sentence when processing it. It helps the model build a richer, more context-aware understanding of language.</p>
     
-    <h2>The Core Idea: Queries, Keys, and Values</h2>
     <p>The names "Query," "Key," and "Value" are inspired by information retrieval systems, like a search engine. This analogy is the best way to understand how self-attention works.</p>
     <blockquote>Imagine the sentence: "The cat sat on the mat because <strong>it</strong> was tired."</blockquote>
     <p>To understand what "it" refers to, the model uses three special vectors for every word in the sentence:</p>
@@ -97,7 +105,7 @@
 
     <hr>
 
-    <h2>The Power of Perspective: Multi-Head Attention</h2>
+    <h2>Multi-Head Attention</h2>
     <p>A single self-attention mechanism is powerful, but it can sometimes be limited by focusing on only one type of relationship within a sentence. To achieve a richer understanding, the Transformer architecture uses <strong>Multi-Head Attention</strong>.</p>
     <p>This approach runs multiple self-attention mechanisms—called "heads"—in parallel. Each head can independently learn to focus on different linguistic features and relationships within the text.</p>
     <blockquote><strong>Analogy:</strong> Think of it as an ensemble of specialists analyzing a sentence, much like a random forest is an ensemble of decision trees. Instead of one generalist, you have a committee:
@@ -122,7 +130,7 @@
 
     <hr>
     
-    <h2>Working Smarter, Not Harder: Sparse Attention</h2>
+    <h2>Sparse Attention</h2>
     <p>While Multi-Head Attention is powerful, the original "vanilla" implementation has a major bottleneck: its computational and memory requirements grow quadratically with the sequence length ($O(N^2)$). This means that if you double the length of your text, you quadruple the resources needed. This quadratic complexity makes it incredibly expensive to process long documents, limiting the "context window" of many models.</p>
     <p>To solve this, researchers developed <strong>Sparse Attention</strong>. Instead of allowing every token to attend to every other token, sparse attention mechanisms strategically limit the connections, reducing the total number of calculations. This can bring the complexity down to a much more manageable $O(N \log N)$ or even $O(N)$, enabling models to handle thousands or tens of thousands of tokens.</p>
     <blockquote><strong>Analogy:</strong> Imagine a conference call.
@@ -216,7 +224,7 @@
 
     <hr>
 
-    <h2>Beyond the Horizon: Architectures for Infinite Context</h2>
+    <h2>Architectures for Infinite Context</h2>
     <p>The optimizations we've discussed so far make the standard attention mechanism more efficient. This final category of innovations takes a different approach: it fundamentally rethinks how information flows across vast distances, enabling models to handle contexts that are, in theory, infinitely long.</p>
     <blockquote><strong>Analogy:</strong> Imagine reading a long novel. You can't keep every word in your active memory. Instead, you process it chapter by chapter (<strong>segments</strong>). When you start a new chapter, you still retain the "gist" of the previous one (<strong>cached memory</strong>) to maintain a coherent understanding of the story.</blockquote>
 
