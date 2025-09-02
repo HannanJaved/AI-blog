@@ -99,7 +99,7 @@
         <li><strong>Value (V):</strong> This vector contains the actual "content" or meaning of each word. The value vector for "cat" holds its contextual meaning.</li>
     </ul>
 
-    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices (\[Q = XW^Q, \quad K = XW^K, \quad V = XW^V,\] - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
+    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices ($\[Q = XW^Q, \quad K = XW^K, \quad V = XW^V,\]$ - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
     
     <h3>How Self-Attention Works in 3 Steps</h3>
     <p>The self-attention mechanism follows a simple, three-step process to enrich each word's representation with context from the entire sentence.</p>
@@ -115,7 +115,7 @@
 
     <h2>Multi-Head Attention</h2>
     <p>A single self-attention mechanism can be powerful, but it can also be limiting. It might be forced to learn an "average" of different kinds of relationships between words. For instance, in the sentence, "The cat, which chased a mouse all day, is now tired," the word "tired" has a strong syntactic link to "cat" but also a contextual link to "chased" and "all day." A single attention head might struggle to capture these different relationship types simultaneously.</p>
-    <p>The solution is <strong>Multi-Head Attention (MHA)</strong>strong>. Instead of performing a single attention calculation, we run the process multiple times in parallel with different, independently learned weight matrices. Each of these parallel instances is called an "attention head."</p>
+    <p>The solution is <strong>Multi-Head Attention (MHA)</strong>. Instead of performing a single attention calculation, we run the process multiple times in parallel with different, independently learned weight matrices. Each of these parallel instances is called an "attention head."</p>
     <blockquote><strong>Analogy:</strong> Think of it as an ensemble of specialists analyzing a sentence, much like a random forest is an ensemble of decision trees. Instead of one generalist, you have a committee:
         <ul>
             <li>One head might focus on subject-verb relationships.</li>
@@ -128,18 +128,11 @@
     <h3>How Multi-Head Attention Works</h3>
     <p>The process is a clever extension of the single self-attention mechanism.</p>
     <ol>
-        <li><strong>Split into Heads:</strong> Instead of creating one set of large Query, Key, and Value vectors for each word, the model splits them into smaller pieces for each head. To keep the computation efficient, the total model dimension is divided by the number of heads. This means that more heads don't increase the overall computation; they just partition the problem.</li>
+        <li><strong>Split into Heads:</strong> Instead of creating one set of large Query, Key, and Value vectors for each word, the model splits them into smaller pieces for each head. For each head, we create a distinct set of learned weight matrices ($(W_i^Q, \, W_i^K, \, W_i^V)$). To keep the computation efficient, the total model dimension is divided by the number of heads. This means that more heads don't increase the overall computation; they just partition the problem.</li>
         <li><strong>Parallel Attention:</strong> Each head independently performs the 3-step self-attention calculation on its smaller set of Q, K, and V vectors. This happens in parallel, with each head producing its own context-rich output vector.</li>
-        <li><strong>Combine and Project:</strong> The output vectors from all the attention heads are concatenated back into a single, full-sized vector. This combined vector is then passed through a final linear layer, which mixes the information from all the heads to produce the final, enriched representation for the word.</li>
+        <li><strong>Combine and Project:</strong> The output vectors from all the attention heads are concatenated back into a single, full-sized vector. This combined vector is then passed through a final linear layer ($W_O$), which is also learned. This mixes the information from all the heads to produce the final, enriched representation for the word.</li>
     </ol>
-    <p>How it Works:</p>
-    <ul>
-        <li>For each head, we create a distinct set of learned weight matrices (${W_i}ˆQ,{W_i}ˆK​,{W_i}ˆV$).</li>
-        <li>The input embeddings are fed into each attention head, which independently calculates an output vector. Each head can therefore learn to focus on a different type of relationship in the data.</li>
-        <li>The output vectors from all heads are concatenated into a single, larger vector.</li>
-        <li>This concatenated vector is passed through a final linear layer ($W_O$), which is also learned. This layer allows the model to optimally combine the insights from all the different heads.</li>
-    </ul>
-    
+
     <h3>A Note on Implementation</h3>
     <p>While it's helpful to think of the heads as separate "boxes", in practice, they are implemented as a single, efficient tensor operation to take full advantage of GPU parallelization. The Query, Key, and Value matrices are created once and then reshaped into a tensor that includes a dimension for the number of heads, allowing all heads to be processed simultaneously.</p>
 
