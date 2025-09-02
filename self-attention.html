@@ -81,11 +81,16 @@
         <li><strong>The Sequential Computation Bottleneck</strong>: The core design of an RNN is inherently sequential: the calculation for timestep t cannot begin until the calculation for timestep t-1 is complete. This makes it impossible to fully leverage the massive parallel processing power of modern hardware like GPUs and TPUs. As datasets grew into the terabytes, this bottleneck made training larger and deeper models prohibitively slow.</li>
     </ul>
     <p>To truly advance, the field needed a new approach—one that could grasp the relationships between any two words in a text, regardless of their distance, and one that could be massively parallelized. This need set the stage for the invention of the self-attention mechanism, the foundational component of the Transformer architecture.</p>
-   
+    <p>At its heart, self-attention is an elegant mechanism for re-weighting and contextualizing word representations. The entire process is captured in a single, powerful formula:</p>  
+    \[
+        \text{Attention}(Q, K, V) = \text{softmax}\!\left( \frac{QK^T}{\sqrt{d_k}} \right)V.
+    \]
+    <p>While it may look dense, each component serves a specific and intuitive purpose. Let's break it down.</p>
+    
     <h2>The Core Idea: Queries, Keys, and Values</h2> 
     <p>In simple terms, self-attention is a mechanism that allows a model to weigh the importance of different words in a sentence when processing it. It helps the model build a richer, more context-aware understanding of language.</p>
     
-    <p>The names "Query," "Key," and "Value" are inspired by information retrieval systems, like a search engine. This analogy is the best way to understand how self-attention works.</p>
+    <p>The names "Query," "Key," and "Value" are inspired by information retrieval systems, like a search engine. Let's use an analogy to understand how self-attention works.</p>
     <blockquote>Imagine the sentence: "The cat sat on the mat because <strong>it</strong> was tired."</blockquote>
     <p>To understand what "it" refers to, the model uses three special vectors for every word in the sentence:</p>
     <ul>
@@ -94,11 +99,14 @@
         <li><strong>Value (V):</strong> This vector contains the actual "content" or meaning of each word. The value vector for "cat" holds its contextual meaning.</li>
     </ul>
 
+    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices (\[Q = XW^Q, \quad K = XW^K, \quad V = XW^V,\] - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
+    
     <h3>How Self-Attention Works in 3 Steps</h3>
     <p>The self-attention mechanism follows a simple, three-step process to enrich each word's representation with context from the entire sentence.</p>
     <ol>
         <li><strong>Create the Vectors:</strong> For every input word (or token), the model first passes its initial representation through three separate linear layers to create a <strong>Query</strong> vector, a <strong>Key</strong> vector, and a <strong>Value</strong> vector for that word.</li>
         <li><strong>Calculate Attention Scores:</strong> To understand how relevant other words are to the current word, the model calculates an <strong>alignment score</strong>. It does this by taking the dot product of the current word's <strong>Query</strong> vector with the <strong>Key</strong> vector of every other word in the sentence. A high score means the words are highly relevant to each other.</li>
+        <li><strong>Scale for Stability:</strong> We then divide these scores by $\sqrt{d_k}$ , where $d_k$ is the dimension of the key vectors. This isn't an arbitrary choice. The dot products can grow large in magnitude, pushing the softmax function into regions with extremely small gradients. This scaling factor pulls the values back towards a more stable range, which is critical for effective learning.</li>
         <li><strong>Create the Final Representation:</strong> The scores are normalized into weights using a <strong>Softmax</strong> function, which turns them into probabilities that sum to 1. The final step is to compute a weighted average of all the <strong>Value</strong> vectors in the sentence, using these attention weights. The result is a new, context-rich vector for the current word that has "paid attention" to all the other words and incorporated their meaning based on relevance.</li>
     </ol>
     <p>This process happens in parallel for every single word in the sentence, allowing the model to build a deep understanding of the relationships between them.</p>
@@ -106,8 +114,8 @@
     <hr>
 
     <h2>Multi-Head Attention</h2>
-    <p>A single self-attention mechanism is powerful, but it can sometimes be limited by focusing on only one type of relationship within a sentence. To achieve a richer understanding, the Transformer architecture uses <strong>Multi-Head Attention</strong>.</p>
-    <p>This approach runs multiple self-attention mechanisms—called "heads"—in parallel. Each head can independently learn to focus on different linguistic features and relationships within the text.</p>
+    <p>A single self-attention mechanism can be powerful, but it can also be limiting. It might be forced to learn an "average" of different kinds of relationships between words. For instance, in the sentence, "The cat, which chased a mouse all day, is now tired," the word "tired" has a strong syntactic link to "cat" but also a contextual link to "chased" and "all day." A single attention head might struggle to capture these different relationship types simultaneously.</p>
+    <p>The solution is <strong>Multi-Head Attention (MHA)</strong>strong>. Instead of performing a single attention calculation, we run the process multiple times in parallel with different, independently learned weight matrices. Each of these parallel instances is called an "attention head."</p>
     <blockquote><strong>Analogy:</strong> Think of it as an ensemble of specialists analyzing a sentence, much like a random forest is an ensemble of decision trees. Instead of one generalist, you have a committee:
         <ul>
             <li>One head might focus on subject-verb relationships.</li>
@@ -124,6 +132,13 @@
         <li><strong>Parallel Attention:</strong> Each head independently performs the 3-step self-attention calculation on its smaller set of Q, K, and V vectors. This happens in parallel, with each head producing its own context-rich output vector.</li>
         <li><strong>Combine and Project:</strong> The output vectors from all the attention heads are concatenated back into a single, full-sized vector. This combined vector is then passed through a final linear layer, which mixes the information from all the heads to produce the final, enriched representation for the word.</li>
     </ol>
+    <p>How it Works:</p>
+    <ul>
+        <li>For each head, we create a distinct set of learned weight matrices (${W_i}ˆQ,{W_i}ˆK​,{W_i}ˆV$).</li>
+        <li>The input embeddings are fed into each attention head, which independently calculates an output vector. Each head can therefore learn to focus on a different type of relationship in the data.</li>
+        <li>The output vectors from all heads are concatenated into a single, larger vector.</li>
+        <li>This concatenated vector is passed through a final linear layer ($W_O$), which is also learned. This layer allows the model to optimally combine the insights from all the different heads.</li>
+    </ul>
     
     <h3>A Note on Implementation</h3>
     <p>While it's helpful to think of the heads as separate "boxes", in practice, they are implemented as a single, efficient tensor operation to take full advantage of GPU parallelization. The Query, Key, and Value matrices are created once and then reshaped into a tensor that includes a dimension for the number of heads, allowing all heads to be processed simultaneously.</p>
