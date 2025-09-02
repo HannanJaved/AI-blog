@@ -99,7 +99,7 @@
         <li><strong>Value (V):</strong> This vector contains the actual "content" or meaning of each word. The value vector for "cat" holds its contextual meaning.</li>
     </ul>
 
-    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices $(Q = xW^Q \, K = xW^K \, V = xW^V)$ - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
+    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices $(Q = xW^Q, \, K = xW^K, \, V = xW^V)$ - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
     
     <h3>How Self-Attention Works in 3 Steps</h3>
     <p>The self-attention mechanism follows a simple, three-step process to enrich each word's representation with context from the entire sentence.</p>
