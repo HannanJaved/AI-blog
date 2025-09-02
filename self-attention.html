@@ -78,7 +78,7 @@
     <p>However, this sequential nature introduced two fundamental problems that held back progress:</p>
     <ul>
         <li><strong>The Long-Range Dependency Problem</strong>: While LSTMs were designed to mitigate the vanishing gradient problem of simple RNNs, they still struggled to maintain context over very long sequences. Information from the beginning of a long paragraph or document could become "diluted" or lost by the time the model reached the end. It's like reading a dense, 500-page novel; by the last chapter, you might struggle to recall a specific, crucial detail about a character introduced in the first chapter.</li>
-        <li><strong>The Sequential Computation Bottleneck</strong>: The core design of an RNN is inherently sequential: the calculation for timestep t cannot begin until the calculation for timestep t-1 is complete. This makes it impossible to fully leverage the massive parallel processing power of modern hardware like GPUs and TPUs. As datasets grew into the terabytes, this bottleneck made training larger and deeper models prohibitively slow.</li>
+        <li><strong>The Sequential Computation Bottleneck</strong>: The core design of an RNN is inherently sequential: the calculation for timestep $t$ cannot begin until the calculation for timestep $t-1$ is complete. This makes it impossible to fully leverage the massive parallel processing power of modern hardware like GPUs and TPUs. As datasets grew into the terabytes, this bottleneck made training larger and deeper models prohibitively slow.</li>
     </ul>
     <p>To truly advance, the field needed a new approach—one that could grasp the relationships between any two words in a text, regardless of their distance, and one that could be massively parallelized. This need set the stage for the invention of the self-attention mechanism, the foundational component of the Transformer architecture.</p>
     <p>At its heart, self-attention is an elegant mechanism for re-weighting and contextualizing word representations. The entire process is captured in a single, powerful formula:</p>  
@@ -99,7 +99,7 @@
         <li><strong>Value (V):</strong> This vector contains the actual "content" or meaning of each word. The value vector for "cat" holds its contextual meaning.</li>
     </ul>
 
-    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices ($\[Q = XW^Q, \quad K = XW^K, \quad V = XW^V,\]$ - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
+    <p> First, where do the Query (Q), Key (K), and Value (V) matrices come from? For each input word (represented by its embedding vector $x$), we create three separate vectors by multiplying the embedding by three distinct weight matrices ($Q = xW^Q \, quad K = xW^K \, V = xW^V$) - where $W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k}$ are learnable parameter matrices) that are learned during training: </p>
     
     <h3>How Self-Attention Works in 3 Steps</h3>
     <p>The self-attention mechanism follows a simple, three-step process to enrich each word's representation with context from the entire sentence.</p>
@@ -128,7 +128,7 @@
     <h3>How Multi-Head Attention Works</h3>
     <p>The process is a clever extension of the single self-attention mechanism.</p>
     <ol>
-        <li><strong>Split into Heads:</strong> Instead of creating one set of large Query, Key, and Value vectors for each word, the model splits them into smaller pieces for each head. For each head, we create a distinct set of learned weight matrices ($(W_i^Q, \, W_i^K, \, W_i^V)$). To keep the computation efficient, the total model dimension is divided by the number of heads. This means that more heads don't increase the overall computation; they just partition the problem.</li>
+        <li><strong>Split into Heads:</strong> Instead of creating one set of large Query, Key, and Value vectors for each word, the model splits them into smaller pieces for each head. For each head, we create a distinct set of learned weight matrices $(W_i^Q, \, W_i^K, \, W_i^V)$. To keep the computation efficient, the total model dimension is divided by the number of heads. This means that more heads don't increase the overall computation; they just partition the problem.</li>
         <li><strong>Parallel Attention:</strong> Each head independently performs the 3-step self-attention calculation on its smaller set of Q, K, and V vectors. This happens in parallel, with each head producing its own context-rich output vector.</li>
         <li><strong>Combine and Project:</strong> The output vectors from all the attention heads are concatenated back into a single, full-sized vector. This combined vector is then passed through a final linear layer ($W_O$), which is also learned. This mixes the information from all the heads to produce the final, enriched representation for the word.</li>
     </ol>
