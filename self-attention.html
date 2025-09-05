@@ -82,9 +82,9 @@
     </ul>
     <p>To truly advance, the field needed a new approach—one that could grasp the relationships between any two words in a text, regardless of their distance, and one that could be massively parallelized. This need set the stage for the invention of the self-attention mechanism, the foundational component of the Transformer architecture.</p>
     <p>At its heart, self-attention is an elegant mechanism for re-weighting and contextualizing word representations. The entire process is captured in a single, powerful formula:</p>  
-    \[
-        \text{Attention}(Q, K, V) = \text{softmax}\!\left( \frac{QK^T}{\sqrt{d_k}} \right)V.
-    \]
+    $$
+      \text{Attention}(Q, K, V) = \text{softmax}\!\left( \frac{QK^T}{\sqrt{d_k}} \right)V
+    $$
     <p>While it may look dense, each component serves a specific and intuitive purpose. Let's break it down.</p>
     
     <h2>The Core Idea: Queries, Keys, and Values</h2> 
