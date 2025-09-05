@@ -451,7 +451,125 @@
                             </div>
                         </div>
                     </article>
-                </div>
+
+                     <article id="module7" class="bg-white p-6 sm:p-8 rounded-lg shadow-sm scroll-mt-20">
+                        <h4>Machine Learning Algorithms Comparison</h4>
+                        <table border="1" cellpadding="8" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Type</th>
+                                    <th>Use Case</th>
+                                    <th>Time Complexity</th>
+                                    <th>Space Complexity</th>
+                                    <th>Pros</th>
+                                    <th>Cons</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Linear Regression</td>
+                                    <td>Supervised, Regression</td>
+                                    <td>Predicting numerical values</td>
+                                    <td>O(n * d)</td>
+                                    <td>O(d)</td>
+                                    <td>Simple, interpretable, fast</td>
+                                    <td>Assumes linear relationship, sensitive to outliers</td>
+                                </tr>
+                                <tr>
+                                    <td>Logistic Regression</td>
+                                    <td>Supervised, Classification</td>
+                                    <td>Binary/multi-class classification</td>
+                                    <td>O(n * d)</td>
+                                    <td>O(d)</td>
+                                    <td>Fast, interpretable, probabilistic output</td>
+                                    <td>Limited to linear decision boundaries</td>
+                                </tr>
+                                <tr>
+                                    <td>Decision Trees</td>
+                                    <td>Supervised, Classification & Regression</td>
+                                    <td>Classification, regression, feature importance</td>
+                                    <td>O(n * d * log n)</td>
+                                    <td>O(n)</td>
+                                    <td>Interpretable, handles nonlinear data</td>
+                                    <td>Prone to overfitting, unstable</td>
+                                </tr>
+                                <tr>
+                                    <td>Random Forest</td>
+                                    <td>Supervised, Ensemble</td>
+                                    <td>Classification and regression, robust predictions</td>
+                                    <td>O(t * n * d * log n) (t = # of trees)</td>
+                                    <td>O(t * n)</td>
+                                    <td>Reduces overfitting, robust</td>
+                                    <td>Less interpretable, slower for many trees</td>
+                                </tr>
+                                <tr>
+                                    <td>Support Vector Machine (SVM)</td>
+                                    <td>Supervised, Classification</td>
+                                    <td>High-dimensional classification tasks</td>
+                                    <td>O(n^2 * d) to O(n^3)</td>
+                                    <td>O(n * d)</td>
+                                    <td>Effective in high dimensions, robust</td>
+                                    <td>Slow on large datasets, choice of kernel matters</td>
+                                </tr>
+                                <tr>
+                                    <td>K-Nearest Neighbors (KNN)</td>
+                                    <td>Supervised, Classification & Regression</td>
+                                    <td>Classification, recommendation systems</td>
+                                    <td>O(n * d) per query</td>
+                                    <td>O(n * d)</td>
+                                    <td>Simple, no training phase, flexible</td>
+                                    <td>Slow for large datasets, sensitive to irrelevant features</td>
+                                </tr>
+                                <tr>
+                                    <td>k-Means</td>
+                                    <td>Unsupervised, Clustering</td>
+                                    <td>Grouping, customer segmentation</td>
+                                    <td>O(n * k * i * d) (i = iterations)</td>
+                                    <td>O(n * d)</td>
+                                    <td>Fast, simple, scalable</td>
+                                    <td>Needs predefined k, sensitive to initialization</td>
+                                </tr>
+                                <tr>
+                                    <td>Hierarchical Clustering</td>
+                                    <td>Unsupervised, Clustering</td>
+                                    <td>Grouping, dendrogram analysis</td>
+                                    <td>O(n^3)</td>
+                                    <td>O(n^2)</td>
+                                    <td>No need for predefined clusters, dendrogram visual</td>
+                                    <td>Very slow on large datasets</td>
+                                </tr>
+                                <tr>
+                                    <td>Principal Component Analysis (PCA)</td>
+                                    <td>Unsupervised, Dimensionality Reduction</td>
+                                    <td>Reducing dimensionality, visualization</td>
+                                    <td>O(n * d^2 + d^3)</td>
+                                    <td>O(d^2)</td>
+                                    <td>Reduces noise, speeds up other ML algorithms</td>
+                                    <td>Linear method, may lose interpretability</td>
+                                </tr>
+                                <tr>
+                                    <td>Gradient Boosting (XGBoost, LightGBM)</td>
+                                    <td>Supervised, Ensemble</td>
+                                    <td>High-performance regression and classification</td>
+                                    <td>O(t * n * log n * d) (t = # of trees)</td>
+                                    <td>O(n * d)</td>
+                                    <td>High accuracy, handles missing values</td>
+                                    <td>Training is slower, prone to overfitting if not tuned</td>
+                                </tr>
+                                <tr>
+                                    <td>Neural Networks (Deep Learning)</td>
+                                    <td>Supervised, Regression & Classification</td>
+                                    <td>Image recognition, NLP, speech, complex patterns</td>
+                                    <td>O(n * d * L) (L = layers)</td>
+                                    <td>O(n * d + parameters)</td>
+                                    <td>Flexible, handles complex data</td>
+                                    <td>Black-box, needs large data, computationally expensive</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
             </main>
 
             <aside class="w-80 hidden lg:block">
@@ -466,6 +584,7 @@
                             <a href="#module4" class="block font-medium text-stone-700 hover:text-violet-600">4. Unsupervised Learning</a>
                             <a href="#module5" class="block font-medium text-stone-700 hover:text-violet-600">5. Training & Evaluation</a>
                             <a href="#module6" class="block font-medium text-stone-700 hover:text-violet-600">6. Advanced Topics & DL</a>
+                            <a href="#module7" class="block font-medium text-stone-700 hover:text-violet-600">7. Quick Comparison Table</a>
                         </nav>
                     </div>
                 </div>
