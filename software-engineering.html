@@ -189,7 +189,7 @@ def get_processed_data(items):
     <h3>Part A: Your Core Data Structures Toolkit</h3>
     <ul>
         <li>
-            <strong>Arrays & Dynamic Arrays (Lists in Python):</strong> 
+            <h4>Arrays & Dynamic Arrays (Lists in Python):</h4>
             <p>An ordered collection of elements stored in contiguous memory. Ideal for indexing and iteration. Python's <code>list</code> is a dynamic array, which automatically resizes when capacity is exceeded.</p>
             <ul>
                 <li><strong>Access:</strong> $O(1)$ via index</li>
@@ -202,7 +202,7 @@ def get_processed_data(items):
         </li>
     
         <li>
-            <strong>Hash Maps (Dictionaries in Python):</strong>
+            <h4>Hash Maps (Dictionaries in Python):</h4>
             <p>A key-value store implemented using a hash function for near-instant lookup. Collision handling typically uses chaining or open addressing. Python's <code>dict</code> is highly optimized and maintains insertion order (Python 3.7+).</p>
             <ul>
                 <li><strong>Average Time Complexity:</strong> Search, Insert, Delete: $O(1)$</li>
@@ -214,7 +214,7 @@ def get_processed_data(items):
         </li>
     
         <li>
-            <strong>Linked Lists:</strong>
+            <h4>Linked Lists:</h4>
             <p>A sequential collection of nodes where each node points to the next (and optionally previous). Can be singly or doubly linked.</p>
             <ul>
                 <li><strong>Time Complexity:</strong> Insert/Delete at head: $O(1)$; Search & Access: $O(n)$</li>
@@ -225,7 +225,7 @@ def get_processed_data(items):
         </li>
     
         <li>
-            <strong>Stacks (LIFO) & Queues (FIFO):</strong>
+            <h4>Stacks (LIFO) & Queues (FIFO):</h4>
             <p>Abstract data types with specific insertion/removal rules. Stacks remove from the top; queues remove from the front.</p>
             <ul>
                 <li><strong>Operations:</strong> Push/Pop for stacks, Enqueue/Dequeue for queues</li>
@@ -237,13 +237,13 @@ def get_processed_data(items):
         </li>
     
         <li>
-            <strong>Trees (Binary Search Trees & Variants):</strong> 
+            <h4>Trees (Binary Search Trees & Variants):</h4>
             <p>Hierarchical structures with nodes containing values and pointers to children. BSTs maintain elements in sorted order. Specialized self-balancing trees prevent degeneration to a linear structure.</p>
             <ul>
                 <li><strong>Binary Search Tree (BST) Time Complexity:</strong> Average: $O(\log n)$, Worst case (unbalanced): $O(n)$</li>
                 <li><strong>Self-Balancing Trees:</strong> Ensure height remains $O(\log n)$ for all operations</li>
                 <li>
-                    <strong>AVL Trees:</strong> 
+                    <h4>AVL Trees:</h4>
                     <p>A height-balanced binary search tree. Each node stores a balance factor (height difference between left and right subtrees), and rotations are applied to maintain balance after insertions/deletions.</p>
                     <ul>
                         <li><strong>Time Complexity:</strong> Search/Insert/Delete: $O(\log n)$</li>
@@ -254,7 +254,7 @@ def get_processed_data(items):
                     </ul>
                 </li>
                 <li>
-                    <strong>Red-Black Trees:</strong> 
+                    <h4>Red-Black Trees:</h4>
                     <p>A self-balancing BST where each node has a color (red or black) and tree properties enforce approximately balanced height. Ensures operations are logarithmic without strict balancing of AVL trees.</p>
                     <ul>
                         <li><strong>Time Complexity:</strong> Search/Insert/Delete: $O(\log n)$</li>
@@ -275,7 +275,7 @@ def get_processed_data(items):
         </li>
 
         <li>
-            <strong>Heaps:</strong> 
+            <h4>Heaps:</h4> 
             <p>A heap is a specialized tree-based data structure that satisfies the heap property: in a <strong>max-heap</strong>, each parent node is greater than or equal to its children; in a <strong>min-heap</strong>, each parent node is less than or equal to its children. Heaps are commonly implemented using arrays for efficiency.</p>
             <ul>
                 <li><strong>Variants:</strong> Binary Heap (most common), Binomial Heap, Fibonacci Heap (for advanced applications)</li>
@@ -294,7 +294,7 @@ def get_processed_data(items):
         </li>
     
         <li>
-            <strong>Sets:</strong> 
+            <h4>Sets:</h4>
             <p>An unordered collection of unique elements. Python’s <code>set</code> is hash-based, providing very fast membership tests. Other implementations exist, like tree-based sets, which maintain order.</p>
             <ul>
                 <li><strong>Operations & Time Complexity (Hash Set in Python):</strong>
@@ -313,7 +313,7 @@ def get_processed_data(items):
         </li>
 
         <li>
-            <strong>Graphs:</strong>
+            <h4>Graphs:</h4>
             <p>A graph is a collection of nodes (vertices) connected by edges. Graphs can be <strong>directed</strong> or <strong>undirected</strong>, and edges can be <strong>weighted</strong> or <strong>unweighted</strong>. Proper representation is critical for efficiency in storage and algorithms.</p>
             <ul>
                 <li><strong>Representations:</strong>
@@ -347,8 +347,9 @@ def get_processed_data(items):
                         </li>
                     </ul>
                 </li>
-                <li><strong>Graph Traversal Time Complexity:</strong> BFS/DFS: $O(V + E)$, V = vertices, E = edges</li>
-            <li><strong>Special Graph Types:</strong>
+                <li><strong>Graph Traversal Time Complexity:</strong> BFS/DFS (explained in the next section): $O(V + E)$, V = vertices, E = edges</li>
+            <li>
+            <h4>Special Graph Types:</h4>
                 <ul>
                     <li><strong>Directed Acyclic Graphs (DAGs):</strong> Directed graphs with no cycles.
                         <ul>
