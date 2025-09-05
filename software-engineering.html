@@ -7,19 +7,28 @@
     
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMeaCssLdsfunD2DSctzxjodbfMWgANMoiaCfIDHOJyRZCZFp" crossorigin="anonymous">
+    
+    <!-- highlight.js CSS (for code syntax highlighting) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 
     <!-- KaTeX JS -->
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
     
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
             renderMathInElement(document.body, {
                 delimiters: [
                     {left: '$$', right: '$$', display: true},
                     {left: '$', right: '$', display: false}
                 ]
             });
+            // Initialize highlight.js
+            hljs.highlightAll();
         });
     </script>
     
@@ -41,18 +50,24 @@
         h3 { font-size: 1.8em; margin-top: 35px; border-bottom: 1px solid #bdc3c7; padding-bottom: 8px;}
         h4 { font-size: 1.4em; margin-top: 25px; color: #3498db;}
 
+        /* Styling for highlight.js code blocks */
         pre {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
+            padding: 0;
             border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid #34495e;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        code {
-            font-family: "SF Mono", "Consolas", "Courier New", monospace;
+        pre code.hljs {
+            padding: 20px;
             font-size: 0.95em;
+        }
+        /* Inline code styling */
+        code:not(.hljs) {
+            font-family: "SF Mono", "Consolas", "Courier New", monospace;
+            background-color: #ecf0f1;
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.9em;
         }
         blockquote {
             border-left: 5px solid #3498db;
@@ -68,6 +83,7 @@
         li { margin-bottom: 12px; }
         .intro-text { text-align: center; font-size: 1.2em; color: #555; margin-bottom: 40px;}
         .testing-pyramid-container { text-align: center; margin: 30px 0; }
+        .testing-pyramid-container img { max-width: 100%; height: auto; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -99,10 +115,10 @@
     <h4>Ruff or Flake8 (The Linter)</h4>
     <p>A linter is like an automated code reviewer. It scans your code for potential problems beyond simple formatting, such as programmatic errors (an unused variable), logical errors (unreachable code), and stylistic issues (overly complex functions). <strong>Ruff</strong> is a modern, incredibly fast linter that has become a favorite in the Python community.</p>
 
-    <h4>Examples in Action</h4>
+    <h4>Code Examples</h4>
     <h4>Black Example</h4>
     <p><strong>Before: Inconsistent and Messy Code</strong></p>
-    <pre><code>
+    <pre><code class="language-python">
 def calculate_metrics(data, 
                       user_list, threshold=0.5): 
     important_users = [ 'Alice', "Bob", 'Charlie'   ] 
@@ -112,7 +128,7 @@ def calculate_metrics(data,
     return results
     </code></pre>
     <p><strong>After: Running <code>black</code></strong></p>
-    <pre><code>
+    <pre><code class="language-python">
 def calculate_metrics(data, user_list, threshold=0.5):
     important_users = ["Alice", "Bob", "Charlie"]
     results = {"status": "pending"}
@@ -129,7 +145,7 @@ def calculate_metrics(data, user_list, threshold=0.5):
 
     <h4>Ruff Example</h4>
     <p><strong>Before: Inefficient and Redundant Code</strong></p>
-    <pre><code>
+    <pre><code class="language-python">
 import os 
 import math 
 
@@ -152,7 +168,7 @@ def get_processed_data(items):
     return status, new_dict
     </code></pre>
     <p><strong>After: Running <code>ruff --fix</code></strong></p>
-    <pre><code>
+    <pre><code class="language-python">
 import math
 
 def get_processed_data(items):
@@ -223,7 +239,8 @@ def get_processed_data(items):
     <p>Automated testing is the practice of writing code to verify that your application code works as expected. It provides confidence, acts as documentation, and leads to better system design.</p>
     
     <h4>The Testing Pyramid</h4>
-        <div class="testing-pyramid-container">
+    <div class="testing-pyramid-container">
+        
         <p>The pyramid illustrates a healthy strategy: write lots of fast, simple tests at the bottom and progressively fewer slow, complex tests at the top.</p>
     </div>
     <ul>
@@ -243,3 +260,4 @@ def get_processed_data(items):
 
 </body>
 </html>
+
