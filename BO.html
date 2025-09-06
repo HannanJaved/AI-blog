@@ -206,16 +206,16 @@
 
     <h4>2. Expected Improvement (EI)</h4>
     <p><strong>Core Question:</strong> By how much do we <em>expect</em> a new point $x$ to improve upon our current best $f(x^+)$? This considers both the probability and magnitude of improvement.</p>
-    <p><strong>Mathematical Formulation:</strong> First, define the improvement function $I(x) = \max(0, f(x) - f(x^+))$. We want to calculate the expectation of this improvement: $EI(x) = E[I(x)]$. The calculation involves integrating over the posterior distribution of $f(x)$.</p>
+    <p><strong>Mathematical Formulation:</strong> First, define the improvement function $I(x) = \max(0, f(x) - f(x^+))$. </p>
+    <p> We want to calculate the expectation of this improvement: $EI(x) = E[I(x)]$. The calculation involves integrating over the posterior distribution of $f(x)$.</p>
     <p>The final closed-form solution (after introducing the trade-off parameter $\xi$) is:</p>
     $$EI(x) = (\mu(x) - f(x^+) - \xi)\Phi(Z) + \sigma(x)\phi(Z)$$
     <p>where $Z = \frac{\mu(x) - f(x^+) - \xi}{\sigma(x)}$, $\Phi$ is the standard normal CDF, and $\phi$ is the standard normal Probability Density Function (PDF).</p>
     <p><strong>Pros and Cons:</strong></p>
     <ul>
-        <li><strong>Pro:</strong> This is often considered the most effective and popular acquisition function. It inherently balances exploration (the $\sigma(x)\phi(Z)$ term, which is non-zero even if $\mu(x) < f(x^+)$) and exploitation (the first term).</li>
+        <li><strong>Pro:</strong> This is often considered the most effective and popular acquisition function. It inherently balances exploration (the $\sigma(x)\phi(Z)$ term), which is non-zero even if $\mu(x) < f(x^+)$ and exploitation (the first term).</li>
         <li><strong>Con:</strong> Slightly more complex to calculate than PI.</li>
     </ul>
-    <p>[Image illustrating an acquisition function guiding a search]</p>
 
     <h4>3. Upper Confidence Bound (UCB)</h4>
     <p><strong>Core Question:</strong> How can we directly balance the predicted mean (exploitation) against the uncertainty (exploration) using a tunable knob?</p>
