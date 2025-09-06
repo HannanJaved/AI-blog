@@ -372,6 +372,38 @@
         <br><strong>Notation:</strong> The probability that $X$ falls between $a$ and $b$ is $P(a \le X \le b) = \int_{a}^{b} p(x)dx$.</li>
     </ul></p>
 
+    <h4>Cumulative Distribution Function (CDF)</h4>
+    <p>A <strong>Cumulative Distribution Function (CDF)</strong> is a fundamental concept in statistics that tells you the probability that a random variable will take on a value less than or equal to a specific value.</p>
+    <p>It essentially provides a running total of the probability as you move from left to right along the number line.</p>    
+    <p><strong>How a CDF Works:</strong></p>    
+    <p>While a <strong>Probability Density Function (PDF)</strong> tells you the likelihood of a value falling within a range, the CDF tells you the total accumulated probability up to a certain point.</p>
+    <p>Formally, for a random variable $X$, the CDF, denoted as $F(x)$, is defined as:</p>
+    \( F(x) = P(X \le x) \)
+    <p>This function has several key properties:</p>
+    <ul>
+        <li>It always starts at 0 (the probability of getting a value less than negative infinity is zero).</li>
+        <li>It always ends at 1 (it's certain that a value will be less than positive infinity).</li>
+        <li>It is non-decreasing; as you move from left to right, the cumulative probability can only increase or stay the same.</li>
+    </ul>
+    
+    <p><strong>Where the CDF Is Used</strong></p>
+    <p>The CDF is an incredibly practical tool for data analysis and modeling.</p>
+    <strong>Calculating Probabilities for Ranges</strong>
+    <p>The most common use of a CDF is to find the probability that a value falls within a specific range \((a, b]\). You calculate this by taking the cumulative probability up to point \(b\) and subtracting the cumulative probability up to point \(a\).</p>
+    \( P(a < X \le b) = F(b) - F(a) \)
+    <p><strong>Example:</strong> To find the probability of a student scoring between 60% and 80% on an exam, you would calculate \( \text{CDF}(80\%) - \text{CDF}(60\%) \).</p>
+    
+    <strong>Finding Percentiles and Medians</strong>
+    <p>CDFs make it easy to find percentiles. A percentile tells you the value below which a certain percentage of observations fall. To find the k-th percentile, you find the value \(x\) for which \( F(x) = \frac{k}{100} \).</p>
+    <p><strong>Median (50th Percentile):</strong> The median of a distribution is the value $x$ where \( F(x) = 0.5 \). This means exactly half of the probability lies below this point.</p>
+    
+    <strong>Hypothesis Testing</strong>
+    <p>Statistical tests like the Kolmogorov-Smirnov test use CDFs directly. This test determines if two samples come from the same distribution by comparing their empirical CDFs (the CDFs generated from the observed data). If the shapes of the two sample CDFs are significantly different, you can conclude the samples likely come from different underlying distributions.</p>
+    
+    <strong>Data Generation in Simulations</strong>
+    <p>In computer modeling, a technique called inverse transform sampling uses the CDF to generate random numbers that follow a specific distribution. By generating a random probability between 0 and 1 (from a uniform distribution) and finding its corresponding value on the inverted CDF, you can effectively sample from complex distributions.</p>
+
+
     <h3>2. Conditional Probability and Core Theorems</h3>
     <p>These concepts allow us to understand the relationships between different events.</p>
     
