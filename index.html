@@ -205,6 +205,23 @@
             letter-spacing: .2px;
             transition: color 0.2s;
         }
+        .tooltip {
+            display: none;
+            position: absolute;
+            left: 60px; top: -8px;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            padding: 7px 14px;
+            font-size: 14px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(40,40,55,0.13);
+            z-index: 2;
+            white-space: nowrap;
+        }
+        .feature-item:hover .tooltip {
+            display: block;
+        }
+
 
         /* Responsive design */
         @media (max-width: 1024px) {
@@ -277,42 +294,49 @@
                         <li class="feature-item">
                             <div class="feature-icon">M</div>
                             <span class="feature-text">Math Fundamentals</span>
+                            <span class="tooltip">Linear algebra, calculus, statistics, and more</span>
                         </li>
                     </a>
                     <a href="software-engineering.html">
                         <li class="feature-item">
                             <div class="feature-icon">S</div>
                             <span class="feature-text">Software Engineering Guide</span>
+                            <span class="tooltip">Best practices, design, and engineering workflow</span>
                         </li>
                     </a>
                     <a href="github.html">
                         <li class="feature-item">
                             <div class="feature-icon">G</div>
                             <span class="feature-text">Guide to using GitHub</span>
+                            <span class="tooltip">Version control, collaboration, and open source</span>
                         </li>
                     </a>
                     <a href="ir.html">
                         <li class="feature-item">
                             <div class="feature-icon">I</div>
                             <span class="feature-text">Introduction to Information Retrieval</span>
+                            <span class="tooltip">Search engines, ranking, and relevance</span>
                         </li>
                     </a>
                     <a href="ml.html">
                         <li class="feature-item">
                             <div class="feature-icon">M</div>
                             <span class="feature-text">Machine Learning Crash Course</span>
+                            <span class="tooltip">Supervised, unsupervised, deep learning basics</span>
                         </li>
                     </a>
                     <a href="self-attention.html">
                         <li class="feature-item">
                             <div class="feature-icon">D</div>
                             <span class="feature-text">Decoding Self-Attention</span>
+                            <span class="tooltip">Transformers, attention, and NLP</span>
                         </li>
                     </a>
                     <a href="BO.html">
                         <li class="feature-item">
                             <div class="feature-icon">B</div>
                             <span class="feature-text">Bayesian Optimization Explained</span>
+                            <span class="tooltip">Optimization strategies for ML models</span>
                         </li>
                     </a>
                 </ul>
