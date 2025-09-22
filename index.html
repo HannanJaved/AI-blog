@@ -72,10 +72,16 @@
             background: var(--card-bg);
             padding: 28px 40px;
             border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
+            /* display: flex; justify-content: space-between; align-items: center; */
             position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 16px rgba(60,60,80,0.08);
             backdrop-filter: blur(6px);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         .logo {
             font-size: 34px;
@@ -226,7 +232,6 @@
             font-size: 15px;
             color: var(--accent);
             font-weight: 700;
-            margin-left: 18px;
             padding: 6px 14px;
             background: var(--glass-bg);
             border-radius: 8px;
@@ -247,7 +252,8 @@
             .description { max-width: 100%; text-align: center;}
         }
         @media (max-width: 768px) {
-            .header { padding: 18px; flex-direction: column; gap: 18px;}
+            .header { padding: 18px; }
+            .header-inner { flex-direction: column; gap: 12px; align-items: flex-start;}
             .headline { font-size: 24px;}
             .main-content { padding: 18px 3px;}
             .content-card { padding: 16px;}
@@ -283,16 +289,14 @@
 
     <!-- Header -->
     <header class="header">
-        <div style="display:flex;align-items:center;gap:12px;">
+        <div class="header-inner">
             <div class="logo">
                 Hannan's Blog
             </div>
-
             <div class="views-counter">
-<!--                 <img src="https://count.getloli.com/@main?name=main&theme=capoo-2&padding=4&offset=0&align=top&scale=0.3&pixelated=0&darkmode=1" alt="Visitor Count" /> -->
-                <img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fhannanjaved.github.io%2FAI-blog%2F&s=20&c=b4befe&bg=00000000&no=4&ff=electrolize&tb=&ta=+views%21" alt="visits">
-<!--                 <span>views</span> -->
+                <img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fhannanjaved.github.io%2FAI-blog%2F&s=15&c=b4befe&bg=00000000&no=4&ff=electrolize&tb=&ta=+views%21" alt="visits"/>
             </div>
+        </div>
     </header>
 
     <!-- Main Body -->
