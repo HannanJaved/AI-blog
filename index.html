@@ -222,7 +222,32 @@
             display: block;
         }
 
-
+        .views-counter {
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-left: 18px;
+            padding: 6px 14px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .views-icon {
+            font-size: 18px;
+            color: var(--accent-hover);
+        }
+        @media (max-width: 768px) {
+            .views-counter {
+                margin-left: 0;
+                margin-top: 8px;
+                font-size: 13px;
+                padding: 5px 8px;
+            }
+        }
+        
         /* Responsive design */
         @media (max-width: 1024px) {
             .main-content { flex-direction: column; gap: 55px; padding: 42px 12px;}
@@ -263,19 +288,25 @@
 
     <!-- Header -->
     <header class="header">
+        <div style="display:flex;align-items:center;gap:12px;">
         <div class="logo">
-            Hannan's AI Blog
+            Hannan's Blog
         </div>
+        <div class="views-counter">
+            <span class="views-icon"></span>
+            <span id="views">...</span> views
+        </div>
+    </div>
     </header>
 
     <!-- Main Body -->
     <main class="main-content">
         <!-- Left Section - Text -->
         <div class="left-section scroll-reveal">
-            <h1 class="headline">Welcome to my AI blog page</h1>
+            <h1 class="headline">Welcome to my blog page!</h1>
             <p class="description">
                 Explore comprehensive guides on Machine Learning, Information Retrieval, Mathematical foundations, and more.<br>
-                This blog is a work-in-progress and is expanded regularly. <br>
+                This blog is a work-in-progress and will be expanded regularly. <br>
                 <h6>
                     * Special thanks to
                     <a href="https://www.linkedin.com/in/gagan-viji-sha-44517622a/" target="_blank">Gagan V.</a> and
@@ -372,6 +403,20 @@
         });
         window.addEventListener('load', () => {
             revealOnScroll();
+        });
+        // Views Counter using countapi.xyz
+        window.addEventListener('DOMContentLoaded', function() {
+            // Unique namespace & key for your blog
+            const namespace = 'hannanjaved-ai-blog';
+            const key = 'homepage';
+            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('views').textContent = data.value;
+                })
+                .catch(() => {
+                    document.getElementById('views').textContent = 'N/A';
+                });
         });
     </script>
 </body>
