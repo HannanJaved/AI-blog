@@ -233,22 +233,12 @@
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .views-icon {
             font-size: 18px;
             color: var(--accent-hover);
         }
-        @media (max-width: 768px) {
-            .views-counter {
-                margin-left: 0;
-                margin-top: 8px;
-                font-size: 13px;
-                padding: 5px 8px;
-            }
-        }
-        
-        /* Responsive design */
         @media (max-width: 1024px) {
             .main-content { flex-direction: column; gap: 55px; padding: 42px 12px;}
             .headline { font-size: 36px;}
@@ -261,8 +251,13 @@
             .headline { font-size: 24px;}
             .main-content { padding: 18px 3px;}
             .content-card { padding: 16px;}
+            .views-counter {
+                margin-left: 0;
+                margin-top: 8px;
+                font-size: 13px;
+                padding: 5px 8px;
+            }
         }
-
         /* Scroll animations */
         .scroll-reveal {
             opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(.51,.92,.24,1.1);
@@ -289,24 +284,27 @@
     <!-- Header -->
     <header class="header">
         <div style="display:flex;align-items:center;gap:12px;">
-        <div class="logo">
-            Hannan's Blog
+            <div class="logo">
+                Hannan's AI Blog
+            </div>
+            <!-- Image-based Counter: Get your own code from hitwebcounter.com or freecounterstat.com -->
+            <div class="views-counter">
+                <span class="views-icon"></span>
+                <img src="https://hitwebcounter.com/counter/counter.php?page=8970059&style=0006&nbdigits=5&type=ip&initCount=0"
+                     title="Web Counter" alt="web counter" style="height:20px;vertical-align:middle;">
+                views
+            </div>
         </div>
-        <div class="views-counter">
-            <span class="views-icon"></span>
-            <span id="views">...</span> views
-        </div>
-    </div>
     </header>
 
     <!-- Main Body -->
     <main class="main-content">
         <!-- Left Section - Text -->
         <div class="left-section scroll-reveal">
-            <h1 class="headline">Welcome to my blog page!</h1>
+            <h1 class="headline">Welcome to my blog page :)</h1>
             <p class="description">
                 Explore comprehensive guides on Machine Learning, Information Retrieval, Mathematical foundations, and more.<br>
-                This blog is a work-in-progress and will be expanded regularly. <br>
+                This blog is a work-in-progress and is expanded regularly. <br>
                 <h6>
                     * Special thanks to
                     <a href="https://www.linkedin.com/in/gagan-viji-sha-44517622a/" target="_blank">Gagan V.</a> and
@@ -319,7 +317,7 @@
         <div class="right-section scroll-reveal">
             <div class="content-card">
                 <h2 class="card-title">Featured Courses</h2>
-                <p class="card-description">Dive deep into AI and machine learning with our comprehensive crash courses.</p>
+                <p class="card-description">Dive deep into AI and related concepts with our comprehensive crash courses!</p>
                 <ul class="feature-list">
                     <a href="math.html">
                         <li class="feature-item">
@@ -403,20 +401,6 @@
         });
         window.addEventListener('load', () => {
             revealOnScroll();
-        });
-        // Views Counter using countapi.xyz
-        window.addEventListener('DOMContentLoaded', function() {
-            // Unique namespace & key for your blog
-            const namespace = 'hannanjaved-ai-blog';
-            const key = 'homepage';
-            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('views').textContent = data.value;
-                })
-                .catch(() => {
-                    document.getElementById('views').textContent = 'N/A';
-                });
         });
     </script>
 </body>
