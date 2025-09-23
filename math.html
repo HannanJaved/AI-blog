@@ -11,13 +11,27 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" crossorigin="anonymous">
-
+    
     <!-- KaTeX JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
           crossorigin="anonymous"
           onload="renderMathInElement(document.body);"></script>
-
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"
+    ></script>
+  
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
@@ -71,6 +85,19 @@
         strong {
             color: #967bb6; /* Lavender */
         }
+        pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 12px 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.95em;
+        margin: 20px 0;
+      }
+  
+      code {
+        font-family: "Fira Code", Consolas, monospace;
+      }
     </style>
 </head>
 <body>
@@ -345,6 +372,38 @@
         <br><strong>Notation:</strong> The probability that $X$ falls between $a$ and $b$ is $P(a \le X \le b) = \int_{a}^{b} p(x)dx$.</li>
     </ul></p>
 
+    <h4>Cumulative Distribution Function (CDF)</h4>
+    <p>A <strong>Cumulative Distribution Function (CDF)</strong> is a fundamental concept in statistics that tells you the probability that a random variable will take on a value less than or equal to a specific value.</p>
+    <p>It essentially provides a running total of the probability as you move from left to right along the number line.</p>    
+    <p><strong>How a CDF Works:</strong></p>    
+    <p>While a <strong>Probability Density Function (PDF)</strong> tells you the likelihood of a value falling within a range, the CDF tells you the total accumulated probability up to a certain point.</p>
+    <p>Formally, for a random variable $X$, the CDF, denoted as $F(x)$, is defined as:</p>
+    \( F(x) = P(X \le x) \)
+    <p>This function has several key properties:</p>
+    <ul>
+        <li>It always starts at 0 (the probability of getting a value less than negative infinity is zero).</li>
+        <li>It always ends at 1 (it's certain that a value will be less than positive infinity).</li>
+        <li>It is non-decreasing; as you move from left to right, the cumulative probability can only increase or stay the same.</li>
+    </ul>
+    
+    <p><strong>Where the CDF Is Used</strong></p>
+    <p>The CDF is an incredibly practical tool for data analysis and modeling.</p>
+    <strong>Calculating Probabilities for Ranges</strong>
+    <p>The most common use of a CDF is to find the probability that a value falls within a specific range \((a, b]\). You calculate this by taking the cumulative probability up to point \(b\) and subtracting the cumulative probability up to point \(a\).</p>
+    \( P(a < X \le b) = F(b) - F(a) \)
+    <p><strong>Example:</strong> To find the probability of a student scoring between 60% and 80% on an exam, you would calculate \( \text{CDF}(80\%) - \text{CDF}(60\%) \).</p>
+    
+    <strong>Finding Percentiles and Medians</strong>
+    <p>CDFs make it easy to find percentiles. A percentile tells you the value below which a certain percentage of observations fall. To find the k-th percentile, you find the value \(x\) for which \( F(x) = \frac{k}{100} \).</p>
+    <p><strong>Median (50th Percentile):</strong> The median of a distribution is the value $x$ where \( F(x) = 0.5 \). This means exactly half of the probability lies below this point.</p>
+    
+    <strong>Hypothesis Testing</strong>
+    <p>Statistical tests like the Kolmogorov-Smirnov test use CDFs directly. This test determines if two samples come from the same distribution by comparing their empirical CDFs (the CDFs generated from the observed data). If the shapes of the two sample CDFs are significantly different, you can conclude the samples likely come from different underlying distributions.</p>
+    
+    <strong>Data Generation in Simulations</strong>
+    <p>In computer modeling, a technique called inverse transform sampling uses the CDF to generate random numbers that follow a specific distribution. By generating a random probability between 0 and 1 (from a uniform distribution) and finding its corresponding value on the inverted CDF, you can effectively sample from complex distributions.</p>
+
+
     <h3>2. Conditional Probability and Core Theorems</h3>
     <p>These concepts allow us to understand the relationships between different events.</p>
     
@@ -472,6 +531,62 @@
     </ul>
     <p><strong>Why it matters in ML:</strong> Model training is often framed as a <strong>Maximum Likelihood Estimation (MLE)</strong> problem. The goal is to find the model parameters (e.g., the weights of a neural network) that <strong>maximize the likelihood function</strong>. In simple terms, we are searching for the parameter values that make our observed training data most probable.</p>
 
+    <h3>7. Why Distributions Matter in AI</h3>
+    <p>A probability distribution is a mathematical function that acts as a blueprint for randomness, showing us the likelihood of every possible outcome in an experiment. Understanding distributions is crucial in AI because they provide a way to model the uncertainty and inherent variability of real-world data.</p>
+    <p>Real-world data is rarely perfect; it's noisy, variable, and often incomplete. AI and machine learning models need a structured way to handle this uncertainty. Probability distributions provide the mathematical language for this, allowing us to:</p>
+    <ul>
+        <li>Model Data: Understand the underlying patterns and structure of a dataset.</li>
+        <li>Make Assumptions: Many machine learning algorithms are built on assumptions about the distribution of the data they are trained on.</li>
+        <li>Generate New Data: Generative models like VAEs and GANs learn to mimic a data distribution to create new, synthetic examples.</li>
+    </ul>
+
+    <h4>The Normal (Gaussian) Distribution - Bell-shaped</h4>
+    <p>This is the most important distribution in all of statistics. The Normal distribution is a bell-shaped curve that is symmetric around its mean.</p>
+    <ul>
+        <li><strong>What it models:</strong> It describes many natural phenomena, such as people's heights, measurement errors, and blood pressure. Its prevalence is explained by the Central Limit Theorem, which states that the sum of a large number of independent random variables will be approximately normally distributed, regardless of the underlying distribution.</li>
+        <li><strong>Where you'll see it in AI:</strong> Many algorithms, including Linear Regression, assume that the errors (or "residuals") are normally distributed.</li>
+    </ul>
+    $$
+        f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} 
+        \exp\!\left( -\frac{(x - \mu)^2}{2\sigma^2} \right),
+        \quad -\infty < x < \infty
+    $$
+    $$  \mathbb{E}[X] = \mu, \quad \mathrm{Var}(X) = \sigma^2 $$
+
+    <h4>The Uniform Distribution</h4>
+    <p>This is the simplest distribution. It describes a situation where all outcomes in a given range are equally likely.</p>
+    <ul>
+        <li><strong>What it models:</strong> The roll of a single fair die, where each outcome from 1 to 6 has an equal 1/6 chance of occurring.</li>
+        <li><strong>Where you'll see it in AI:</strong> It's often used as a starting point. For example, the weights in a neural network are sometimes initialized with random values drawn from a Uniform distribution. It's also used in generative models as a simple base distribution that is then transformed into a more complex one.</li>
+    </ul>
+    $$
+      f(x; a, b) = 
+      \begin{cases}
+      \frac{1}{b-a}, & a \leq x \leq b, \\
+      0, & \text{otherwise}
+      \end{cases}
+    $$
+    $$
+      \mathbb{E}[X] = \frac{a+b}{2}, \quad 
+      \mathrm{Var}(X) = \frac{(b-a)^2}{12}
+    $$
+
+    <h4>The Binomial Distribution</h4>
+    <p>This distribution models discrete data where there are only two possible outcomes for each trial (e.g., success/failure, heads/tails, spam/not-spam).</p>
+    <ul>
+        <li><strong>What it models:</strong> The number of "successes" in a fixed number of independent trials. For example, it could model the number of heads you get if you flip a coin 10 times.</li>
+        <li><strong>Where you'll see it in AI:</strong> The Binomial distribution is the foundation for understanding classification problems. The Bernoulli distribution is a special case of the Binomial distribution for a single trial, and it forms the basis for Logistic Regression, which models the probability of a binary outcome.</li>
+    </ul>
+    
+    $$
+      P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, 
+      \quad k = 0, 1, 2, \dots, n
+    $$
+    $$
+      \mathbb{E}[X] = np, \quad 
+      \mathrm{Var}(X) = np(1-p)
+    $$
+
     <h3>Other Important Information</h3>
     <h4>Notation: $x \sim P(x)$</h4>
     <p>You will frequently encounter this notation in machine learning papers and textbooks. The tilde symbol, $\sim$, means <strong>"is drawn from"</strong> or <strong>"follows the distribution"</strong>. The expression $x \sim P(x)$ is a shorthand way of saying that the random variable $x$ is a sample randomly drawn from a probability distribution $P(x)$.
@@ -492,21 +607,24 @@
     </ul>
     
     <strong>Matrix Transpose using Einsum:</strong>
-    <pre><code>
-        A = np.array([[1, 2], [3, 4]])
+    <pre><code class="language-python">
+        import numpy as np
+
+        A = np.array([[1, 2],
+                      [3, 4]])
+        
         # The dimensions are (i, j)
-        # The output should be (j, i)
-        # The einsum string is 'ij->ji'
+        # Transpose swaps to (j, i)
         B = np.einsum('ij->ji', A)
         
-        # B will be:
-        # [[1, 3],
-        #  [2, 4]]
-        # This is equivalent to B = A.T
+        print(B)
+        # [[1 3]
+        #  [2 4]]
+        # Equivalent to: A.T
     </code></pre>
 
     <strong>Dot Product using Einsum:</strong>
-    <pre><code>
+    <pre><code class="language-python">
         A = np.array([1, 2, 3])
         B = np.array([4, 5, 6])
         # The dimensions are (i,) and (i,)
@@ -520,7 +638,7 @@
     </code></pre>
 
     <strong>Matrix Multiplication using Einsum:</strong>
-    <pre><code>
+    <pre><code class="language-python">
         A = np.array([[1, 2], [3, 4]]) # (i, j)
         B = np.array([[5, 6], [7, 8]]) # (j, k)
         # The common index 'j' is summed over.
@@ -537,7 +655,7 @@
     
     <hr>
 
-    <h2>Topic 3: Calculus - The Engine of Optimization ⚙️</h2>
+    <h2>Topic 3: Calculus - The Engine of Optimization️</h2>
     <p>If linear algebra provides the structure for data and probability theory helps us manage uncertainty, then calculus provides the tools for <strong>optimization</strong>. At its core, training a machine learning model is about finding the set of parameters that minimizes a <strong>loss function</strong> (a function that measures how poorly the model is performing). Calculus, specifically differential calculus, gives us a systematic way to do this.</p>
 
     <h3>1. Derivatives, Partial Derivatives, and the Gradient</h3>

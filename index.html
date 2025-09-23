@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Blog by Hannan M.</title>
+    <title>Blog by Hannan M.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -72,10 +72,15 @@
             background: var(--card-bg);
             padding: 28px 40px;
             border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 16px rgba(60,60,80,0.08);
             backdrop-filter: blur(6px);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         .logo {
             font-size: 34px;
@@ -83,6 +88,22 @@
             color: var(--headline);
             letter-spacing: 2px;
             text-shadow: 0 2px 12px rgba(180,190,254,0.07);
+        }
+        .views-counter {
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 700;
+            padding: 6px 14px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .views-icon {
+            font-size: 18px;
+            color: var(--accent-hover);
         }
 
         .main-content {
@@ -232,10 +253,17 @@
             .description { max-width: 100%; text-align: center;}
         }
         @media (max-width: 768px) {
-            .header { padding: 18px; flex-direction: column; gap: 18px;}
+            .header { padding: 18px; }
+            .header-inner { flex-direction: column; gap: 12px; align-items: flex-start;}
             .headline { font-size: 24px;}
             .main-content { padding: 18px 3px;}
             .content-card { padding: 16px;}
+            .views-counter {
+                margin-left: 0;
+                margin-top: 8px;
+                font-size: 13px;
+                padding: 5px 8px;
+            }
         }
 
         /* Scroll animations */
@@ -263,8 +291,13 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="logo">
-            Hannan's AI Blog
+        <div class="header-inner">
+            <div class="logo">
+                Hannan's Blog
+            </div>
+            <div class="views-counter">
+                <img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fhannanjaved.github.io%2FAI-blog%2F&s=15&c=b4befe&bg=00000000&no=4&ff=electrolize&tb=&ta=+views%21" alt="visits"/>
+            </div>
         </div>
     </header>
 

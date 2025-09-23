@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All Courses - AI Blog</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #181825;
+			--card-bg: rgba(30,30,46,0.95);
+			--glass-bg: rgba(30,30,46,0.85);
+			--glass-blur: 16px;
+			--text-primary: #eaeaea;
+			--text-secondary: #a5b4cb;
+			--headline: #b4befe;
+			--border: #45475a;
+			--accent: #89b4fa;
+			--accent-hover: #b4befe;
+			--gradient: linear-gradient(90deg, #181825 55%, #33334c 100%);
+		}
+		body { font-family: 'Inter', sans-serif; background: var(--gradient); color: var(--text-primary); min-height: 100vh; }
+
+		.header { background: var(--card-bg); padding: 28px 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 16px rgba(60,60,80,0.08); backdrop-filter: blur(6px); }
+		
+		.logo { font-size: 28px; font-weight: 900; color: var(--headline); letter-spacing: 2px; }
+		
+		.container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+		
+		.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+		
+		.card { background: var(--glass-bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: 0 8px 24px rgba(40,40,55,0.12); transition: transform .15s, box-shadow .15s; }
+		
+		.card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(40,40,55,0.22); }
+		
+		.card a { display:block; color: var(--text-primary); text-decoration: none; }
+		
+		.card-title { font-weight: 800; color: var(--accent-hover); margin-bottom: 6px; }
+		
+		.card-desc { font-size: 14px; color: var(--text-secondary); }
+		
+		.backbutton { color: var(--text-secondary); margin-bottom: 18px; font-size: 14px; }
+		
+		.back-link { color: var(--accent); text-decoration: underline; }
+	</style>
+</head>
+<body class="course-body">
+	<header class="header">
+		<div class="logo">Hannan's AI Blog</div>
+	</header>
+	<main class="container">
+		<div class="backbutton"><a href="index.html" class="back-link">← Back to Home</a></div>
+		<h1 class="text-3xl font-extrabold mb-2" style="color: var(--headline);">All Courses</h1>
+		<p class="mb-8" style="color: var(--text-secondary);">Browse the full list of crash courses and guides available on this site.</p>
+		<div class="grid">
+			<div class="card"><a href="math.html"><div class="card-title">Math Fundamentals</div><div class="card-desc">Linear algebra, calculus, probability and statistics essentials.</div></a></div>
+			<div class="card"><a href="ml.html"><div class="card-title">Machine Learning Crash Course</div><div class="card-desc">Supervised, unsupervised learning and model evaluation.</div></a></div>
+			<div class="card"><a href="ir.html"><div class="card-title">Introduction to Information Retrieval</div><div class="card-desc">Indexing, ranking, and evaluation of search engines.</div></a></div>
+			<div class="card"><a href="self-attention.html"><div class="card-title">Decoding Self-Attention</div><div class="card-desc">Attention mechanisms and transformers for NLP.</div></a></div>
+			<div class="card"><a href="BO.html"><div class="card-title">Bayesian Optimization Explained</div><div class="card-desc">Black-box optimization strategies for tuning ML models.</div></a></div>
+			<div class="card"><a href="software-engineering.html"><div class="card-title">Software Engineering Guide</div><div class="card-desc">Best practices, design, and engineering workflows.</div></a></div>
+			<div class="card"><a href="github.html"><div class="card-title">Guide to using GitHub</div><div class="card-desc">Version control, collaboration, and open-source essentials.</div></a></div>
+		</div>
+	</main>
+</body>
+</html>
